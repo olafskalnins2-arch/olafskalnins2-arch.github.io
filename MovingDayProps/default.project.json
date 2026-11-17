@@ -1,0 +1,14 @@
+{
+  "name": "MovingDayProps",
+  "tree": {
+    "$className": "DataModel",
+    "ServerScriptService": {
+      "MovingDayProps": { "$path": "src/ServerScriptService" }
+    },
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "MovingDayProps": { "$path": "src/StarterPlayerScripts" }
+      }
+    }
+  }
+}
