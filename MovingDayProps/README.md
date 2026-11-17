@@ -1,10 +1,10 @@
 # Moving Day Props
 
-37 low-poly furniture props for a Roblox moving game, plus the scripts that make them carryable physics objects.
+38 low-poly furniture props for a Roblox moving game, plus the scripts that make them carryable physics objects.
 
 ```
 MovingDayProps/
-├─ models/                         37 .glb files, one per prop (file name = model name)
+├─ models/                         38 .glb files, one per prop (file name = model name)
 ├─ src/
 │  ├─ ServerScriptService/
 │  │  ├─ MovableFurniture.server.luau   carrying, physics, doors/lids/drawers, tip-over
@@ -96,6 +96,7 @@ Attributes you set by hand in Studio always win over FurnitureConfig.
 | KitchenCabinetK02 | 668 | 2 doors, hollow | 40 |
 | SideboardS03 | 316 | 4 doors, hollow | 60 |
 | CoffeeTableT02 | 420 | – | 25 |
+| TurnedTableT05 | 588 | – | 25 |
 | ToiletW01 | 820 | – | 35 |
 | RadiatorR02 | 318 | – | 60 |
 | BookStackB02 | 396 | – | 6 |

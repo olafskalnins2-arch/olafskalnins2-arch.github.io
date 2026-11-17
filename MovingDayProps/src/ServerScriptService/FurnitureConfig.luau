@@ -27,6 +27,7 @@ local C: { [string]: Entry } = {
 	-- medium
 	MonitorM01 = { Weight = 25 },
 	CoffeeTableT02 = { Weight = 25 },
+	TurnedTableT05 = { Weight = 25 },
 	NightstandN01 = { Weight = 20 },
 	AmpA01 = { Weight = 20 },
 	SewingMachineS04 = { Weight = 18 },
