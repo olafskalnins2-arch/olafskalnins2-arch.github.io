@@ -31,31 +31,24 @@ def rock(sx, sy, sz, pos, seed, rot=(0, 0, 0), nu=9, nv=6, e=0.5, noise=0.1):
     return xf(superq(sx / 2, sy / 2, sz / 2, e, e, nu, nv, noise=noise, seed=seed), r=rot, t=pos)
 
 
-def log_end_rings(r, x, outward, seg=10, rings=(0.35, 0.65)):
-    """Concentric dark rings on a log end face that sits at plane x facing +/-x."""
-    ms = []
-    for k, rr in enumerate(rings):
-        ang = np.linspace(0.3 + k, 0.3 + k + 2 * math.pi * 0.8, 9)
-        P = np.stack([np.full_like(ang, x + 0.02 * outward), rr * r * np.sin(ang), rr * r * np.cos(ang)], 1)
-        ms.append(tube(P, 0.045 * r / 1.3 + 0.02, 4))
-    return merge(*ms)
-
-
-def log_x(m, length, r, pos, seed, seg=10, snow=True, rings_ends=(1, -1), bark="bark", end="wood_end",
-          rot=(0, 0, 0), stub=False):
+def log_x(m, length, r, pos, seed, seg=10, snow=True, rot=(0, 0, 0), stub=False):
     """Horizontal log along X centred at pos."""
     L = length / 2
     body = lathe([(r * 0.97, -L), (r, -L * 0.6), (r * 1.02, 0), (r, L * 0.6), (r * 0.97, L)], seg,
                  start=math.pi / seg, noise=0.035, seed=seed, nfreq=3)
-    body = xf(body, r=(0, 0, 90))
-    parts = [(body, bark, 30)]
+    body = xf(uv_along(body, 1, -L, L, r), r=(0, 0, 90))
+    parts = [(body, "bark_grain", 30)]
     for s in (1, -1):
-        cap = xf(cyl(r * 0.88, 0.06, seg, start=math.pi / seg), r=(0, 0, -90 * s), t=(s * (L * 0.97 + 0.0), 0, 0))
-        parts.append((cap, end, 20))
-        if s in rings_ends:
-            parts.append((log_end_rings(r, s * (L * 0.97 + 0.06), s), "ring", 60))
+        rc = r * 0.9
+        cap = uv_cap(cyl(rc, 0.06, seg, start=math.pi / seg), 1, rc)
+        cap = xf(cap, r=(0, 90 * (seed % 4), 0))          # vary ring/crack orientation per log
+        cap = xf(cap, r=(0, 0, -90 * s), t=(s * (L - 0.015), 0, 0))
+        parts.append((cap, "endgrain", 20))
     if stub:
-        parts.append((xf(cyl(r * 0.25, r * 1.1, 8), r=(-70, 0, 0), t=(L * 0.15, -r * 0.2, 0)), bark, 40))
+        st = uv_along(cyl(r * 0.25, r * 1.1, 8), 1, 0, r * 1.1, r * 0.25)
+        parts.append((xf(st, r=(-70, 0, 0), t=(L * 0.15, -r * 0.2, 0)), "bark_grain", 40))
+        sc = uv_cap(cyl(r * 0.2, r * 1.1 + 0.03, 8), 1, r * 0.2)
+        parts.append((xf(sc, r=(-70, 0, 0), t=(L * 0.15, -r * 0.2, 0)), "endgrain", 20))
     if snow:
         P = np.array([[-L * 0.95, r * 0.75, 0], [-L * 0.4, r * 0.82, 0], [0, r * 0.78, 0],
                       [L * 0.4, r * 0.84, 0], [L * 0.95, r * 0.76, 0]])
@@ -140,7 +133,7 @@ def icicle_ledge():
 
 def log():
     m = Model("SnowyLog")
-    log_x(m, 9, 1.35, (0, 1.35, 0), seed=2, seg=11, rings_ends=(-1,), stub=True)
+    log_x(m, 9, 1.35, (0, 1.35, 0), seed=2, seg=11, stub=True)
     return m
 
 
@@ -322,12 +315,9 @@ def dirt_path():
 
 def stump_axe():
     m = Model("StumpWithAxe")
-    m.add(lathe([(2.4, 0), (2.05, 0.6), (1.85, 1.6), (1.8, 2.9), (1.75, 3.0)], 16, noise=0.04, seed=3, nfreq=4), "bark", 30)
-    m.add(xf(cyl(1.72, 0.08, 16), t=(0, 3.0, 0)), "wood_end", 10)
-    sp = np.linspace(0, 2 * math.pi * 2.3, 40)
-    spiral = np.stack([(0.25 + 0.5 * sp / sp[-1] * 2.2) * np.cos(sp), np.full_like(sp, 3.09), (0.25 + 0.5 * sp / sp[-1] * 2.2) * np.sin(sp)], 1) * [0.6, 1, 0.6]
-    spiral[:, 1] = 3.09
-    m.add(tube(spiral, 0.05, 4), "ring", 60)
+    m.add(uv_along(lathe([(2.4, 0), (2.05, 0.6), (1.85, 1.6), (1.8, 2.9), (1.75, 3.0)], 16, noise=0.04, seed=3, nfreq=4),
+                   1, 0, 3.0, 2.0), "bark_grain", 30)
+    m.add(xf(uv_cap(cyl(1.76, 0.08, 20), 1, 1.76), t=(0, 3.0, 0)), "endgrain", 10)
     # axe: head buried in the top
     axe = []
     axe.append((xf(box(1.5, 1.3, 0.35), t=(0, 0, 0)), "metal"))
@@ -337,7 +327,8 @@ def stump_axe():
     for mesh, col in axe:
         m.add(xf(mesh, r=(0, 30, 28), t=(-0.2, 3.4, 0.0)), col, 30)
     for i, (x, z, a) in enumerate([(1.2, 2.0, 12), (1.9, 1.5, -10)]):
-        m.add(xf(prism([(-0.35, 0), (0.35, 0), (0.2, 2.0), (-0.3, 1.9)], 0.5, axis="z"), r=(-14, 25 + 10 * i, a), t=(x, 0.1, z)), "split_wood", 0)
+        pc = uv_along(prism([(-0.35, 0), (0.35, 0), (0.2, 2.0), (-0.3, 1.9)], 0.5, axis="z"), 1, 0, 2.0, 0.4)
+        m.add(xf(pc, r=(-14, 25 + 10 * i, a), t=(x, 0.1, z)), "split_grain", 0)
     for i, (x, z, r) in enumerate([(-2.0, 0.8, 1.2), (1.8, -1.2, 1.3), (0.2, 2.3, 1.0), (-1.2, -2.0, 1.1)]):
         m.add(xf(dome(r, 0.75, r * 0.8, 12, 3, noise=0.12, seed=20 + i, e=0.6), t=(x, 0, z)), "snow", 60)
     return m
@@ -348,7 +339,7 @@ def log_pile():
     r = 1.05
     pos = [(-2.1, r), (0, r), (2.1, r), (-1.05, r + 1.8), (1.05, r + 1.8), (0, r + 3.6)]
     for i, (z, y) in enumerate(pos):
-        log_x(m, 6.5, r, (z, y, 0), seed=50 + i, seg=10, snow=(i == 5), rings_ends=(1,), rot=(0, 90, 0))
+        log_x(m, 6.5, r, (z, y, 0), seed=50 + i, seg=10, snow=(i == 5), rot=(0, 90, 0))
     return m
 
 
@@ -420,13 +411,15 @@ def snow_drift():
 def log_fence():
     m = Model("SnowyLogFence")
     for x in (-4.3, 4.3):
-        m.add(xf(lathe([(0.62, 0), (0.6, 2.5), (0.56, 5.4)], 12, noise=0.03, seed=int(x)), t=(x, 0, 0)), "wood", 35)
+        m.add(xf(uv_along(lathe([(0.62, 0), (0.6, 2.5), (0.56, 5.4)], 12, noise=0.03, seed=int(x)), 1, 0, 5.4, 0.6), t=(x, 0, 0)), "wood_grain", 35)
+        m.add(xf(uv_cap(cyl(0.54, 5.44, 12), 1, 0.54), t=(x, 0, 0)), "endgrain", 10)
         m.add(xf(snow_cap(0.6, 0.6, 0.22, (0, 0, 0), seed=2, drip=0.08, e2=1.0, nu=12, nv=6), t=(x, 5.45, 0)), "snow", 60)
     for y in (1.8, 4.0):
         L = 11.2
-        m.add(xf(lathe([(0.42, -L / 2), (0.45, 0), (0.42, L / 2)], 8, start=math.pi / 8, noise=0.03, seed=int(y * 3)), r=(0, 0, 90), t=(0, y, 0.55)), "wood", 35)
+        rail = uv_along(lathe([(0.42, -L / 2), (0.45, 0), (0.42, L / 2)], 8, start=math.pi / 8, noise=0.03, seed=int(y * 3)), 1, -L / 2, L / 2, 0.45)
+        m.add(xf(rail, r=(0, 0, 90), t=(0, y, 0.55)), "wood_grain", 35)
         for s in (-1, 1):
-            m.add(xf(cyl(0.36, 0.05, 8, start=math.pi / 8), r=(0, 0, -90 * s), t=(s * L / 2, y, 0.55)), "wood_end", 10)
+            m.add(xf(uv_cap(cyl(0.38, 0.05, 8, start=math.pi / 8), 1, 0.38), r=(0, 0, -90 * s), t=(s * L / 2, y, 0.55)), "endgrain", 10)
             m.add(xf(dome(0.25, 0.18, 0.25, 8, 2), t=(s * 5.2, y + 0.38, 0.55)), "snow", 60)
         P = catmull([(-3.7, y + 0.33, 0.55), (-1.5, y + 0.4, 0.55), (1.5, y + 0.36, 0.55), (3.7, y + 0.33, 0.55)], 4)
         m.add(tube(P, lambda t: 0.33 * (0.6 + 0.4 * math.sin(math.pi * t) ** 0.3), 10, squash=0.45), "snow", 60)

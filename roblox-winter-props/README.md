@@ -10,6 +10,6 @@
 ## Import into Roblox Studio
 1. Avatar tab / Home > **Import 3D**, pick a `.glb`.
 2. Set the scale unit to **studs** (models are built 1 unit = 1 stud, snowman ~11 studs tall).
-3. Each prop is one MeshPart with a small palette texture (one draw call). Base sits at y=0.
+3. Each prop is one MeshPart with a small palette texture (one draw call). Logs, log pile, stump, firewood and fence use real wood textures (bark grain + end-grain rings) baked into the same atlas. Base sits at y=0.
 4. `SnowyLampPost` has a separate `Glass` part: set its Material to **Neon** and drop a PointLight in it.
 5. Set `CollisionFidelity` to `Box`/`Hull` for decor you walk past, `PreciseConvexDecomposition` only where needed.

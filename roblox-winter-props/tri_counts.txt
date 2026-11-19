@@ -2,7 +2,7 @@ SnowyBareTree           2952 tris  size 13.5 x 16.1 x 7.6 studs  OK
 SnowyRockPillar         2608 tris  size 6.9 x 9.1 x 5.6 studs  OK
 SnowSteppingStones       980 tris  size 6.4 x 1.0 x 15.9 studs  OK
 IcicleLedge             1080 tris  size 10.0 x 4.4 x 2.2 studs  OK
-SnowyLog                 782 tris  size 9.0 x 3.1 x 2.9 studs  OK
+SnowyLog                 670 tris  size 9.1 x 3.1 x 2.9 studs  OK
 WoodenSled              1352 tris  size 10.3 x 2.6 x 2.9 studs  OK
 FrozenPond              1388 tris  size 15.1 x 4.3 x 11.5 studs  OK
 SnowShovel               752 tris  size 5.5 x 10.4 x 4.7 studs  OK
@@ -10,10 +10,10 @@ SnowyBirdhouse          1032 tris  size 4.4 x 11.5 x 4.6 studs  OK
 SnowyLampPost           1116 tris  size 3.3 x 11.9 x 3.3 studs  OK
 Snowman                 2756 tris  size 8.6 x 11.3 x 5.2 studs  OK
 SnowyDirtPath           1268 tris  size 8.1 x 1.8 x 8.0 studs  OK
-StumpWithAxe             984 tris  size 7.5 x 6.3 x 6.2 studs  OK
-SnowyLogPile            2352 tris  size 6.3 x 6.0 x 6.5 studs  OK
+StumpWithAxe             680 tris  size 7.5 x 6.3 x 6.2 studs  OK
+SnowyLogPile            1488 tris  size 6.3 x 6.0 x 6.6 studs  OK
 SnowyRockPile           1140 tris  size 6.0 x 4.5 x 4.2 studs  OK
 SnowyMailbox             488 tris  size 4.0 x 7.4 x 2.6 studs  OK
 SnowDrift                704 tris  size 9.4 x 2.5 x 6.0 studs  OK
-SnowyLogFence           1256 tris  size 11.3 x 5.7 x 1.6 studs  OK
+SnowyLogFence           1352 tris  size 11.3 x 5.7 x 1.6 studs  OK
 SnowyBoulder             920 tris  size 6.5 x 4.6 x 5.6 studs  OK

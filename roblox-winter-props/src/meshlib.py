@@ -14,29 +14,115 @@ PAL = {
     "pebble": "#8F8F92", "white": "#FFFFFF", "split_wood": "#D8B482", "post": "#B97E4A",
 }
 KEYS = list(PAL)
-PAL_COLS, SW = 8, 16
-PAL_ROWS = (len(KEYS) + PAL_COLS - 1) // PAL_COLS
+ATLAS, PAL_COLS, SW = 512, 8, 32           # 512px atlas, swatches 32px in top-left 256x128
+# textured tiles: name -> (x0, y0, w, h) in atlas pixels
+TILES = {"endgrain": (0, 256, 256, 256), "bark_grain": (256, 256, 256, 256),
+         "wood_grain": (256, 0, 256, 256), "split_grain": (0, 128, 256, 128)}
 
 
 def uv_of(key):
     k = KEYS.index(key)
     c, r = k % PAL_COLS, k // PAL_COLS
-    return ((c + 0.5) / PAL_COLS, (r + 0.5) / PAL_ROWS)
+    return ((c + 0.5) * SW / ATLAS, (r + 0.5) * SW / ATLAS)
+
+
+def tile_uv(tile, st):
+    x0, y0, w, h = TILES[tile]
+    st = np.clip(np.asarray(st, float), 0.03, 0.97)
+    return np.stack([(x0 + st[..., 0] * w) / ATLAS, (y0 + st[..., 1] * h) / ATLAS], -1)
+
+
+def _hex(h):
+    h = h.lstrip("#"); return np.array([int(h[i:i + 2], 16) for i in (0, 2, 4)], float)
+
+
+def _streaks(w, h, base, dark, light, seed, freq=1.0, contrast=1.0):
+    """Wood/bark grain: streaks run along the tile's horizontal (s) axis."""
+    rng = np.random.default_rng(seed)
+    u, v = np.meshgrid(np.linspace(0, 1, w), np.linspace(0, 1, h))
+    warp = sum(rng.uniform(0.004, 0.012) * np.sin(2 * np.pi * (rng.integers(1, 4) * u + rng.uniform())) for _ in range(3))
+    vv = v + warp
+    g = np.zeros_like(u)
+    for f, a in ((9, 0.5), (23, 0.3), (51, 0.2), (97, 0.12)):
+        f *= freq
+        g += a * np.sin(2 * np.pi * (f * vv + rng.uniform()) + 1.5 * np.sin(2 * np.pi * (rng.integers(1, 3) * u + rng.uniform())))
+    g /= 1.12
+    g = np.tanh(g * 1.6 * contrast)
+    img = np.where(g[..., None] < 0, base + (dark - base) * (-g)[..., None], base + (light - base) * g[..., None])
+    # a few knots
+    for _ in range(2):
+        cx, cy, r = rng.uniform(0.15, 0.85), rng.uniform(0.2, 0.8), rng.uniform(0.02, 0.04)
+        d = np.sqrt(((u - cx) / 2.2) ** 2 + (v - cy) ** 2)
+        k = np.clip(1 - d / r, 0, 1) ** 0.7
+        img = img + (dark - img) * k[..., None] * 0.8
+    return img
+
+
+def _endgrain(n, seed=1):
+    rng = np.random.default_rng(seed)
+    u, v = np.meshgrid(np.linspace(-1, 1, n), np.linspace(-1, 1, n))
+    a = np.arctan2(v, u)
+    d = np.hypot(u, v)
+    wob = 1 + 0.035 * np.sin(3 * a + 1.0) + 0.02 * np.sin(7 * a + 2.0)
+    dd = (d * wob + 0.04) / 0.92
+    cream, ringc, sap, barkc = _hex("#F1DFC1"), _hex("#B07F50"), _hex("#E3C79C"), _hex("#8E5531")
+    ring = np.exp(-((dd * 5.5) % 1 - 0.5) ** 2 / 0.012)          # dark growth rings
+    ring2 = np.exp(-((dd * 13) % 1 - 0.5) ** 2 / 0.01) * 0.35     # faint latewood
+    img = cream + (ringc - cream) * np.clip(ring + ring2, 0, 1)[..., None]
+    pith = np.clip(1 - d / 0.06, 0, 1)
+    img = img + (ringc - img) * pith[..., None]
+    sapw = np.clip((dd - 0.86) / 0.05, 0, 1)
+    img = img + (sap - img) * sapw[..., None] * 0.7
+    edge = np.clip((d - 0.93) / 0.03, 0, 1)
+    img = img + (barkc - img) * edge[..., None]
+    # radial check crack
+    ca = 0.6
+    crack = np.exp(-((np.angle(np.exp(1j * (a - ca)))) * d) ** 2 / 0.0006) * (d > 0.08) * (d < 0.7)
+    img = img + (ringc * 0.75 - img) * crack[..., None] * 0.8
+    return img
 
 
 def palette_png():
-    w, h = PAL_COLS * SW, PAL_ROWS * SW
-    img = np.zeros((h, w, 3), np.uint8)
+    img = np.zeros((ATLAS, ATLAS, 3), float) + 255
     for k, key in enumerate(KEYS):
         c, r = k % PAL_COLS, k // PAL_COLS
-        hx = PAL[key].lstrip("#")
-        img[r * SW:(r + 1) * SW, c * SW:(c + 1) * SW] = [int(hx[i:i + 2], 16) for i in (0, 2, 4)]
-    raw = b"".join(b"\x00" + img[y].tobytes() for y in range(h))
+        img[r * SW:(r + 1) * SW, c * SW:(c + 1) * SW] = _hex(PAL[key])
+    x, y, w, h = TILES["endgrain"]; img[y:y + h, x:x + w] = _endgrain(w)
+    x, y, w, h = TILES["bark_grain"]
+    img[y:y + h, x:x + w] = _streaks(w, h, _hex(PAL["bark"]), _hex("#84492A"), _hex("#B9794B"), 3, 0.7, 0.9)
+    x, y, w, h = TILES["wood_grain"]
+    img[y:y + h, x:x + w] = _streaks(w, h, _hex(PAL["wood"]), _hex("#A06A3A"), _hex("#D29C66"), 5, 0.8, 0.8)
+    x, y, w, h = TILES["split_grain"]
+    img[y:y + h, x:x + w] = _streaks(w, h, _hex(PAL["split_wood"]), _hex("#B88E5C"), _hex("#E8CB9C"), 7, 0.6, 0.8)
+    img = np.clip(img, 0, 255).astype(np.uint8)
+    raw = b"".join(b"\x00" + img[yy].tobytes() for yy in range(ATLAS))
 
     def chunk(t, d):
         return struct.pack(">I", len(d)) + t + d + struct.pack(">I", zlib.crc32(t + d) & 0xFFFFFFFF)
-    return (b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", w, h, 8, 2, 0, 0, 0))
+    return (b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", ATLAS, ATLAS, 8, 2, 0, 0, 0))
             + chunk(b"IDAT", zlib.compress(raw, 9)) + chunk(b"IEND", b""))
+
+
+# ---------------------------------------------------------------- UV projections (local frame!)
+def uv_cap(m, axis, r):
+    """Planar end-grain projection for a disc whose normal is `axis`."""
+    V, F = m[0], m[1]
+    o = [i for i in range(3) if i != axis]
+    C = V[F]                                     # (nf,3,3)
+    st = 0.5 + C[..., o] / (2 * r)
+    return V, F, st
+
+
+def uv_along(m, axis, lo, hi, r):
+    """Grain streaks along `axis`; per-face pick of the cross coordinate (no wrap seam)."""
+    V, F = m[0], m[1]
+    o = [i for i in range(3) if i != axis]
+    C = V[F]
+    n = np.cross(C[:, 1] - C[:, 0], C[:, 2] - C[:, 0])
+    pick = np.where(np.abs(n[:, o[0]]) > np.abs(n[:, o[1]]), o[1], o[0])
+    s = (C[..., axis] - lo) / (hi - lo)
+    t = 0.5 + np.take_along_axis(C, pick[:, None, None].repeat(3, 1), 2)[..., 0] / (2.3 * r)
+    return V, F, np.stack([s, t], -1)
 
 
 # ---------------------------------------------------------------- helpers
@@ -64,7 +150,7 @@ def orient(V, F):
 
 def merge(*meshes):
     Vs, Fs, off = [], [], 0
-    for V, F in meshes:
+    for V, F, *_ in meshes:
         Vs.append(V); Fs.append(F + off); off += len(V)
     return np.vstack(Vs), np.vstack(Fs)
 
@@ -78,13 +164,14 @@ def rotm(rx=0, ry=0, rz=0):
 
 
 def xf(m, s=1.0, r=(0, 0, 0), t=(0, 0, 0)):
-    V, F = m
+    V, F, *uv = m
     V = V * np.asarray(s, float)
     V = V @ rotm(*r).T + np.asarray(t, float)
     det = np.prod(np.broadcast_to(np.asarray(s, float), 3))
     if det < 0:
         F = F[:, ::-1]
-    return V, F
+        uv = [u[:, ::-1] for u in uv]
+    return (V, F, *uv)
 
 
 def _fan(center_idx, ring, flip=False):
@@ -294,19 +381,23 @@ class Model:
         self.name, self.parts = name, []
 
     def add(self, mesh, color, smooth=40, node="Main"):
-        V, F = mesh
-        self.parts.append((node, color, np.asarray(V, float), np.asarray(F, int), smooth))
+        """color: palette key, or a TILES key when mesh carries per-corner uvs."""
+        V, F, *uv = mesh
+        self.parts.append((node, color, np.asarray(V, float), np.asarray(F, int), smooth, uv[0] if uv else None))
         return self
 
     def build(self):
         nodes = {}
-        for node, color, V, F, ang in self.parts:
-            uv = uv_of(color)
+        for node, color, V, F, ang, cuv in self.parts:
+            if cuv is not None:
+                cuv = tile_uv(color, cuv)
+            else:
+                cuv = np.broadcast_to(np.array(uv_of(color)), F.shape + (2,))
             a, b, c = V[F[:, 0]], V[F[:, 1]], V[F[:, 2]]
             fn = np.cross(b - a, c - a)
             area = np.linalg.norm(fn, axis=1)
             keep = area > 1e-9
-            F, fn, area = F[keep], fn[keep], area[keep]
+            F, fn, area, cuv = F[keep], fn[keep], area[keep], cuv[keep]
             fu = fn / area[:, None]
             # weld coincident positions so smoothing crosses seams
             key = np.round(V, 5)
@@ -318,7 +409,7 @@ class Model:
                 for vi in tri:
                     adj.setdefault(vi, []).append(fi)
             cth = math.cos(math.radians(ang))
-            out_p, out_n, idx, cache = [], [], [], {}
+            out_p, out_n, out_uv, idx, cache = [], [], [], [], {}
             for fi, tri in enumerate(F):
                 for k in range(3):
                     vi = Fw[fi][k]
@@ -327,13 +418,14 @@ class Model:
                     n = fn[sel].sum(0)
                     n /= (np.linalg.norm(n) or 1)
                     p = V[tri[k]]
-                    kk = (tuple(np.round(p, 5)), tuple(np.round(n, 3)))
+                    uv = cuv[fi][k]
+                    kk = (tuple(np.round(p, 5)), tuple(np.round(n, 3)), tuple(np.round(uv, 5)))
                     if kk not in cache:
-                        cache[kk] = len(out_p); out_p.append(p); out_n.append(n)
+                        cache[kk] = len(out_p); out_p.append(p); out_n.append(n); out_uv.append(uv)
                     idx.append(cache[kk])
             d = nodes.setdefault(node, {"P": [], "N": [], "UV": [], "I": []})
             off = len(d["P"])
-            d["P"] += out_p; d["N"] += out_n; d["UV"] += [uv] * len(out_p)
+            d["P"] += out_p; d["N"] += out_n; d["UV"] += out_uv
             d["I"] += [i + off for i in idx]
         return nodes
 
@@ -389,7 +481,7 @@ def export(model, outdir):
         "nodes": gnodes, "meshes": meshes, "accessors": accs, "bufferViews": views,
         "buffers": [{"byteLength": len(blob)}],
         "images": [{"bufferView": img_view, "mimeType": "image/png", "name": "WinterPalette"}],
-        "samplers": [{"magFilter": 9728, "minFilter": 9728, "wrapS": 33071, "wrapT": 33071}],
+        "samplers": [{"magFilter": 9729, "minFilter": 9987, "wrapS": 33071, "wrapT": 33071}],
         "textures": [{"sampler": 0, "source": 0}],
         "materials": [
             {"name": "WinterPalette", "pbrMetallicRoughness": {"baseColorTexture": {"index": 0},
