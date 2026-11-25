@@ -1,0 +1,197 @@
+import os, json
+from lib import *
+from PIL import Image
+
+ATLAS = 1024
+PAL_H = 64
+
+def hexc(h):
+    h = h.lstrip('#'); return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
+
+# ---------- paint helpers (numpy, return HxWx3 float 0..255) ----------
+def P_solid(c):
+    c = np.array(hexc(c) if isinstance(c, str) else c, float)
+    return lambda U, V, m: np.broadcast_to(c, U.shape + (3,)).copy()
+
+def mix(img, mask, c):
+    c = np.array(hexc(c) if isinstance(c, str) else c, float)
+    mask = np.clip(mask, 0, 1)[..., None]
+    return img * (1 - mask) + c * mask
+
+def aa(d, w=1.5):  # signed distance (px-ish) -> coverage
+    return np.clip(0.5 - d / w, 0, 1)
+
+def zc(U, V, m):  # physical coordinates: z, az (rad), x around (units)
+    z = m.get('zmin', 0) + V * (m.get('zmax', 1) - m.get('zmin', 0))
+    az = 2 * PI * (U - 0.5)
+    return z, az
+
+def pack(rects):
+    """rects: dict key->(w,h). shelf pack into ATLAS x (ATLAS-PAL_H). returns key->(x,y,w,h)"""
+    order = sorted(rects.items(), key=lambda kv: -kv[1][1])
+    x = y = 0; sh = 0; out = {}
+    for k, (w, h) in order:
+        if x + w > ATLAS: x = 0; y += sh + 4; sh = 0
+        out[k] = (x, y, w, h); x += w + 4; sh = max(sh, h)
+    if y + sh > ATLAS - PAL_H:
+        # scale down everything and retry
+        return pack({k: (max(16, int(w * 0.75)), max(16, int(h * 0.75))) for k, (w, h) in rects.items()})
+    return out
+
+def p2(v, lo=32, hi=512):
+    v = int(np.clip(v, lo, hi)); p = 1
+    while p < v: p *= 2
+    return p
+
+def build_atlas(pieces, palette, out_png):
+    img = np.zeros((ATLAS, ATLAS, 3), float); img[:] = 128
+    rects = {}; owner = {}
+    for pc in pieces:
+        if pc.paint is None: continue
+        if pc.rect_key not in rects:
+            m = pc.meta
+            if 'rect' in m: w, h = m['rect']
+            else:
+                circ = m.get('circ', 1.0)
+                hh = (m.get('zmax', 1) - m.get('zmin', 0)) if 'zmax' in m else m.get('length', 0.6)
+                w = p2(circ * 150, 64, 512); h = p2(abs(hh) * 170, 32, 512)
+            rects[pc.rect_key] = (w, h); owner[pc.rect_key] = pc
+    R = pack(rects)
+    for k, (x, y, w, h) in R.items():
+        pc = owner[k]
+        U, V = np.meshgrid(np.linspace(0, 1, w), np.linspace(1, 0, h))
+        tile = pc.paint(U, V, pc.meta)
+        img[y:y + h, x:x + w] = tile
+        # bleed 2px
+        for d in (1, 2):
+            if y - d >= 0: img[y - d, x:x + w] = tile[0]
+            if y + h - 1 + d < ATLAS: img[y + h - 1 + d, x:x + w] = tile[-1]
+            if x - d >= 0: img[y:y + h, x - d] = tile[:, 0]
+            if x + w - 1 + d < ATLAS: img[y:y + h, x + w - 1 + d] = tile[:, -1]
+    # palette
+    cells = {}
+    cs = 16; per_row = ATLAS // cs
+    for i, (name, col) in enumerate(palette.items()):
+        cx = (i % per_row) * cs; cy = ATLAS - PAL_H + (i // per_row) * cs
+        img[cy:cy + cs, cx:cx + cs] = hexc(col) if isinstance(col, str) else col
+        cells[name] = ((cx + cs / 2) / ATLAS, 1 - (cy + cs / 2) / ATLAS)
+    Image.fromarray(np.clip(img, 0, 255).astype(np.uint8)).save(out_png)
+    def uvmap(pc, uv, col):
+        if col is not None: return cells[col]
+        x, y, w, h = R[pc.rect_key]
+        u, v = uv
+        u = min(max(u, 0), 1); v = min(max(v, 0), 1)
+        return ((x + 0.5 + u * (w - 1)) / ATLAS, 1 - (y + 0.5 + (1 - v) * (h - 1)) / ATLAS)
+    return uvmap
+
+# ---------- weights ----------
+def weights_at(p):
+    loc, nor, fi, dist = B.bvh['all'].find_nearest(p)
+    t = B.all_tris[fi]
+    a, b, c = (B.V[i] for i in t)
+    # barycentric
+    v0, v1, v2 = b - a, c - a, loc - a
+    d00, d01, d11, d20, d21 = v0.dot(v0), v0.dot(v1), v1.dot(v1), v2.dot(v0), v2.dot(v1)
+    den = d00 * d11 - d01 * d01
+    if abs(den) < 1e-12: w = np.array([1 / 3] * 3)
+    else:
+        v = (d11 * d20 - d01 * d21) / den; ww = (d00 * d21 - d01 * d20) / den
+        w = np.clip(np.array([1 - v - ww, v, ww]), 0, 1); w /= w.sum()
+    return (B.W[list(t)] * w[:, None]).sum(0)
+
+def weights_smooth(p, r=0.45, exclude_head=False, parts=None):
+    acc = np.zeros(len(BONES)); tot = 0
+    for co, i, d in B.kd.find_range(p, r):
+        if exclude_head and B.part[i] == 'head': continue
+        if parts is not None and B.part[i] not in parts: continue
+        g = math.exp(-(d / (r * 0.5)) ** 2)
+        acc += B.W[i] * g; tot += g
+    if tot < 1e-9: return weights_at(p)
+    return acc / tot
+
+def limit4(w):
+    w = np.array(w, float)
+    idx = np.argsort(-w)[:4]
+    o = np.zeros_like(w); o[idx] = w[idx]
+    o[o < 0.01] = 0
+    s = o.sum()
+    return o / s if s > 0 else o
+
+def piece_weights(pc):
+    if callable(pc.weight):
+        ws = [pc.weight(p) for p in pc.verts]
+    elif pc.rigid:
+        c = sum(pc.verts, Vector()) / len(pc.verts)
+        w = weights_smooth(c, 0.2) if pc.weight == 'smooth' else weights_at(c)
+        ws = [w] * len(pc.verts)
+    elif pc.weight == 'smooth':
+        ws = [weights_smooth(p) for p in pc.verts]
+    else:
+        ws = [weights_at(p) for p in pc.verts]
+    return [limit4(w) for w in ws]
+
+# ---------- blender objects ----------
+def make_material(name, png):
+    mat = bpy.data.materials.new(name)
+    mat.use_nodes = True
+    nt = mat.node_tree
+    bsdf = nt.nodes['Principled BSDF']
+    tex = nt.nodes.new('ShaderNodeTexImage')
+    img = bpy.data.images.load(png); img.name = os.path.basename(png)
+    tex.image = img
+    tex.interpolation = 'Linear'
+    nt.links.new(tex.outputs['Color'], bsdf.inputs['Base Color'])
+    bsdf.inputs['Roughness'].default_value = 0.75
+    return mat
+
+def build_objects(outfit_name, pieces, uvmap, mat, collection, smooth_angle=40, metal=False):
+    groups = {}
+    for pc in pieces: groups.setdefault(pc.group, []).append(pc)
+    objs = []
+    for g, pcs in groups.items():
+        verts = []; faces = []; uvs = []; W = []
+        sharp_faces = []
+        for pc in pcs:
+            o = len(verts)
+            verts += [tuple(v) for v in pc.verts]
+            W += pc.W
+            for f, uv, col in zip(pc.faces, pc.fuv, pc.fcol):
+                faces.append(tuple(i + o for i in f)); uvs.append([uvmap(pc, u, col) for u in uv])
+                sharp_faces.append(pc.sharp)
+        me = bpy.data.meshes.new(f'{outfit_name}_{g}')
+        me.from_pydata(verts, [], faces)
+        me.validate(clean_customdata=False)
+        uvl = me.uv_layers.new(name='UVMap')
+        k = 0
+        for poly, uv in zip(me.polygons, uvs):
+            for li, u in zip(poly.loop_indices, uv): uvl.data[li].uv = u
+        me.materials.append(mat)
+        for poly in me.polygons: poly.use_smooth = True
+        me.set_sharp_from_angle(angle=math.radians(smooth_angle))
+        ob = bpy.data.objects.new(f'{outfit_name}_{g}', me)
+        collection.objects.link(ob)
+        for bn in BONES: ob.vertex_groups.new(name=bn)
+        for vi, w in enumerate(W):
+            for bi in np.nonzero(w)[0]:
+                ob.vertex_groups[BONES[bi]].add([vi], float(w[bi]), 'REPLACE')
+        ob.parent = B.arm
+        mod = ob.modifiers.new('Armature', 'ARMATURE'); mod.object = B.arm
+        objs.append(ob)
+    return objs
+
+def finalize_pieces(pieces):
+    for pc in pieces:
+        pc.W = piece_weights(pc)
+
+def skirt_weight(z_start=2.05, z_full=1.75, r=0.5):
+    """nearest weights above z_start, blending to smooth torso/leg weights below (for coats, robes)."""
+    def f(p):
+        a = weights_at(p)
+        if p.z >= z_start: return a
+        b = weights_smooth(p, r, parts=('torso',))
+        k = min(1.0, (z_start - p.z) / max(z_start - z_full, 1e-6))
+        # keep lower-body skirts mostly attached to the pelvis
+        lt = np.zeros(len(BONES)); lt[0] = 1.0
+        b = b * 0.6 + lt * 0.4
+        return a * (1 - k) + b * k
+    return f

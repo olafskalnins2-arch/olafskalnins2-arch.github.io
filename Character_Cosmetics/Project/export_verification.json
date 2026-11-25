@@ -1,0 +1,454 @@
+{
+ "CosmeticsRig.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "01_Classic_Mover_Bottom",
+   "01_Classic_Mover_Feet",
+   "01_Classic_Mover_Top",
+   "02_Chill_Dude_Bottom",
+   "02_Chill_Dude_Feet",
+   "02_Chill_Dude_Top",
+   "03_Raincoat_Bottom",
+   "03_Raincoat_Feet",
+   "03_Raincoat_Top",
+   "04_Boss_Mode_Bottom",
+   "04_Boss_Mode_Extras",
+   "04_Boss_Mode_Feet",
+   "04_Boss_Mode_Top",
+   "05_Construction_Hero_Bottom",
+   "05_Construction_Hero_Extras",
+   "05_Construction_Hero_Feet",
+   "05_Construction_Hero_Top",
+   "06_Chef_Bottom",
+   "06_Chef_Extras",
+   "06_Chef_Feet",
+   "06_Chef_Top",
+   "07_Firefighter_Bottom",
+   "07_Firefighter_Extras",
+   "07_Firefighter_Feet",
+   "07_Firefighter_Top",
+   "08_Pirate_Bottom",
+   "08_Pirate_Extras",
+   "08_Pirate_Feet",
+   "08_Pirate_Top",
+   "09_Wizard_Bottom",
+   "09_Wizard_Extras",
+   "09_Wizard_Feet",
+   "09_Wizard_Top",
+   "10_Knight_Bottom",
+   "10_Knight_Feet",
+   "10_Knight_Top",
+   "11_Astronaut_Bottom",
+   "11_Astronaut_Extras",
+   "11_Astronaut_Feet",
+   "11_Astronaut_Top",
+   "12_Ghost_Top",
+   "13_Dinosaur_Bottom",
+   "13_Dinosaur_Extras",
+   "13_Dinosaur_Feet",
+   "13_Dinosaur_Head",
+   "13_Dinosaur_Top",
+   "Body"
+  ],
+  "contains_body": true,
+  "has_uv_joints_weights": true,
+  "embedded_images": 13,
+  "materials_per_outfit": 18,
+  "reimport_ok": true,
+  "triangles": 129167,
+  "max_tris_single_mesh": 8252
+ },
+ "01_Classic_Mover.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "01_Classic_Mover_Bottom",
+   "01_Classic_Mover_Feet",
+   "01_Classic_Mover_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 9008,
+  "max_tris_single_mesh": 3668
+ },
+ "02_Chill_Dude.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "02_Chill_Dude_Bottom",
+   "02_Chill_Dude_Feet",
+   "02_Chill_Dude_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 7132,
+  "max_tris_single_mesh": 3340
+ },
+ "03_Raincoat.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "03_Raincoat_Bottom",
+   "03_Raincoat_Feet",
+   "03_Raincoat_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 9620,
+  "max_tris_single_mesh": 5236
+ },
+ "04_Boss_Mode.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "04_Boss_Mode_Bottom",
+   "04_Boss_Mode_Extras",
+   "04_Boss_Mode_Feet",
+   "04_Boss_Mode_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 11268,
+  "max_tris_single_mesh": 6948
+ },
+ "05_Construction_Hero.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "05_Construction_Hero_Bottom",
+   "05_Construction_Hero_Extras",
+   "05_Construction_Hero_Feet",
+   "05_Construction_Hero_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 10040,
+  "max_tris_single_mesh": 4556
+ },
+ "06_Chef.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "06_Chef_Bottom",
+   "06_Chef_Extras",
+   "06_Chef_Feet",
+   "06_Chef_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 8512,
+  "max_tris_single_mesh": 4024
+ },
+ "07_Firefighter.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "07_Firefighter_Bottom",
+   "07_Firefighter_Extras",
+   "07_Firefighter_Feet",
+   "07_Firefighter_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 8864,
+  "max_tris_single_mesh": 4152
+ },
+ "08_Pirate.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "08_Pirate_Bottom",
+   "08_Pirate_Extras",
+   "08_Pirate_Feet",
+   "08_Pirate_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 13336,
+  "max_tris_single_mesh": 8252
+ },
+ "09_Wizard.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "09_Wizard_Bottom",
+   "09_Wizard_Extras",
+   "09_Wizard_Feet",
+   "09_Wizard_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 9472,
+  "max_tris_single_mesh": 6280
+ },
+ "10_Knight.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "10_Knight_Bottom",
+   "10_Knight_Feet",
+   "10_Knight_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 10768,
+  "max_tris_single_mesh": 4736
+ },
+ "11_Astronaut.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "11_Astronaut_Bottom",
+   "11_Astronaut_Extras",
+   "11_Astronaut_Feet",
+   "11_Astronaut_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 10396,
+  "max_tris_single_mesh": 4864
+ },
+ "12_Ghost.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "12_Ghost_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 5720,
+  "max_tris_single_mesh": 5720
+ },
+ "13_Dinosaur.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "13_Dinosaur_Bottom",
+   "13_Dinosaur_Extras",
+   "13_Dinosaur_Feet",
+   "13_Dinosaur_Head",
+   "13_Dinosaur_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 8672,
+  "max_tris_single_mesh": 2944
+ },
+ "01_Classic_Mover.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "01_Classic_Mover_Bottom",
+   "01_Classic_Mover_Feet",
+   "01_Classic_Mover_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "02_Chill_Dude.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "02_Chill_Dude_Bottom",
+   "02_Chill_Dude_Feet",
+   "02_Chill_Dude_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "03_Raincoat.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "03_Raincoat_Bottom",
+   "03_Raincoat_Feet",
+   "03_Raincoat_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "04_Boss_Mode.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "04_Boss_Mode_Bottom",
+   "04_Boss_Mode_Extras",
+   "04_Boss_Mode_Feet",
+   "04_Boss_Mode_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "05_Construction_Hero.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "05_Construction_Hero_Bottom",
+   "05_Construction_Hero_Extras",
+   "05_Construction_Hero_Feet",
+   "05_Construction_Hero_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "06_Chef.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "06_Chef_Bottom",
+   "06_Chef_Extras",
+   "06_Chef_Feet",
+   "06_Chef_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "07_Firefighter.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "07_Firefighter_Bottom",
+   "07_Firefighter_Extras",
+   "07_Firefighter_Feet",
+   "07_Firefighter_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "08_Pirate.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "08_Pirate_Bottom",
+   "08_Pirate_Extras",
+   "08_Pirate_Feet",
+   "08_Pirate_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "09_Wizard.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "09_Wizard_Bottom",
+   "09_Wizard_Extras",
+   "09_Wizard_Feet",
+   "09_Wizard_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "10_Knight.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "10_Knight_Bottom",
+   "10_Knight_Feet",
+   "10_Knight_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "11_Astronaut.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "11_Astronaut_Bottom",
+   "11_Astronaut_Extras",
+   "11_Astronaut_Feet",
+   "11_Astronaut_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "12_Ghost.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "12_Ghost_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "13_Dinosaur.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "13_Dinosaur_Bottom",
+   "13_Dinosaur_Extras",
+   "13_Dinosaur_Feet",
+   "13_Dinosaur_Head",
+   "13_Dinosaur_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ }
+}

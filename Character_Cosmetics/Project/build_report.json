@@ -1,0 +1,347 @@
+{
+ "01_Classic_Mover": {
+  "pieces": 26,
+  "meshes": [
+   "01_Classic_Mover_Top",
+   "01_Classic_Mover_Bottom",
+   "01_Classic_Mover_Feet"
+  ],
+  "triangles": 9008,
+  "max_bone_influences": 4,
+  "texture": "01_Classic_Mover_Albedo.png",
+  "coverage": {
+   "rest_coverage_pct": {
+    "torso": 100.0,
+    "hips_legs": 99.9,
+    "upper_arms": 88.1,
+    "lower_arms": 6.3,
+    "feet": 100.0,
+    "head": 2.6
+   },
+   "rest_covered_verts": 2261,
+   "walk_pokethrough_verts": 48,
+   "walk_pokethrough_pct": 2.12,
+   "carry_pokethrough_verts": 23,
+   "carry_pokethrough_pct": 1.02
+  }
+ },
+ "02_Chill_Dude": {
+  "pieces": 21,
+  "meshes": [
+   "02_Chill_Dude_Top",
+   "02_Chill_Dude_Bottom",
+   "02_Chill_Dude_Feet"
+  ],
+  "triangles": 7132,
+  "max_bone_influences": 4,
+  "texture": "02_Chill_Dude_Albedo.png",
+  "coverage": {
+   "rest_coverage_pct": {
+    "torso": 99.9,
+    "hips_legs": 98.2,
+    "upper_arms": 80.9,
+    "lower_arms": 7.2,
+    "feet": 40.0,
+    "head": 0.4
+   },
+   "rest_covered_verts": 2075,
+   "walk_pokethrough_verts": 54,
+   "walk_pokethrough_pct": 2.6,
+   "carry_pokethrough_verts": 57,
+   "carry_pokethrough_pct": 2.75
+  }
+ },
+ "03_Raincoat": {
+  "pieces": 26,
+  "meshes": [
+   "03_Raincoat_Top",
+   "03_Raincoat_Bottom",
+   "03_Raincoat_Feet"
+  ],
+  "triangles": 9620,
+  "max_bone_influences": 4,
+  "texture": "03_Raincoat_Albedo.png",
+  "coverage": {
+   "rest_coverage_pct": {
+    "torso": 99.9,
+    "hips_legs": 100.0,
+    "upper_arms": 100.0,
+    "lower_arms": 98.3,
+    "feet": 100.0,
+    "head": 1.7
+   },
+   "rest_covered_verts": 2519,
+   "walk_pokethrough_verts": 25,
+   "walk_pokethrough_pct": 0.99,
+   "carry_pokethrough_verts": 20,
+   "carry_pokethrough_pct": 0.79
+  }
+ },
+ "04_Boss_Mode": {
+  "pieces": 18,
+  "meshes": [
+   "04_Boss_Mode_Top",
+   "04_Boss_Mode_Extras",
+   "04_Boss_Mode_Bottom",
+   "04_Boss_Mode_Feet"
+  ],
+  "triangles": 11268,
+  "max_bone_influences": 4,
+  "texture": "04_Boss_Mode_Albedo.png",
+  "coverage": {
+   "rest_coverage_pct": {
+    "torso": 100.0,
+    "hips_legs": 99.9,
+    "upper_arms": 100.0,
+    "lower_arms": 100.0,
+    "feet": 100.0,
+    "head": 3.2
+   },
+   "rest_covered_verts": 2527,
+   "walk_pokethrough_verts": 18,
+   "walk_pokethrough_pct": 0.71,
+   "carry_pokethrough_verts": 5,
+   "carry_pokethrough_pct": 0.2
+  }
+ },
+ "05_Construction_Hero": {
+  "pieces": 25,
+  "meshes": [
+   "05_Construction_Hero_Top",
+   "05_Construction_Hero_Bottom",
+   "05_Construction_Hero_Extras",
+   "05_Construction_Hero_Feet"
+  ],
+  "triangles": 10040,
+  "max_bone_influences": 3,
+  "texture": "05_Construction_Hero_Albedo.png",
+  "coverage": {
+   "rest_coverage_pct": {
+    "torso": 99.8,
+    "hips_legs": 99.9,
+    "upper_arms": 61.1,
+    "lower_arms": 8.9,
+    "feet": 100.0,
+    "head": 2.6
+   },
+   "rest_covered_verts": 2179,
+   "walk_pokethrough_verts": 57,
+   "walk_pokethrough_pct": 2.62,
+   "carry_pokethrough_verts": 46,
+   "carry_pokethrough_pct": 2.11
+  }
+ },
+ "06_Chef": {
+  "pieces": 17,
+  "meshes": [
+   "06_Chef_Top",
+   "06_Chef_Extras",
+   "06_Chef_Bottom",
+   "06_Chef_Feet"
+  ],
+  "triangles": 8512,
+  "max_bone_influences": 4,
+  "texture": "06_Chef_Albedo.png",
+  "coverage": {
+   "rest_coverage_pct": {
+    "torso": 99.8,
+    "hips_legs": 99.9,
+    "upper_arms": 100.0,
+    "lower_arms": 98.3,
+    "feet": 100.0,
+    "head": 0.5
+   },
+   "rest_covered_verts": 2495,
+   "walk_pokethrough_verts": 17,
+   "walk_pokethrough_pct": 0.68,
+   "carry_pokethrough_verts": 9,
+   "carry_pokethrough_pct": 0.36
+  }
+ },
+ "07_Firefighter": {
+  "pieces": 17,
+  "meshes": [
+   "07_Firefighter_Top",
+   "07_Firefighter_Extras",
+   "07_Firefighter_Bottom",
+   "07_Firefighter_Feet"
+  ],
+  "triangles": 8864,
+  "max_bone_influences": 4,
+  "texture": "07_Firefighter_Albedo.png",
+  "coverage": {
+   "rest_coverage_pct": {
+    "torso": 99.5,
+    "hips_legs": 99.9,
+    "upper_arms": 100.0,
+    "lower_arms": 97.0,
+    "feet": 100.0,
+    "head": 1.4
+   },
+   "rest_covered_verts": 2494,
+   "walk_pokethrough_verts": 17,
+   "walk_pokethrough_pct": 0.68,
+   "carry_pokethrough_verts": 15,
+   "carry_pokethrough_pct": 0.6
+  }
+ },
+ "08_Pirate": {
+  "pieces": 24,
+  "meshes": [
+   "08_Pirate_Top",
+   "08_Pirate_Extras",
+   "08_Pirate_Bottom",
+   "08_Pirate_Feet"
+  ],
+  "triangles": 13336,
+  "max_bone_influences": 4,
+  "texture": "08_Pirate_Albedo.png",
+  "coverage": {
+   "rest_coverage_pct": {
+    "torso": 100.0,
+    "hips_legs": 100.0,
+    "upper_arms": 100.0,
+    "lower_arms": 96.6,
+    "feet": 100.0,
+    "head": 4.2
+   },
+   "rest_covered_verts": 2537,
+   "walk_pokethrough_verts": 30,
+   "walk_pokethrough_pct": 1.18,
+   "carry_pokethrough_verts": 19,
+   "carry_pokethrough_pct": 0.75
+  }
+ },
+ "09_Wizard": {
+  "pieces": 12,
+  "meshes": [
+   "09_Wizard_Top",
+   "09_Wizard_Bottom",
+   "09_Wizard_Extras",
+   "09_Wizard_Feet"
+  ],
+  "triangles": 9472,
+  "max_bone_influences": 4,
+  "texture": "09_Wizard_Albedo.png",
+  "coverage": {
+   "rest_coverage_pct": {
+    "torso": 99.9,
+    "hips_legs": 95.9,
+    "upper_arms": 100.0,
+    "lower_arms": 21.9,
+    "feet": 100.0,
+    "head": 2.4
+   },
+   "rest_covered_verts": 2322,
+   "walk_pokethrough_verts": 119,
+   "walk_pokethrough_pct": 5.12,
+   "carry_pokethrough_verts": 69,
+   "carry_pokethrough_pct": 2.97
+  }
+ },
+ "10_Knight": {
+  "pieces": 26,
+  "meshes": [
+   "10_Knight_Top",
+   "10_Knight_Bottom",
+   "10_Knight_Feet"
+  ],
+  "triangles": 10768,
+  "max_bone_influences": 4,
+  "texture": "10_Knight_Albedo.png",
+  "coverage": {
+   "rest_coverage_pct": {
+    "torso": 99.1,
+    "hips_legs": 99.7,
+    "upper_arms": 71.3,
+    "lower_arms": 96.2,
+    "feet": 100.0,
+    "head": 5.8
+   },
+   "rest_covered_verts": 2446,
+   "walk_pokethrough_verts": 36,
+   "walk_pokethrough_pct": 1.47,
+   "carry_pokethrough_verts": 35,
+   "carry_pokethrough_pct": 1.43
+  }
+ },
+ "11_Astronaut": {
+  "pieces": 32,
+  "meshes": [
+   "11_Astronaut_Top",
+   "11_Astronaut_Bottom",
+   "11_Astronaut_Feet",
+   "11_Astronaut_Extras"
+  ],
+  "triangles": 10396,
+  "max_bone_influences": 3,
+  "texture": "11_Astronaut_Albedo.png",
+  "coverage": {
+   "rest_coverage_pct": {
+    "torso": 99.2,
+    "hips_legs": 100.0,
+    "upper_arms": 100.0,
+    "lower_arms": 100.0,
+    "feet": 100.0,
+    "head": 2.2
+   },
+   "rest_covered_verts": 2509,
+   "walk_pokethrough_verts": 21,
+   "walk_pokethrough_pct": 0.84,
+   "carry_pokethrough_verts": 21,
+   "carry_pokethrough_pct": 0.84
+  }
+ },
+ "12_Ghost": {
+  "pieces": 3,
+  "meshes": [
+   "12_Ghost_Top"
+  ],
+  "triangles": 5720,
+  "max_bone_influences": 4,
+  "texture": "12_Ghost_Albedo.png",
+  "coverage": {
+   "rest_coverage_pct": {
+    "torso": 98.8,
+    "hips_legs": 90.6,
+    "upper_arms": 89.1,
+    "lower_arms": 76.4,
+    "feet": 41.4,
+    "head": 83.2
+   },
+   "rest_covered_verts": 3037,
+   "walk_pokethrough_verts": 375,
+   "walk_pokethrough_pct": 12.35,
+   "carry_pokethrough_verts": 415,
+   "carry_pokethrough_pct": 13.66
+  }
+ },
+ "13_Dinosaur": {
+  "pieces": 35,
+  "meshes": [
+   "13_Dinosaur_Top",
+   "13_Dinosaur_Bottom",
+   "13_Dinosaur_Extras",
+   "13_Dinosaur_Head",
+   "13_Dinosaur_Feet"
+  ],
+  "triangles": 8672,
+  "max_bone_influences": 4,
+  "texture": "13_Dinosaur_Albedo.png",
+  "coverage": {
+   "rest_coverage_pct": {
+    "torso": 100.0,
+    "hips_legs": 99.9,
+    "upper_arms": 86.5,
+    "lower_arms": 8.4,
+    "feet": 100.0,
+    "head": 27.9
+   },
+   "rest_covered_verts": 2454,
+   "walk_pokethrough_verts": 36,
+   "walk_pokethrough_pct": 1.47,
+   "carry_pokethrough_verts": 51,
+   "carry_pokethrough_pct": 2.08
+  }
+ }
+}
