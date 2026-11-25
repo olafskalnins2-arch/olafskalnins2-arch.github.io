@@ -1,6 +1,20 @@
 CHARACTER COSMETICS - 13 wearable outfits for your default character
 =====================================================================
 
+RIG FIX (weights) - READ THIS FIRST
+-----------------------------------
+All models were re-weighted so cloth no longer stretches like webbing between the legs, under the arms or at the
+waist. Proof: Rig_Check/ (before/after renders + check tables, 7/174 checks passed before, 174/174 after).
+- Base_Character/character_smooth_v2.glb  = YOUR base character with fixed weights (same name as your original).
+  Your original weights were part of the problem, so re-import this one in Roblox Studio, or the outfits and the
+  body will deform differently. Vertex positions are unchanged. The only mesh change: the 2 open shoulder sockets
+  (and the 2 open arm ends) are capped with faces, so no hole opens when an arm moves.
+- Every outfit GLB/FBX, CosmeticsRig.glb and the .blend were re-exported under the same names. Geometry, UVs,
+  textures and materials are identical to before; only the skin weights changed.
+- Originals are in _backup/ (MANIFEST.sha1 lists their checksums).
+- Roblox_Ready/check_rig.py checks any model (see CLAUDE.md "Rigging rules" in the repo root). Run it before calling
+  any new model done:  python3 Roblox_Ready/check_rig.py Roblox_Ready Base_Character Project
+
 WHAT'S IN HERE
 --------------
 Project/
@@ -34,9 +48,8 @@ HOW THE OUTFITS ARE BUILT
   boots, tails, spikes...) fitted by ray casting onto YOUR body mesh, then offset outward. Your character
   was never scaled, moved or edited.
 - Every outfit mesh is SKINNED to your exact 15 bones (LowerTorso, UpperTorso, Head, Left/Right
-  UpperArm, LowerArm, Hand, UpperLeg, LowerLeg, Foot). Weights are transferred from your body
-  (max 4 influences per vertex, which is Roblox's limit). Coats, robes and the ghost sheet use smoothed
-  weights so they don't tear between the legs.
+  UpperArm, LowerArm, Hand, UpperLeg, LowerLeg, Foot). Weights follow the "Rigging rules" in CLAUDE.md:
+  transferred from the (fixed) body per region, no left/right mixing, max 4 influences, rigid parts on one bone.
 - One material + one 1024px texture per outfit (Roblox MeshParts take one texture each).
 - Each outfit is split into up to 5 meshes: _Top, _Bottom, _Feet, _Head, _Extras. That way no single
   MeshPart gets close to Roblox's triangle limit (the biggest is about 8.3k tris), and you can mix pieces.
@@ -111,3 +124,4 @@ NOTES
   references show orange skin where your actual body is grey. The leg covers are merged into each outfit's
   _Bottom mesh. Delete those faces in Blender (select linked, leg area) if you'd rather show the grey base layer.
 - Ghost: hands poke through the sheet in big arm swings (see CHECKLIST.md). It's fully covered in idle.
+- Wizard: in a big stride / leg spread the knee and shin push out of the robe front (no-webbing trade-off, see CHECKLIST.md).

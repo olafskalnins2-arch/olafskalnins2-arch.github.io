@@ -1,5 +1,8 @@
 from o02 import *
 
+def _shin(pc):
+    pc.region = 'shin_' + pc.region[-1]; return pc
+
 def construction_hero():
     pal = {'grey': '#8d9096', 'grey_d': '#6f7277', 'orange': '#f47a1a', 'trim': '#5a3a22', 'beige': '#d6c49b', 'beige_d': '#b8a679',
            'brown': '#6a4326', 'brown_d': '#3e2614', 'silver': '#b9bcc0', 'boot': '#9ea2a6', 'boot_d': '#7b7f84', 'sole': '#2c3038',
@@ -57,14 +60,16 @@ def construction_hero():
     P.append(prim_cyl('HammerHandle', hx + Vector((0, 0, 0.05)), hx + Vector((0.02, 0, -0.33)), 0.024, n=6, col='wood'))
     P.append(prim_box('HammerHead', hx + Vector((0, 0, 0.08)), (0.06, 0.2, 0.06), 'metal'))
     # screwdriver at right pouch
+    for q in P[-2:]: q.bone = 'LowerTorso'
     sx = Vector((-0.55, -0.12, 2.1))
     P.append(prim_cyl('DriverGrip', sx, sx + Vector((0, 0, 0.1)), 0.025, n=6, col='red'))
     P.append(prim_cyl('DriverShaft', sx + Vector((0, 0, 0.1)), sx + Vector((0, 0, 0.2)), 0.009, n=5, col='metal'))
+    for q in P[-2:]: q.bone = 'LowerTorso'
     for s in 'LR':
         sh = shoe('Boot_' + s, s, off=0.045, bulk=0.035, toe=0.03)
         sh.paint = lambda U, V, m: mix(P_solid(pal['boot'])(U, V, m), aa((zc(U, V, m)[0] - m['sole_top']) * 600), pal['sole'])
         P.append(sh)
-        shaft = leg_tube('BootShaft_' + s, s, 0.64, 0.47, 0.072, nseg=16, group='Feet', col='boot_d')
+        shaft = _shin(leg_tube('BootShaft_' + s, s, 0.64, 0.47, 0.072, nseg=16, group='Feet', col='boot_d'))
         P.append(shaft)
     return P, pal
 
@@ -78,7 +83,7 @@ def chef():
         img = mix(img, aa((np.abs(az + 0.28) - 0.006) * 500) * (z < 3.05), pal['white_d'])
         img = mix(img, aa((np.abs(np.abs(az) - PI / 2) - 0.006) * 300) * 0.5, pal['white_d'])
         return img
-    jk.paint = jp; jk.weight = skirt_weight(2.1, 1.95); P.append(jk)
+    jk.paint = jp; P.append(jk)
     P.append(collar('Collar', 'stand', h=0.07, flare=0.02, open_front=0.08, col='white'))
     jb = piece_bvh(jk)
     for r, z in enumerate((2.86, 2.62, 2.38)):
@@ -122,7 +127,7 @@ def firefighter():
         img = mix(img, aa(np.maximum(2.20 - z, z - 2.29) * 500), pal['belt'])
         img = mix(img, aa((np.abs(az) - 0.01) * 400), pal['red_d'])
         return img
-    jk.paint = jp; jk.weight = skirt_weight(2.05, 1.84); P.append(jk)
+    jk.paint = jp; P.append(jk)
     P.append(collar('Collar', 'stand', h=0.09, flare=0.03, open_front=0.12, col='red'))
     jb = piece_bvh(jk)
     for i, z in enumerate((2.97, 2.6, 2.245)):
@@ -150,7 +155,7 @@ def firefighter():
         sh = shoe('Boot_' + s, s, off=0.05, bulk=0.04, toe=0.03, sole_h=0.07)
         sh.paint = lambda U, V, m: mix(P_solid(pal['black'])(U, V, m), aa((zc(U, V, m)[0] - m['sole_top']) * 600), '#333333')
         P.append(sh)
-        P.append(leg_tube('BootShaft_' + s, s, 0.66, 0.46, 0.078, nseg=16, group='Feet', col='black'))
+        P.append(_shin(leg_tube('BootShaft_' + s, s, 0.66, 0.46, 0.078, nseg=16, group='Feet', col='black')))
     return P, pal
 
 def pirate():
@@ -183,7 +188,7 @@ def pirate():
         img = mix(img, aa((np.abs(az - PI) - 0.008) * 400) * (z < 1.8), pal['coat_d'])  # back vent
         img = mix(img, aa((np.abs(az + PI) - 0.008) * 400) * (z < 1.8), pal['coat_d'])
         return img
-    coat.paint = cpaint; coat.weight = skirt_weight(2.05, 1.6); P.append(coat)
+    coat.paint = cpaint; P.append(coat)
     cb = piece_bvh(coat)
     for sg in (-1, 1):
         def lap(s, t, sg=sg):
@@ -204,8 +209,8 @@ def pirate():
         b = shoe('Boot_' + s, s, off=0.05, bulk=0.035, toe=0.03, sole_h=0.05)
         b.paint = lambda U, V, m: mix(P_solid(pal['black'])(U, V, m), aa((zc(U, V, m)[0] - m['sole_top']) * 600), '#333333')
         P.append(b)
-        P.append(leg_tube('BootShaft_' + s, s, 0.98, 0.46, 0.09, nseg=16, group='Feet', col='black', extra=lambda z, a: 0.01))
-        P.append(leg_tube('BootCuff_' + s, s, 1.06, 0.93, 0.13, nseg=16, nrows=3, group='Feet', col='black', extra=lambda z, a: 0.02 + 0.04 * (z - 0.93) / 0.13))
+        P.append(_shin(leg_tube('BootShaft_' + s, s, 0.98, 0.46, 0.09, nseg=16, group='Feet', col='black', extra=lambda z, a: 0.01)))
+        P.append(_shin(leg_tube('BootCuff_' + s, s, 1.06, 0.93, 0.13, nseg=16, nrows=3, group='Feet', col='black', extra=lambda z, a: 0.02 + 0.04 * (z - 0.93) / 0.13)))
     return P, pal
 
 def wizard():
@@ -226,7 +231,7 @@ def wizard():
             img = mix(img, aa((np.abs(az) - w - 0.05) * 300) * (z > 2.86), pal['p_l'])
             img = mix(img, aa((np.abs(az) - w) * 300) * (z > 2.9), SKIN)
         return img
-    robe.paint = rp; robe.weight = skirt_weight(2.05, 1.4, r=0.6); P.append(robe)
+    robe.paint = rp; P.append(robe)
     P.append(collar('Collar', 'stand', h=0.04, flare=0.04, open_front=0.5, col='p_l'))
     for s in 'LR':
         P.append(skin_leg(s, 1.3, 0.47))

@@ -1,0 +1,177 @@
+model                     | pose      | worst stretch | worst squash | bad verts | result
+-------------------------------------------------------------------------------------------
+Character_Cosmetics.blend | weights   |         1.000 |        1.000 |      4484 | FAIL  <- 01_Classic_Mover_Bottom, 02_Chill_Dude_Bottom, 02_Chill_Dude_Top, 03_Raincoat_Bo
+Character_Cosmetics.blend | walk      |       336.687 |        0.061 |      6978 | FAIL  <- 01_Classic_Mover_Bottom, 01_Classic_Mover_Top, 02_Chill_Dude_Bottom, 02_Chill_Du
+Character_Cosmetics.blend | spread    |       585.300 |        0.058 |      3173 | FAIL  <- 01_Classic_Mover_Bottom, 02_Chill_Dude_Bottom, 03_Raincoat_Bottom, 03_Raincoat_F
+Character_Cosmetics.blend | arms_up   |        73.288 |        0.062 |      5493 | FAIL  <- 01_Classic_Mover_Bottom, 01_Classic_Mover_Top, 02_Chill_Dude_Top, 03_Raincoat_To
+Character_Cosmetics.blend | arms_down |         6.926 |        0.243 |       373 | FAIL  <- 01_Classic_Mover_Bottom, 01_Classic_Mover_Top, 02_Chill_Dude_Top, 03_Raincoat_To
+Character_Cosmetics.blend | crouch    |        22.569 |        0.102 |      6749 | FAIL  <- 01_Classic_Mover_Bottom, 01_Classic_Mover_Feet, 01_Classic_Mover_Top, 02_Chill_D
+CosmeticsRig.glb          | weights   |         1.000 |        1.000 |      4532 | FAIL  <- 01_Classic_Mover_Bottom, 02_Chill_Dude_Bottom, 02_Chill_Dude_Top, 03_Raincoat_Bo
+CosmeticsRig.glb          | walk      |       336.687 |        0.061 |      7906 | FAIL  <- 01_Classic_Mover_Bottom, 01_Classic_Mover_Top, 02_Chill_Dude_Bottom, 02_Chill_Du
+CosmeticsRig.glb          | spread    |       585.300 |        0.058 |      3907 | FAIL  <- 01_Classic_Mover_Bottom, 02_Chill_Dude_Bottom, 03_Raincoat_Bottom, 03_Raincoat_F
+CosmeticsRig.glb          | arms_up   |        73.288 |        0.062 |      5791 | FAIL  <- 01_Classic_Mover_Bottom, 01_Classic_Mover_Top, 02_Chill_Dude_Top, 03_Raincoat_To
+CosmeticsRig.glb          | arms_down |         6.926 |        0.243 |       426 | FAIL  <- 01_Classic_Mover_Bottom, 01_Classic_Mover_Top, 02_Chill_Dude_Top, 03_Raincoat_To
+CosmeticsRig.glb          | crouch    |        22.569 |        0.102 |      7633 | FAIL  <- 01_Classic_Mover_Bottom, 01_Classic_Mover_Feet, 01_Classic_Mover_Top, 02_Chill_D
+01_Classic_Mover.fbx      | weights   |         1.000 |        1.000 |        52 | FAIL  <- 01_Classic_Mover_Bottom
+01_Classic_Mover.fbx      | walk      |        63.520 |        0.168 |       388 | FAIL  <- 01_Classic_Mover_Bottom, 01_Classic_Mover_Top
+01_Classic_Mover.fbx      | spread    |       110.679 |        0.087 |       165 | FAIL  <- 01_Classic_Mover_Bottom
+01_Classic_Mover.fbx      | arms_up   |        73.289 |        0.187 |       325 | FAIL  <- 01_Classic_Mover_Bottom, 01_Classic_Mover_Top
+01_Classic_Mover.fbx      | arms_down |         6.926 |        0.476 |        35 | FAIL  <- 01_Classic_Mover_Bottom, 01_Classic_Mover_Top
+01_Classic_Mover.fbx      | crouch    |        22.569 |        0.212 |       408 | FAIL  <- 01_Classic_Mover_Bottom, 01_Classic_Mover_Feet, 01_Classic_Mover_Top
+01_Classic_Mover.glb      | weights   |         1.000 |        1.000 |       103 | FAIL  <- 01_Classic_Mover_Bottom
+01_Classic_Mover.glb      | walk      |        63.520 |        0.168 |       432 | FAIL  <- 01_Classic_Mover_Bottom, 01_Classic_Mover_Top
+01_Classic_Mover.glb      | spread    |       110.679 |        0.087 |       199 | FAIL  <- 01_Classic_Mover_Bottom
+01_Classic_Mover.glb      | arms_up   |        73.288 |        0.187 |       354 | FAIL  <- 01_Classic_Mover_Bottom, 01_Classic_Mover_Top
+01_Classic_Mover.glb      | arms_down |         6.926 |        0.476 |        46 | FAIL  <- 01_Classic_Mover_Bottom, 01_Classic_Mover_Top
+01_Classic_Mover.glb      | crouch    |        22.569 |        0.212 |       475 | FAIL  <- 01_Classic_Mover_Bottom, 01_Classic_Mover_Feet, 01_Classic_Mover_Top
+02_Chill_Dude.fbx         | weights   |         1.000 |        1.000 |        73 | FAIL  <- 02_Chill_Dude_Bottom, 02_Chill_Dude_Top
+02_Chill_Dude.fbx         | walk      |        30.499 |        0.180 |       420 | FAIL  <- 02_Chill_Dude_Bottom, 02_Chill_Dude_Top
+02_Chill_Dude.fbx         | spread    |        46.978 |        0.129 |       155 | FAIL  <- 02_Chill_Dude_Bottom
+02_Chill_Dude.fbx         | arms_up   |        57.502 |        0.199 |       334 | FAIL  <- 02_Chill_Dude_Top
+02_Chill_Dude.fbx         | arms_down |         5.266 |        0.545 |        15 | FAIL  <- 02_Chill_Dude_Top
+02_Chill_Dude.fbx         | crouch    |        17.572 |        0.173 |       384 | FAIL  <- 02_Chill_Dude_Bottom, 02_Chill_Dude_Top
+02_Chill_Dude.glb         | weights   |         1.000 |        1.000 |       134 | FAIL  <- 02_Chill_Dude_Bottom, 02_Chill_Dude_Top
+02_Chill_Dude.glb         | walk      |        30.499 |        0.180 |       464 | FAIL  <- 02_Chill_Dude_Bottom, 02_Chill_Dude_Top
+02_Chill_Dude.glb         | spread    |        46.978 |        0.129 |       192 | FAIL  <- 02_Chill_Dude_Bottom
+02_Chill_Dude.glb         | arms_up   |        57.502 |        0.199 |       355 | FAIL  <- 02_Chill_Dude_Top
+02_Chill_Dude.glb         | arms_down |         5.266 |        0.545 |        15 | FAIL  <- 02_Chill_Dude_Top
+02_Chill_Dude.glb         | crouch    |        17.571 |        0.173 |       442 | FAIL  <- 02_Chill_Dude_Bottom, 02_Chill_Dude_Top
+03_Raincoat.fbx           | weights   |         1.000 |        1.000 |       171 | FAIL  <- 03_Raincoat_Bottom, 03_Raincoat_Top
+03_Raincoat.fbx           | walk      |        63.503 |        0.177 |       439 | FAIL  <- 03_Raincoat_Bottom, 03_Raincoat_Feet, 03_Raincoat_Top
+03_Raincoat.fbx           | spread    |       110.764 |        0.064 |       265 | FAIL  <- 03_Raincoat_Bottom, 03_Raincoat_Feet, 03_Raincoat_Top
+03_Raincoat.fbx           | arms_up   |        13.491 |        0.262 |       325 | FAIL  <- 03_Raincoat_Top
+03_Raincoat.fbx           | arms_down |         1.653 |        0.462 |        15 | FAIL  <- 03_Raincoat_Top
+03_Raincoat.fbx           | crouch    |         4.920 |        0.102 |       544 | FAIL  <- 03_Raincoat_Bottom, 03_Raincoat_Feet, 03_Raincoat_Top
+03_Raincoat.glb           | weights   |         1.000 |        1.000 |       283 | FAIL  <- 03_Raincoat_Bottom, 03_Raincoat_Top
+03_Raincoat.glb           | walk      |        63.503 |        0.177 |       491 | FAIL  <- 03_Raincoat_Bottom, 03_Raincoat_Feet, 03_Raincoat_Top
+03_Raincoat.glb           | spread    |       110.764 |        0.064 |       345 | FAIL  <- 03_Raincoat_Bottom, 03_Raincoat_Feet, 03_Raincoat_Top
+03_Raincoat.glb           | arms_up   |        13.491 |        0.262 |       340 | FAIL  <- 03_Raincoat_Top
+03_Raincoat.glb           | arms_down |         1.653 |        0.462 |        15 | FAIL  <- 03_Raincoat_Top
+03_Raincoat.glb           | crouch    |         4.920 |        0.102 |       614 | FAIL  <- 03_Raincoat_Bottom, 03_Raincoat_Feet, 03_Raincoat_Top
+04_Boss_Mode.fbx          | weights   |         1.000 |        1.000 |       114 | FAIL  <- 04_Boss_Mode_Bottom, 04_Boss_Mode_Top
+04_Boss_Mode.fbx          | walk      |         5.537 |        0.061 |       512 | FAIL  <- 04_Boss_Mode_Bottom, 04_Boss_Mode_Top
+04_Boss_Mode.fbx          | spread    |         2.865 |        0.088 |       132 | FAIL  <- 04_Boss_Mode_Bottom, 04_Boss_Mode_Top
+04_Boss_Mode.fbx          | arms_up   |        13.447 |        0.237 |       443 | FAIL  <- 04_Boss_Mode_Top
+04_Boss_Mode.fbx          | arms_down |         1.643 |        0.506 |        12 | FAIL  <- 04_Boss_Mode_Top
+04_Boss_Mode.fbx          | crouch    |         4.793 |        0.169 |       473 | FAIL  <- 04_Boss_Mode_Bottom, 04_Boss_Mode_Feet, 04_Boss_Mode_Top
+04_Boss_Mode.glb          | weights   |         1.000 |        1.000 |       218 | FAIL  <- 04_Boss_Mode_Bottom, 04_Boss_Mode_Top
+04_Boss_Mode.glb          | walk      |         5.537 |        0.061 |       567 | FAIL  <- 04_Boss_Mode_Bottom, 04_Boss_Mode_Top
+04_Boss_Mode.glb          | spread    |         2.865 |        0.088 |       162 | FAIL  <- 04_Boss_Mode_Bottom, 04_Boss_Mode_Top
+04_Boss_Mode.glb          | arms_up   |        13.447 |        0.237 |       457 | FAIL  <- 04_Boss_Mode_Top
+04_Boss_Mode.glb          | arms_down |         1.643 |        0.506 |        12 | FAIL  <- 04_Boss_Mode_Top
+04_Boss_Mode.glb          | crouch    |         4.793 |        0.169 |       532 | FAIL  <- 04_Boss_Mode_Bottom, 04_Boss_Mode_Feet, 04_Boss_Mode_Top
+05_Construction_Hero.fbx  | weights   |         1.000 |        1.000 |        49 | FAIL  <- 05_Construction_Hero_Bottom
+05_Construction_Hero.fbx  | walk      |        63.523 |        0.151 |       438 | FAIL  <- 05_Construction_Hero_Bottom, 05_Construction_Hero_Top
+05_Construction_Hero.fbx  | spread    |       110.682 |        0.087 |       159 | FAIL  <- 05_Construction_Hero_Bottom, 05_Construction_Hero_Extras
+05_Construction_Hero.fbx  | arms_up   |        19.354 |        0.160 |       398 | FAIL  <- 05_Construction_Hero_Top
+05_Construction_Hero.fbx  | arms_down |         1.647 |        0.448 |        17 | FAIL  <- 05_Construction_Hero_Top
+05_Construction_Hero.fbx  | crouch    |         6.614 |        0.177 |       422 | FAIL  <- 05_Construction_Hero_Bottom, 05_Construction_Hero_Feet, 05_Construction_Hero_Top
+05_Construction_Hero.glb  | weights   |         1.000 |        1.000 |        94 | FAIL  <- 05_Construction_Hero_Bottom
+05_Construction_Hero.glb  | walk      |        63.523 |        0.151 |       510 | FAIL  <- 05_Construction_Hero_Bottom, 05_Construction_Hero_Top
+05_Construction_Hero.glb  | spread    |       110.682 |        0.087 |       197 | FAIL  <- 05_Construction_Hero_Bottom, 05_Construction_Hero_Extras
+05_Construction_Hero.glb  | arms_up   |        19.354 |        0.160 |       422 | FAIL  <- 05_Construction_Hero_Top
+05_Construction_Hero.glb  | arms_down |         1.647 |        0.448 |        17 | FAIL  <- 05_Construction_Hero_Top
+05_Construction_Hero.glb  | crouch    |         6.614 |        0.177 |       485 | FAIL  <- 05_Construction_Hero_Bottom, 05_Construction_Hero_Feet, 05_Construction_Hero_Top
+06_Chef.fbx               | weights   |         1.000 |        1.000 |        75 | FAIL  <- 06_Chef_Bottom, 06_Chef_Top
+06_Chef.fbx               | walk      |         5.206 |        0.203 |       354 | FAIL  <- 06_Chef_Bottom, 06_Chef_Top
+06_Chef.fbx               | spread    |         2.829 |        0.078 |       126 | FAIL  <- 06_Chef_Bottom
+06_Chef.fbx               | arms_up   |        13.423 |        0.245 |       316 | FAIL  <- 06_Chef_Top
+06_Chef.fbx               | arms_down |         1.636 |        0.459 |        14 | FAIL  <- 06_Chef_Top
+06_Chef.fbx               | crouch    |         4.240 |        0.202 |       411 | FAIL  <- 06_Chef_Bottom, 06_Chef_Feet, 06_Chef_Top
+06_Chef.glb               | weights   |         1.000 |        1.000 |       147 | FAIL  <- 06_Chef_Bottom, 06_Chef_Top
+06_Chef.glb               | walk      |         5.206 |        0.203 |       379 | FAIL  <- 06_Chef_Bottom, 06_Chef_Top
+06_Chef.glb               | spread    |         2.829 |        0.078 |       159 | FAIL  <- 06_Chef_Bottom
+06_Chef.glb               | arms_up   |        13.423 |        0.245 |       328 | FAIL  <- 06_Chef_Top
+06_Chef.glb               | arms_down |         1.636 |        0.459 |        14 | FAIL  <- 06_Chef_Top
+06_Chef.glb               | crouch    |         4.240 |        0.202 |       469 | FAIL  <- 06_Chef_Bottom, 06_Chef_Feet, 06_Chef_Top
+07_Firefighter.fbx        | weights   |         1.000 |        1.000 |       111 | FAIL  <- 07_Firefighter_Bottom, 07_Firefighter_Top
+07_Firefighter.fbx        | walk      |        62.867 |        0.161 |       470 | FAIL  <- 07_Firefighter_Bottom, 07_Firefighter_Feet, 07_Firefighter_Top
+07_Firefighter.fbx        | spread    |       106.374 |        0.084 |       244 | FAIL  <- 07_Firefighter_Bottom, 07_Firefighter_Feet, 07_Firefighter_Top
+07_Firefighter.fbx        | arms_up   |        15.230 |        0.269 |       360 | FAIL  <- 07_Firefighter_Top
+07_Firefighter.fbx        | arms_down |         1.787 |        0.317 |        24 | FAIL  <- 07_Firefighter_Top
+07_Firefighter.fbx        | crouch    |         5.140 |        0.177 |       511 | FAIL  <- 07_Firefighter_Bottom, 07_Firefighter_Feet, 07_Firefighter_Top
+07_Firefighter.glb        | weights   |         1.000 |        1.000 |       226 | FAIL  <- 07_Firefighter_Bottom, 07_Firefighter_Top
+07_Firefighter.glb        | walk      |        62.867 |        0.161 |       517 | FAIL  <- 07_Firefighter_Bottom, 07_Firefighter_Feet, 07_Firefighter_Top
+07_Firefighter.glb        | spread    |       106.374 |        0.084 |       291 | FAIL  <- 07_Firefighter_Bottom, 07_Firefighter_Feet, 07_Firefighter_Top
+07_Firefighter.glb        | arms_up   |        15.230 |        0.269 |       376 | FAIL  <- 07_Firefighter_Top
+07_Firefighter.glb        | arms_down |         1.787 |        0.317 |        24 | FAIL  <- 07_Firefighter_Top
+07_Firefighter.glb        | crouch    |         5.140 |        0.177 |       574 | FAIL  <- 07_Firefighter_Bottom, 07_Firefighter_Feet, 07_Firefighter_Top
+08_Pirate.fbx             | weights   |         1.000 |        1.000 |       310 | FAIL  <- 08_Pirate_Bottom, 08_Pirate_Top
+08_Pirate.fbx             | walk      |        63.520 |        0.061 |       867 | FAIL  <- 08_Pirate_Bottom, 08_Pirate_Feet, 08_Pirate_Top
+08_Pirate.fbx             | spread    |       110.767 |        0.077 |       411 | FAIL  <- 08_Pirate_Bottom, 08_Pirate_Feet, 08_Pirate_Top
+08_Pirate.fbx             | arms_up   |        16.137 |        0.257 |       510 | FAIL  <- 08_Pirate_Top
+08_Pirate.fbx             | arms_down |         1.874 |        0.265 |        50 | FAIL  <- 08_Pirate_Top
+08_Pirate.fbx             | crouch    |         5.198 |        0.119 |       832 | FAIL  <- 08_Pirate_Bottom, 08_Pirate_Feet, 08_Pirate_Top
+08_Pirate.glb             | weights   |         1.000 |        1.000 |       529 | FAIL  <- 08_Pirate_Bottom, 08_Pirate_Top
+08_Pirate.glb             | walk      |        63.520 |        0.061 |      1032 | FAIL  <- 08_Pirate_Bottom, 08_Pirate_Feet, 08_Pirate_Top
+08_Pirate.glb             | spread    |       110.767 |        0.077 |       523 | FAIL  <- 08_Pirate_Bottom, 08_Pirate_Feet, 08_Pirate_Top
+08_Pirate.glb             | arms_up   |        16.137 |        0.257 |       526 | FAIL  <- 08_Pirate_Top
+08_Pirate.glb             | arms_down |         1.874 |        0.265 |        50 | FAIL  <- 08_Pirate_Top
+08_Pirate.glb             | crouch    |         5.198 |        0.119 |       954 | FAIL  <- 08_Pirate_Bottom, 08_Pirate_Feet, 08_Pirate_Top
+09_Wizard.fbx             | weights   |         1.000 |        1.000 |       527 | FAIL  <- 09_Wizard_Top
+09_Wizard.fbx             | walk      |        27.404 |        0.210 |       517 | FAIL  <- 09_Wizard_Top
+09_Wizard.fbx             | spread    |         6.187 |        0.117 |       318 | FAIL  <- 09_Wizard_Top
+09_Wizard.fbx             | arms_up   |        71.350 |        0.223 |       357 | FAIL  <- 09_Wizard_Top
+09_Wizard.fbx             | arms_down |         6.714 |        0.267 |        32 | FAIL  <- 09_Wizard_Top
+09_Wizard.fbx             | crouch    |        21.961 |        0.190 |       543 | FAIL  <- 09_Wizard_Bottom, 09_Wizard_Feet, 09_Wizard_Top
+09_Wizard.glb             | weights   |         1.000 |        1.000 |       691 | FAIL  <- 09_Wizard_Top
+09_Wizard.glb             | walk      |        27.404 |        0.210 |       576 | FAIL  <- 09_Wizard_Top
+09_Wizard.glb             | spread    |         6.187 |        0.117 |       396 | FAIL  <- 09_Wizard_Top
+09_Wizard.glb             | arms_up   |        71.350 |        0.223 |       375 | FAIL  <- 09_Wizard_Top
+09_Wizard.glb             | arms_down |         6.714 |        0.267 |        38 | FAIL  <- 09_Wizard_Top
+09_Wizard.glb             | crouch    |        21.961 |        0.190 |       587 | FAIL  <- 09_Wizard_Bottom, 09_Wizard_Feet, 09_Wizard_Top
+10_Knight.fbx             | weights   |         1.000 |        1.000 |       182 | FAIL  <- 10_Knight_Bottom
+10_Knight.fbx             | walk      |        62.945 |        0.128 |       440 | FAIL  <- 10_Knight_Bottom, 10_Knight_Top
+10_Knight.fbx             | spread    |       109.342 |        0.232 |       166 | FAIL  <- 10_Knight_Bottom
+10_Knight.fbx             | arms_up   |        72.321 |        0.262 |       329 | FAIL  <- 10_Knight_Bottom, 10_Knight_Top
+10_Knight.fbx             | arms_down |         6.841 |        0.321 |        43 | FAIL  <- 10_Knight_Bottom, 10_Knight_Top
+10_Knight.fbx             | crouch    |        22.247 |        0.194 |       548 | FAIL  <- 10_Knight_Bottom, 10_Knight_Feet, 10_Knight_Top
+10_Knight.glb             | weights   |         1.000 |        1.000 |       360 | FAIL  <- 10_Knight_Bottom
+10_Knight.glb             | walk      |        62.945 |        0.128 |       505 | FAIL  <- 10_Knight_Bottom, 10_Knight_Top
+10_Knight.glb             | spread    |       109.342 |        0.232 |       175 | FAIL  <- 10_Knight_Bottom
+10_Knight.glb             | arms_up   |        72.321 |        0.262 |       383 | FAIL  <- 10_Knight_Bottom, 10_Knight_Top
+10_Knight.glb             | arms_down |         6.841 |        0.321 |        65 | FAIL  <- 10_Knight_Bottom, 10_Knight_Top
+10_Knight.glb             | crouch    |        22.247 |        0.194 |       611 | FAIL  <- 10_Knight_Bottom, 10_Knight_Feet, 10_Knight_Top
+11_Astronaut.fbx          | weights   |         1.000 |        1.000 |        51 | FAIL  <- 11_Astronaut_Bottom, 11_Astronaut_Top
+11_Astronaut.fbx          | walk      |       320.530 |        0.185 |      1012 | FAIL  <- 11_Astronaut_Bottom, 11_Astronaut_Feet, 11_Astronaut_Top
+11_Astronaut.fbx          | spread    |       563.410 |        0.104 |       601 | FAIL  <- 11_Astronaut_Bottom, 11_Astronaut_Feet, 11_Astronaut_Top
+11_Astronaut.fbx          | arms_up   |        63.357 |        0.348 |       437 | FAIL  <- 11_Astronaut_Top
+11_Astronaut.fbx          | arms_down |         5.937 |        0.260 |        70 | FAIL  <- 11_Astronaut_Top
+11_Astronaut.fbx          | crouch    |        19.636 |        0.154 |       725 | FAIL  <- 11_Astronaut_Bottom, 11_Astronaut_Feet, 11_Astronaut_Top
+11_Astronaut.glb          | weights   |         1.000 |        1.000 |       104 | FAIL  <- 11_Astronaut_Bottom, 11_Astronaut_Top
+11_Astronaut.glb          | walk      |       320.530 |        0.185 |      1194 | FAIL  <- 11_Astronaut_Bottom, 11_Astronaut_Feet, 11_Astronaut_Top
+11_Astronaut.glb          | spread    |       563.410 |        0.104 |       758 | FAIL  <- 11_Astronaut_Bottom, 11_Astronaut_Feet, 11_Astronaut_Top
+11_Astronaut.glb          | arms_up   |        63.357 |        0.348 |       478 | FAIL  <- 11_Astronaut_Top
+11_Astronaut.glb          | arms_down |         5.937 |        0.260 |        80 | FAIL  <- 11_Astronaut_Top
+11_Astronaut.glb          | crouch    |        19.636 |        0.154 |       830 | FAIL  <- 11_Astronaut_Bottom, 11_Astronaut_Feet, 11_Astronaut_Top
+12_Ghost.fbx              | weights   |         1.000 |        1.000 |         0 | PASS
+12_Ghost.fbx              | walk      |         2.867 |        0.257 |       410 | FAIL  <- 12_Ghost_Top
+12_Ghost.fbx              | spread    |         1.000 |        1.000 |         0 | PASS
+12_Ghost.fbx              | arms_up   |         5.194 |        0.062 |       857 | FAIL  <- 12_Ghost_Top
+12_Ghost.fbx              | arms_down |         1.154 |        0.856 |         0 | PASS
+12_Ghost.fbx              | crouch    |         2.028 |        0.370 |       235 | FAIL  <- 12_Ghost_Top
+12_Ghost.glb              | weights   |         1.000 |        1.000 |         0 | PASS
+12_Ghost.glb              | walk      |         2.867 |        0.257 |       412 | FAIL  <- 12_Ghost_Top
+12_Ghost.glb              | spread    |         1.000 |        1.000 |         0 | PASS
+12_Ghost.glb              | arms_up   |         5.194 |        0.062 |       865 | FAIL  <- 12_Ghost_Top
+12_Ghost.glb              | arms_down |         1.154 |        0.856 |         0 | PASS
+12_Ghost.glb              | crouch    |         2.028 |        0.370 |       235 | FAIL  <- 12_Ghost_Top
+13_Dinosaur.fbx           | weights   |         1.000 |        1.000 |        54 | FAIL  <- 13_Dinosaur_Bottom, 13_Dinosaur_Top
+13_Dinosaur.fbx           | walk      |       336.687 |        0.176 |       637 | FAIL  <- 13_Dinosaur_Bottom, 13_Dinosaur_Feet, 13_Dinosaur_Top
+13_Dinosaur.fbx           | spread    |       585.300 |        0.058 |       392 | FAIL  <- 13_Dinosaur_Bottom, 13_Dinosaur_Feet, 13_Dinosaur_Top
+13_Dinosaur.fbx           | arms_up   |        65.949 |        0.351 |       326 | FAIL  <- 13_Dinosaur_Head, 13_Dinosaur_Top
+13_Dinosaur.fbx           | arms_down |         6.476 |        0.243 |        46 | FAIL  <- 13_Dinosaur_Top
+13_Dinosaur.fbx           | crouch    |        20.971 |        0.175 |       564 | FAIL  <- 13_Dinosaur_Bottom, 13_Dinosaur_Feet, 13_Dinosaur_Top
+13_Dinosaur.glb           | weights   |         1.000 |        1.000 |       107 | FAIL  <- 13_Dinosaur_Bottom, 13_Dinosaur_Top
+13_Dinosaur.glb           | walk      |       336.687 |        0.176 |       752 | FAIL  <- 13_Dinosaur_Bottom, 13_Dinosaur_Feet, 13_Dinosaur_Top
+13_Dinosaur.glb           | spread    |       585.300 |        0.058 |       471 | FAIL  <- 13_Dinosaur_Bottom, 13_Dinosaur_Feet, 13_Dinosaur_Top
+13_Dinosaur.glb           | arms_up   |        65.948 |        0.351 |       354 | FAIL  <- 13_Dinosaur_Head, 13_Dinosaur_Top
+13_Dinosaur.glb           | arms_down |         6.476 |        0.243 |        50 | FAIL  <- 13_Dinosaur_Top
+13_Dinosaur.glb           | crouch    |        20.970 |        0.175 |       676 | FAIL  <- 13_Dinosaur_Bottom, 13_Dinosaur_Feet, 13_Dinosaur_Top
+character_smooth_v2.glb   | weights   |         1.000 |        1.000 |      2715 | FAIL  <- Body
+character_smooth_v2.glb   | walk      |         2.936 |        0.366 |        74 | FAIL  <- Body
+character_smooth_v2.glb   | spread    |         2.153 |        0.368 |        39 | FAIL  <- Body
+character_smooth_v2.glb   | arms_up   |         6.430 |        0.204 |       176 | FAIL  <- Body
+character_smooth_v2.glb   | arms_down |         1.119 |        0.604 |         0 | PASS
+character_smooth_v2.glb   | crouch    |         2.492 |        0.244 |       149 | FAIL  <- Body
+7/174 checks passed

@@ -195,3 +195,162 @@ def skirt_weight(z_start=2.05, z_full=1.75, r=0.5):
         b = b * 0.6 + lt * 0.4
         return a * (1 - k) + b * k
     return f
+
+
+# =====================================================================================
+#  Rig-safe garment weights (replaces piece_weights above). Rules: CLAUDE.md "Rigging rules".
+# =====================================================================================
+import rigfix as RF
+
+def _bary_weights(tree_tris, p):
+    tree, tris = tree_tris
+    loc, nor, fi, dist = tree.find_nearest(p)
+    t = tris[fi]
+    a, b, c = (B.V[i] for i in t)
+    v0, v1, v2 = b - a, c - a, loc - a
+    d00, d01, d11, d20, d21 = v0.dot(v0), v0.dot(v1), v1.dot(v1), v2.dot(v0), v2.dot(v1)
+    den = d00 * d11 - d01 * d01
+    if abs(den) < 1e-14: bw = np.array([1 / 3] * 3)
+    else:
+        v = (d11 * d20 - d01 * d21) / den; w = (d00 * d21 - d01 * d20) / den
+        bw = np.clip(np.array([1 - v - w, v, w]), 0, 1); bw /= bw.sum()
+    return (B.W[list(t)] * bw[:, None]).sum(0), dist
+
+def transfer(p, key):
+    """nearest-face-interpolated weights from the (fixed) body, restricted to one body region"""
+    return _bary_weights(B.wreg[key], p)[0]
+
+def side_mask(x, eps=0.02):
+    if x > eps: return RF.region_mask('garment_torso_side', 'L')
+    if x < -eps: return RF.region_mask('garment_torso_side', 'R')
+    return RF.region_mask('torso_center')
+
+ONE = lambda name: np.eye(len(BONES))[BONES.index(name)]
+
+def infer_region(pc):
+    c = sum(pc.verts, Vector()) / len(pc.verts)
+    best = None
+    for key in ('torso', 'head', 'foot_L', 'foot_R'):
+        d = B.wreg[key][0].find_nearest(c)[3]
+        if best is None or d < best[0]: best = (d, key)
+    if best[1] == 'torso' and c.z < 1.9 and abs(c.x) > 0.05:
+        return 'leg_' + ('L' if c.x > 0 else 'R')   # patches on a thigh / knee belong to that leg
+    return best[1]
+
+def _norm(w):
+    s = w.sum(); return w / s if s > 1e-12 else w
+
+def rig_weights(pc):
+    n = len(pc.verts)
+    region = getattr(pc, 'region', None)
+    bone = getattr(pc, 'bone', None)
+    patch = pc.meta.get('patch', False)
+    if bone:
+        return np.tile(ONE(bone), (n, 1))
+    if region == 'ghost':
+        W = np.zeros((n, len(BONES)))
+        for i, p in enumerate(pc.verts):
+            h = RF.sstep(3.05, 3.5, p.z); u = RF.sstep(1.6, 2.9, p.z)
+            W[i] = h * ONE('Head') + (1 - h) * (u * ONE('UpperTorso') + (1 - u) * ONE('LowerTorso'))
+        return W
+    if pc.rigid and not patch:
+        # 100% on ONE bone: the bone that dominates the body where the part is attached
+        allowed = [region] if region and region.startswith('arm') else ['torso', 'head', 'foot_L', 'foot_R']
+        best = None
+        for p in pc.verts:
+            for key in allowed:
+                w, d = _bary_weights(B.wreg[key], p)
+                if best is None or d < best[0]: best = (d, w, p, key)
+        d, w, p, key = best
+        if key == 'torso': w = w * side_mask(p.x)
+        if p.z > 1.9 and key == 'torso': w = w * RF.region_mask('torso_center') if w[[BONES.index('LowerTorso'), BONES.index('UpperTorso')]].sum() > 0 else w
+        return np.tile(ONE(BONES[int(np.argmax(w))]), (n, 1))
+    if region is None: region = infer_region(pc)
+    W = np.zeros((n, len(BONES))); M = np.zeros_like(W)
+    skirt = getattr(pc, 'skirt', not patch)   # only coat/robe/sheet shells get the pelvis-anchored hem rule
+    lt = ONE('LowerTorso')
+    for i, p in enumerate(pc.verts):
+        if region.startswith('arm'):
+            w = transfer(p, region); m = RF.region_mask('sleeve', region[-1])
+        elif region.startswith('leg'):
+            w = transfer(p, region); m = RF.region_mask('leg', region[-1])
+        elif region.startswith('shin'):   # stiff boot shafts / cuffs / greaves: shin + foot only
+            w = transfer(p, 'leg_' + region[-1]); m = RF.region_mask('foot', region[-1])
+            if (w * m).sum() < 1e-6: w = m.copy()
+        elif region.startswith('foot'):
+            w = transfer(p, region); m = RF.region_mask('foot', region[-1])
+        elif region == 'head':
+            w = transfer(p, 'head'); m = RF.region_mask('head')
+        else:  # torso garments
+            m = side_mask(p.x)
+            w = transfer(p, 'torso') * m
+            if skirt and p.z < 1.95:
+                # coat / robe / sheet hems below the crotch: anchored to the pelvis, gentle same-side leg follow
+                k = RF.sstep(1.95, 1.75, p.z)
+                if abs(p.x) > 0.02:
+                    s = 'L' if p.x > 0 else 'R'
+                    wl = transfer(p, 'leg_' + s) * RF.mask_of(RF.LEG[s])
+                    a = RF.DEFAULT_RAMPS.get('skirt_cap', 0.3) * RF.sstep(0.05, RF.DEFAULT_RAMPS.get('skirt_x', 0.6), abs(p.x))
+                    ws = a * _norm(wl) + (1 - a) * lt
+                else:
+                    ws = lt
+                w = (1 - k) * _norm(w) + k * ws
+        W[i] = _norm(w * m); M[i] = m
+    # inner shell verts copy their outer twin (thickness rim edges never stretch)
+    for a, b in pc.meta.get('pairs', []):
+        W[b] = W[a]; M[b] = M[a]
+    E = set()
+    for f in pc.faces:
+        for k in range(len(f)): E.add(tuple(sorted((f[k], f[(k + 1) % len(f)]))))
+    # smooth ONLY in joint zones (waist, hips, knees, elbows, ankles, wrists) over the garment's own edges
+    Pn = np.array([v[:] for v in pc.verts])
+    W = RF.smooth(W, list(E), RF.joint_zone(Pn, None), iters=getattr(pc, 'smooth_iters', 0), M=M)
+    for a, b in pc.meta.get('pairs', []): W[b] = W[a]
+    G = RF.weld_groups(np.array([v[:] for v in pc.verts]), list(E), 0.012)
+    W, M = RF.weld_equalize(W, G, M)
+    W = RF.finalize(W, M)
+    W = RF.weld_equalize(W, G)
+    for a, b in pc.meta.get('pairs', []): W[b] = W[a]
+    # targeted repair: any edge (incl. BOTH diagonals of every quad - engines triangulate) that would still
+    # stretch/squash past check_rig limits in any test pose gets its endpoint weights relaxed (weights only)
+    TE = set(E)
+    for f in pc.faces:
+        if len(f) == 4:
+            TE.add(tuple(sorted((f[0], f[2])))); TE.add(tuple(sorted((f[1], f[3]))))
+    pm = list(getattr(B, 'pose_mats', {}).values())
+    if pm:
+        zone = RF.joint_zone(Pn, None, dict(hip=0.7, knee=0.6, waist=0.3))
+        tie = np.array(G)   # weld groups ...
+        for a2, b2 in pc.meta.get('pairs', []): tie[b2] = tie[a2]   # ... and inner/outer shell twins move together
+        # make tie a proper representative map (union of both relations)
+        par = np.arange(len(tie))
+        def fr(x):
+            while par[x] != x: par[x] = par[par[x]]; x = par[x]
+            return x
+        for i2 in range(len(tie)):
+            r1, r2 = fr(i2), fr(int(G[i2]))
+            if r1 != r2: par[r1] = r2
+        for a2, b2 in pc.meta.get('pairs', []):
+            r1, r2 = fr(a2), fr(b2)
+            if r1 != r2: par[r1] = r2
+        tie = np.array([fr(i2) for i2 in range(len(tie))])
+        for g in np.unique(tie):   # start with identical weights inside every tie group
+            idx = np.where(tie == g)[0]
+            if len(idx) > 1: W[idx] = W[idx[0]]
+        allh = []
+        for rnd in range(6):   # fix -> clean up (pair sync, prune, normalize) -> re-check, until stable
+            W, hist = RF.relax_failing(Pn, sorted(TE), W, pm, M=M, zone=zone, tie=tie)
+            for a, b in pc.meta.get('pairs', []): W[b] = W[a]
+            W = RF.finalize(W, M)
+            for a, b in pc.meta.get('pairs', []): W[b] = W[a]
+            allh += hist
+            _, h2 = RF.relax_failing(Pn, sorted(TE), W, pm, M=M, zone=zone, iters=1, tie=tie)
+            allh.append(h2[0])
+            if h2[0] == 0: break
+        pc.meta['relax_hist'] = allh
+    return W
+
+def finalize_pieces(pieces):
+    for pc in pieces:
+        W = rig_weights(pc)
+        pc.W = [w for w in RF.finalize(W)]

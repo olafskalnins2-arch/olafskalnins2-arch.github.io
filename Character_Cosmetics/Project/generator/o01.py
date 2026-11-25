@@ -1,6 +1,9 @@
 from garments import *
 from pipeline import *
 
+def _shin(pc):
+    pc.region = 'shin_' + pc.region[-1]; return pc
+
 def classic_mover():
     pal = {'blue': '#3f73b8', 'blue_d': '#2f5a94', 'beige': '#cdbb94', 'beige_d': '#b09d77', 'brown': '#6b4428', 'brown_d': '#3d2618',
            'sole': '#2a2a2e', 'silver': '#a9adb3', 'btn': '#e8e8e8', 'white': '#f2f2f2'}
@@ -61,7 +64,7 @@ def classic_mover():
         sh = shoe('Boot_' + s, s, off=0.04, bulk=0.03, toe=0.03)
         sh.paint = lambda U, V, m: mix(P_solid(pal['brown'])(U, V, m), aa((zc(U, V, m)[0] - m['sole_top']) * 600), pal['sole'])
         P.append(sh)
-        shaft = leg_tube('BootShaft_' + s, s, 0.64, 0.47, 0.068, nseg=16, group='Feet')
+        shaft = _shin(leg_tube('BootShaft_' + s, s, 0.64, 0.47, 0.068, nseg=16, group='Feet'))
         shaft.paint = lambda U, V, m: mix(P_solid(pal['brown'])(U, V, m), aa((0.88 - V) * 300), pal['brown_d'])
         P.append(shaft)
     return P, pal

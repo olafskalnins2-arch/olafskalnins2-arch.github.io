@@ -1,50 +1,90 @@
-# Completion & Export Checklist
+# Completion, Export & Rig Checklist
 
-All numbers below come from automated checks run during the build (Project/build_report.json, Project/export_verification.json).
+All numbers come from automated checks on the delivered files: `Rig_Check/check_rig_AFTER.txt` (rig check),
+`Project/export_verification.json` (re-import of every GLB/FBX), `Project/build_report.json` (fit / coverage).
 
-| # | Outfit | Modeled | Textured | Skinned to your 15 bones | GLB | FBX | Tris (total / biggest mesh) | Walk poke-through | Carry poke-through |
-|---|---|---|---|---|---|---|---|---|---|
-| 01 | Classic Mover | YES | YES (1 atlas, 1024px) | YES (max 4 influences) | YES | YES | 9008 / 3668 | 2.12% | 1.02% |
-| 02 | Chill Dude | YES | YES (1 atlas, 1024px) | YES (max 4 influences) | YES | YES | 7132 / 3340 | 2.6% | 2.75% |
-| 03 | Raincoat | YES | YES (1 atlas, 1024px) | YES (max 4 influences) | YES | YES | 9620 / 5236 | 0.99% | 0.79% |
-| 04 | Boss Mode | YES | YES (1 atlas, 1024px) | YES (max 4 influences) | YES | YES | 11268 / 6948 | 0.71% | 0.2% |
-| 05 | Construction Hero | YES | YES (1 atlas, 1024px) | YES (max 3 influences) | YES | YES | 10040 / 4556 | 2.62% | 2.11% |
-| 06 | Chef | YES | YES (1 atlas, 1024px) | YES (max 4 influences) | YES | YES | 8512 / 4024 | 0.68% | 0.36% |
-| 07 | Firefighter | YES | YES (1 atlas, 1024px) | YES (max 4 influences) | YES | YES | 8864 / 4152 | 0.68% | 0.6% |
-| 08 | Pirate | YES | YES (1 atlas, 1024px) | YES (max 4 influences) | YES | YES | 13336 / 8252 | 1.18% | 0.75% |
-| 09 | Wizard | YES | YES (1 atlas, 1024px) | YES (max 4 influences) | YES | YES | 9472 / 6280 | 5.12% | 2.97% |
-| 10 | Knight | YES | YES (1 atlas, 1024px) | YES (max 4 influences) | YES | YES | 10768 / 4736 | 1.47% | 1.43% |
-| 11 | Astronaut | YES | YES (1 atlas, 1024px) | YES (max 3 influences) | YES | YES | 10396 / 4864 | 0.84% | 0.84% |
-| 12 | Ghost | YES | YES (1 atlas, 1024px) | YES (max 4 influences) | YES | YES | 5720 / 5720 | 12.35% | 13.66% |
-| 13 | Dinosaur | YES | YES (1 atlas, 1024px) | YES (max 4 influences) | YES | YES | 8672 / 2944 | 1.47% | 2.08% |
+## Rig check (check_rig.py) - worst stretch / worst squash per pose, GLB file
+
+Limits: every triangulated edge must stay between 0.5x and 1.5x of its rest length. "Before" = the original files in `_backup/`.
+
+| Model | weights rules | walk | spread | arms up | arms down | crouch | before (passed) |
+|---|---|---|---|---|---|---|---|
+| character smooth v2 | PASS | 1.24 / 0.77 PASS | 1.27 / 0.75 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.49 / 0.50 PASS | 1/6 |
+| 01 Classic Mover | PASS | 1.26 / 0.66 PASS | 1.49 / 0.65 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.48 / 0.50 PASS | 0/6 |
+| 02 Chill Dude | PASS | 1.32 / 0.68 PASS | 1.49 / 0.68 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.46 / 0.50 PASS | 0/6 |
+| 03 Raincoat | PASS | 1.29 / 0.70 PASS | 1.47 / 0.67 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.46 / 0.50 PASS | 0/6 |
+| 04 Boss Mode | PASS | 1.27 / 0.65 PASS | 1.50 / 0.70 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.48 / 0.50 PASS | 0/6 |
+| 05 Construction Hero | PASS | 1.26 / 0.66 PASS | 1.49 / 0.69 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.47 / 0.50 PASS | 0/6 |
+| 06 Chef | PASS | 1.26 / 0.66 PASS | 1.47 / 0.69 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.48 / 0.51 PASS | 0/6 |
+| 07 Firefighter | PASS | 1.26 / 0.69 PASS | 1.49 / 0.59 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.49 / 0.51 PASS | 0/6 |
+| 08 Pirate | PASS | 1.29 / 0.69 PASS | 1.49 / 0.51 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.48 / 0.50 PASS | 0/6 |
+| 09 Wizard | PASS | 1.24 / 0.75 PASS | 1.43 / 0.65 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.46 / 0.52 PASS | 0/6 |
+| 10 Knight | PASS | 1.28 / 0.67 PASS | 1.50 / 0.68 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.47 / 0.50 PASS | 0/6 |
+| 11 Astronaut | PASS | 1.35 / 0.64 PASS | 1.50 / 0.51 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.50 / 0.51 PASS | 0/6 |
+| 12 Ghost | PASS | 1.42 / 0.71 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 3/6 |
+| 13 Dinosaur | PASS | 1.37 / 0.64 PASS | 1.50 / 0.59 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.50 / 0.50 PASS | 0/6 |
+
+**All files (27 outfit GLB/FBX + CosmeticsRig + base character + .blend): 174/174 checks PASS after, 7/174 before.**
+
+## Per outfit
+
+| # | Outfit | Modeled | Textured | GLB | FBX | Tris (total / biggest mesh) | Rig check |
+|---|---|---|---|---|---|---|---|
+| 01 | Classic Mover | YES | YES | YES | YES | 9008 / 3668 | PASS 12/12 |
+| 02 | Chill Dude | YES | YES | YES | YES | 7132 / 3340 | PASS 12/12 |
+| 03 | Raincoat | YES | YES | YES | YES | 9620 / 5236 | PASS 12/12 |
+| 04 | Boss Mode | YES | YES | YES | YES | 11268 / 6948 | PASS 12/12 |
+| 05 | Construction Hero | YES | YES | YES | YES | 10040 / 4556 | PASS 12/12 |
+| 06 | Chef | YES | YES | YES | YES | 8512 / 4024 | PASS 12/12 |
+| 07 | Firefighter | YES | YES | YES | YES | 8864 / 4152 | PASS 12/12 |
+| 08 | Pirate | YES | YES | YES | YES | 13336 / 8252 | PASS 12/12 |
+| 09 | Wizard | YES | YES | YES | YES | 9472 / 6280 | PASS 12/12 |
+| 10 | Knight | YES | YES | YES | YES | 10768 / 4736 | PASS 12/12 |
+| 11 | Astronaut | YES | YES | YES | YES | 10396 / 4864 | PASS 12/12 |
+| 12 | Ghost | YES | YES | YES | YES | 5720 / 5720 | PASS 12/12 |
+| 13 | Dinosaur | YES | YES | YES | YES | 8672 / 2944 | PASS 12/12 |
 
 ## What each outfit contains
 
 - **01_Classic_Mover**: Blue short-sleeve work shirt (collar, chest pocket, buttons), brown belt + buckle, beige cargo trousers with thigh pockets, brown work boots. Meshes: 01_Classic_Mover_Bottom, 01_Classic_Mover_Feet, 01_Classic_Mover_Top.
-- **02_Chill_Dude**: Orange Hawaiian shirt w/ turquoise hibiscus print (untucked, open collar, buttons), turquoise shorts, flip-flops (sole, straps, toe post), skin-colour leg covers. Meshes: 02_Chill_Dude_Bottom, 02_Chill_Dude_Feet, 02_Chill_Dude_Top.
+- **02_Chill_Dude**: Orange Hawaiian shirt with turquoise hibiscus print (untucked, open collar, buttons), turquoise shorts, flip-flops, skin-colour leg covers. Meshes: 02_Chill_Dude_Bottom, 02_Chill_Dude_Feet, 02_Chill_Dude_Top.
 - **03_Raincoat**: Yellow raincoat (stand collar, hood folded down, drawstrings, 5 buttons, flap pockets), yellow trousers, tall yellow rain boots. Meshes: 03_Raincoat_Bottom, 03_Raincoat_Feet, 03_Raincoat_Top.
 - **04_Boss_Mode**: Navy suit jacket with V opening + lapels + 2 buttons, white shirt + collar + cuffs, red tie with knot, navy trousers, black dress shoes. Meshes: 04_Boss_Mode_Bottom, 04_Boss_Mode_Extras, 04_Boss_Mode_Feet, 04_Boss_Mode_Top.
 - **05_Construction_Hero**: Orange hi-vis vest with yellow/silver reflective stripes, grey undershirt, tool belt (pouches, buckle, hammer, screwdriver), beige trousers, grey work boots. Meshes: 05_Construction_Hero_Bottom, 05_Construction_Hero_Extras, 05_Construction_Hero_Feet, 05_Construction_Hero_Top.
-- **06_Chef**: White double-breasted chef jacket (2x3 buttons, stand collar, long sleeves), black/white checkered trousers, green clogs with vents + heel strap. Meshes: 06_Chef_Bottom, 06_Chef_Extras, 06_Chef_Feet, 06_Chef_Top.
-- **07_Firefighter**: Red jacket with yellow/silver reflective bands (chest, hem, sleeves), dark belt band, metal clasps, stand collar, dark trousers with reflective bands, black boots. Meshes: 07_Firefighter_Bottom, 07_Firefighter_Extras, 07_Firefighter_Feet, 07_Firefighter_Top.
+- **06_Chef**: White double-breasted chef jacket (2x3 buttons, stand collar), black/white checkered trousers, green clogs with vents + heel strap. Meshes: 06_Chef_Bottom, 06_Chef_Extras, 06_Chef_Feet, 06_Chef_Top.
+- **07_Firefighter**: Red jacket with yellow/silver reflective bands, dark belt band, metal clasps, stand collar, dark trousers with reflective bands, black boots. Meshes: 07_Firefighter_Bottom, 07_Firefighter_Extras, 07_Firefighter_Feet, 07_Firefighter_Top.
 - **08_Pirate**: Long open brown coat (lapels, collar, big cuffs, back vent), beige V-neck shirt, brown belt + gold buckle, red/white striped trousers, tall black cuffed boots. Meshes: 08_Pirate_Bottom, 08_Pirate_Extras, 08_Pirate_Feet, 08_Pirate_Top.
-- **09_Wizard**: Purple robe with gold stars + moons, lighter purple trim + V neckline, wide bell sleeves, purple waist sash + knot, curled purple shoes, skin-colour leg covers. Meshes: 09_Wizard_Bottom, 09_Wizard_Extras, 09_Wizard_Feet, 09_Wizard_Top.
-- **10_Knight**: Steel cuirass with ridge, gorget, pauldrons + lames, couters, vambraces with straps, 3 layered faulds + mail skirt, cuisses, knee poleyns, greaves, sabatons. Meshes: 10_Knight_Bottom, 10_Knight_Feet, 10_Knight_Top.
-- **11_Astronaut**: Bulky white suit with padded segmented sleeves/legs, neck ring, harness straps, chest control panel (gauge, dial, screen, red/blue buttons), wide grey belt + pouches, backpack, knee pads, bulky boots. Meshes: 11_Astronaut_Bottom, 11_Astronaut_Extras, 11_Astronaut_Feet, 11_Astronaut_Top.
+- **09_Wizard**: Purple robe with gold stars + moons, light trim + V neckline, wide bell sleeves, purple sash + knot, curled purple shoes, skin-colour leg covers. Meshes: 09_Wizard_Bottom, 09_Wizard_Extras, 09_Wizard_Feet, 09_Wizard_Top.
+- **10_Knight**: Steel cuirass, gorget, pauldrons + lames, couters, vambraces, layered faulds + mail skirt, cuisses, knee poleyns, greaves, sabatons. Meshes: 10_Knight_Bottom, 10_Knight_Feet, 10_Knight_Top.
+- **11_Astronaut**: Bulky white suit, padded sleeves/legs, neck ring, harness straps, chest control panel, wide belt + pouches, backpack, knee pads, bulky boots. Meshes: 11_Astronaut_Bottom, 11_Astronaut_Extras, 11_Astronaut_Feet, 11_Astronaut_Top.
 - **12_Ghost**: Full-body white sheet (bell shape, folds, wavy hem) with two dark oval eye holes. Meshes: 12_Ghost_Top.
-- **13_Dinosaur**: Green onesie with light belly, hood with rim, red/orange spikes on hood + spine + tail, long spiked tail, puffy short sleeves with claws, dino feet with claws. Meshes: 13_Dinosaur_Bottom, 13_Dinosaur_Extras, 13_Dinosaur_Feet, 13_Dinosaur_Head, 13_Dinosaur_Top.
+- **13_Dinosaur**: Green onesie with light belly, hood with rim, spikes on hood + spine + tail, long spiked tail, puffy sleeves with claws, dino feet with claws. Meshes: 13_Dinosaur_Bottom, 13_Dinosaur_Extras, 13_Dinosaur_Feet, 13_Dinosaur_Head, 13_Dinosaur_Top.
 
-## How the checks work
+## What changed in the rig fix (weights only, plus one mesh fix on the base body)
 
-- **Skeleton match**: every exported GLB/FBX was re-imported and its bones compared to your original file. All 15 bone names match and every joint position matches to within 0.0000003 units, with no extra rotations. The skin binds to the same bind pose as your body.
-- **Fit / clipping at rest**: every garment surface is placed by ray casting against your actual body mesh, then pushed outward by a set clearance. No body scaling, no guessing.
-- **Poke-through %**: the body is posed (walk = arms ±40°, legs ±35°, bent knees and elbows, head turned; carry = both arms raised ~85° forward, crouched). For every body vertex that was covered at rest, a ray is cast along its normal. If it no longer hits the outfit, it counts as poking through. 0% is perfect. Under ~3% is small spots at the elbow, shoulder and neck creases, the same places your own body mesh pinches.
-- **Overlapping layers / z-fighting**: every outfit was scanned for coincident surfaces between pieces (shirt vs trousers, boot vs shaft, etc.). All 13 come back clean.
+- **Base character**: the original weights had 2715 verts with junk weights < 0.01 (1307 of them leaking onto the
+  opposite side), torso skin under the arms weighted to the upper arms (6.4x stretch with arms up), a hard
+  left/right split at the crotch (2.2x tear in a leg spread) and knee/hip blends too tight for a crouch.
+  New weights: clean joint ramps (waist, hips, knees, elbows, short ankle/wrist), centre line torso-only,
+  hard shoulder seam, max 4 influences, >= 0.01, normalized. All 3512 vertex positions are unchanged.
+- **Mesh fix (base body only):** the torso had two open shoulder sockets (and each arm an open end) stitched
+  at the shoulder. With rig-safe weights those openings showed the hollow inside of the character when an arm moved,
+  so the 4 holes were capped with faces: +4 faces (+88 triangles), no vertex moved or added.
+- **Outfits**: weights re-transferred from the fixed body, region-locked (sleeve <- its arm, trouser leg <- its leg,
+  boots <- foot/shin, shirt <- torso), left/right cleaned, rigid bits on one bone, inner/outer shell verts tied,
+  then a local repair pass fixes any edge that still fails a test pose. Geometry, UVs, textures and materials of every
+  outfit are byte-for-byte the same as before (checked; see Rig_Check/README.md).
 
 ## Known limitations (straight up)
 
-- **12 Ghost**: one solid sheet cannot hide arms that swing 40° or lift 85° forward without a cloth sim. The sheet bulges with the arms, but in the walk pose the hands poke through a little (12%), and in the carry pose the arms come out the front (14%). In idle it's fully covered. If that bugs you, play a "ghost float" arm animation while it's equipped.
-- **09 Wizard**: in a big walk stride the knee pushes through the front of the robe a bit (about 5%). This is a skinned skirt with no physics.
-- **Skin-colour pieces**: your body's torso and legs are grey, but the Chill Dude, Wizard and Pirate references show orange skin there. So those cosmetics include skin-colour leg covers or a painted V-neck to match the references. Your body itself is untouched.
-- **Shoes**: the soles sit about 0.025 units below the bottom of your feet, so with shoes on the character sinks that much into the floor. Nudge HipHeight if you care.
-- **Not tested inside Roblox Studio.** This was built and verified in Blender. It has not been run in Studio, so follow the first-test steps in README.txt.
+- **09 Wizard robe**: a closed long robe can't both stay inside 1.5x stretch and follow the legs with linear blend
+  skinning. It now stays on the pelvis (no webbing), so in a long walk stride / leg spread the knee and shin poke out
+  of the front of the robe (about 35 body leg verts uncovered in the walk pose, 63 in the spread pose). Raising the hem's
+  leg-follow until the legs stay covered brings back 2-4x webbing. Fix options: side slits in the robe, or a cloth sim.
+- **12 Ghost**: one solid sheet with no cloth sim; hands poke through in big arm swings, feet in a wide leg spread.
+- **Soft knees/hips**: to keep an 80-degree crouch inside 0.5x-1.5x, the knee and hip blends are long, so thighs bend as a
+  smooth curve (rubber-hose style) instead of a sharp hinge.
+- **Thin margins**: the repair pass stops as soon as an edge is legal, so many results sit right at the limit (spread 1.49-1.50x, crouch squash 0.50x). They pass, but there is no headroom: a deeper crouch or wider spread than the test poses will exceed 1.5x somewhere.
+- **Shoes** sit about 0.025 units below the feet (sole thickness).
+- **Not tested inside Roblox Studio.** Everything is checked in Blender with the same linear blend skinning Roblox uses.
+  Re-import the fixed base character (Base_Character/character_smooth_v2.glb) too, or your live character will keep its old weights.

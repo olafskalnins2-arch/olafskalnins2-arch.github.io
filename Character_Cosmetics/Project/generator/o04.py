@@ -2,6 +2,9 @@ from o03 import *
 from garments import _grid_with_ij
 from mathutils.bvhtree import BVHTree
 
+def _shin(pc):
+    pc.region = 'shin_' + pc.region[-1]; return pc
+
 def side_bvh(side):
     key = 'shoulder_' + side
     if key not in B.bvh:
@@ -42,13 +45,13 @@ def knight():
     P.append(collar('Gorget', 'stand', h=0.05, flare=0.05, col='steel_d'))
     for k, (z0, z1, off) in enumerate(((2.06, 2.26, 0.105), (1.92, 2.11, 0.125), (1.78, 1.97, 0.145))):
         fd = torso_shell(f'Fauld{k}', z0, off, nseg=32, zs=[z0, z1], elevs=(), extra=lambda z, a, z1=z1: 0.03 * (z1 - z) / 0.2, th=0.02, group='Bottom')
-        fd.paint = metal_paint(lines=(z0 + 0.012,)); fd.weight = skirt_weight(2.1, 1.85); P.append(fd)
+        fd.paint = metal_paint(lines=(z0 + 0.012,)); P.append(fd)
     for s in 'LR':
         sg = 1 if s == 'L' else -1
         pd = dome('Pauldron_' + s, s, Vector((0.58 * sg, 0.0, 2.86)), 0.07, (-30, -12, 8, 28, 48, 68), extra=lambda e, a: 0.04 * max(0, (10 - e) / 40))
-        pd.paint = metal_paint(lines=(0.18, 0.4)); pd.meta.update(circ=1.6); pd.rect_key = 'Pauldron'; P.append(pd)
+        pd.paint = metal_paint(lines=(0.18, 0.4)); pd.meta.update(circ=1.6); pd.rect_key = 'Pauldron'; pd.bone = 'UpperTorso'; P.append(pd)
         pd2 = dome('PauldronLame_' + s, s, Vector((0.58 * sg, 0.0, 2.86)), 0.11, (-42, -26, -12), extra=lambda e, a: 0.03)
-        pd2.paint = metal_paint(); pd2.rect_key = 'Lame'; P.append(pd2)
+        pd2.paint = metal_paint(); pd2.rect_key = 'Lame'; pd2.bone = 'UpperTorso'; P.append(pd2)
         vb = sleeve('Vambrace_' + s, s, 0.52, 0.95, 0.045, cap=False, extra=lambda t, a: 0.015 + 0.05 * max(0, 1 - (t - 0.52) / 0.12) + 0.04 * max(0, (t - 0.86) / 0.09))
         vb.paint = metal_paint(lines=(0.2, 0.8)); vb.sharp = True; P.append(vb)
         P.append(sleeve('VambraceStrap_' + s, s, 0.70, 0.74, 0.07, nrows=2, cap=False, col='leather'))
@@ -57,7 +60,7 @@ def knight():
         cuis.paint = metal_paint(lines=(1.5, 1.7)); P.append(cuis)
         knee = leg_tube('Poleyn_' + s, s, 1.36, 1.05, 0.08, nrows=5, extra=lambda z, a: 0.06 * max(0, math.cos(a)) * math.sin(PI * (z - 1.05) / 0.31))
         knee.paint = metal_paint(base='#c4c9cf', lines=(1.2,)); P.append(knee)
-        gr = leg_tube('Greave_' + s, s, 1.1, 0.52, 0.05, extra=lambda z, a: 0.012 + 0.03 * max(0, (0.65 - z) / 0.13))
+        gr = _shin(leg_tube('Greave_' + s, s, 1.1, 0.52, 0.05, extra=lambda z, a: 0.012 + 0.03 * max(0, (0.65 - z) / 0.13)))
         gr.paint = metal_paint(lines=(0.7, 0.95)); P.append(gr)
         sb = shoe('Sabaton_' + s, s, off=0.05, bulk=0.03, toe=0.06, sole_h=0.04)
         def sp(U, V, m):
@@ -67,7 +70,7 @@ def knight():
         sb.paint = sp; P.append(sb)
     # mail skirt underneath faulds
     ms = torso_shell('MailSkirt', 1.82, 0.06, nseg=32, zs=[1.82, 2.0, 2.15], elevs=(), th=0.015, col='mail', group='Bottom')
-    ms.weight = skirt_weight(2.1, 1.85); P.append(ms)
+    P.append(ms)
     for s in 'LR':
         P.append(leg_tube('MailLeg_' + s, s, 1.98, 1.28, 0.035, col='mail', th=0.012))
     return P, pal
@@ -103,8 +106,8 @@ def astronaut():
         b = shoe('Boot_' + s, s, off=0.07, bulk=0.06, toe=0.03, sole_h=0.07)
         b.paint = lambda U, V, m: mix(P_solid(pal['w'])(U, V, m), aa((zc(U, V, m)[0] - m['sole_top']) * 600), pal['g_d'])
         P.append(b)
-        P.append(leg_tube('BootShaft_' + s, s, 0.8, 0.46, 0.13, nseg=16, group='Feet', col='w', extra=lambda z, a: 0.01))
-        P.append(leg_tube('BootRing_' + s, s, 0.84, 0.76, 0.16, nseg=16, nrows=2, group='Feet', col='g'))
+        P.append(_shin(leg_tube('BootShaft_' + s, s, 0.8, 0.46, 0.13, nseg=16, group='Feet', col='w', extra=lambda z, a: 0.01)))
+        P.append(_shin(leg_tube('BootRing_' + s, s, 0.84, 0.76, 0.16, nseg=16, nrows=2, group='Feet', col='g')))
     belt = band('Belt', 2.02, 2.2, 0.155, th=0.025, col='g'); P.append(belt)
     bb = piece_bvh(belt)
     loc, n = project(bb, Vector((0, 0, 2.11)), Vector((0, 1, 0)))
@@ -129,7 +132,7 @@ def astronaut():
     P.append(prim_rbox('Backpack', loc + Vector((0, 0.2, 0.05)), (0.72, 0.36, 0.92), 'w_d'))
     P.append(prim_box('BackpackVent', loc + Vector((0, 0.385, 0.25)), (0.4, 0.02, 0.12), 'g'))
     P.append(prim_box('BackpackVent2', loc + Vector((0, 0.385, -0.15)), (0.4, 0.02, 0.12), 'g'))
-    for k in P[-3:]: k.weight = 'nearest'
+    for k in P[-3:]: k.bone = 'UpperTorso'
     return P, pal
 
 def weights_at_parts(p, parts):
@@ -205,7 +208,7 @@ def ghost():
                 k = 0.7 * max(0.0, 1 - best / 0.6)
                 w = w * (1 - k) + weights_smooth(p, 0.6, parts=('torso', 'foot_L', 'foot_R')) * k
         return w
-    pc.weight = gw
+    pc.weight = gw; pc.region = 'ghost'
     thicken(pc, 0.025)
     P = [pc]
     sb = piece_bvh(pc)
@@ -214,7 +217,7 @@ def ghost():
             a = 2 * PI * s
             return Vector((sg * 0.24 + math.cos(a) * 0.11 * t, 0, 4.12 + math.sin(a) * 0.17 * t))
         hole = surface_patch(f'EyeHole{sg}', sb, ov, Vector((0, 1, 0)), 0.012, 16, 3, col='hole', th=0.0, group='Top')
-        hole.weight = lambda p: np.eye(len(BONES))[2]
+        hole.bone = 'Head'
         P.append(hole)
     return P, pal
 
@@ -243,14 +246,14 @@ def dino():
         for k, a in enumerate((-0.6, 0.0, 0.6)):
             dirv = (nfr * math.cos(a) + bfr * math.sin(a) * 0.6).normalized()
             base = c + dirv * 0.13 + tg * 0.01
-            P.append(prim_cone(f'Claw{s}{k}', base, base + tg * 0.09 + dirv * 0.05, 0.03, 'claw', n=5))
+            P.append(prim_cone(f'Claw{s}{k}', base, base + tg * 0.09 + dirv * 0.05, 0.03, 'claw', n=5)); P[-1].region = 'arm_' + s
     hood = head_shell('Hood', 0.075, open_deg=57, nphi=8, npsi=26)
     hood.paint = P_solid(pal['g']); hood.weight = lambda p: weights_at(p) if p.z > 3.35 else weights_smooth(p, 0.3)
     P.append(hood)
     rim = hood.meta['rim']
     rp = [HEAD_C + (p - HEAD_C) * 1.0 for p in rim] + [rim[0]]
     rt = tube_path('HoodRim', rp, 0.05, 'g_d', n=6, group='Head', caps=False)
-    rt.weight = lambda p: weights_at(p); P.append(rt)
+    rt.region = 'head'; P.append(rt)
     # spikes: over the hood top/back and down the spine
     hb = piece_bvh(hood)
     k = 0
@@ -269,13 +272,13 @@ def dino():
     tail_pts = [Vector(p) for p in ((0, 0.36, 2.12), (0, 0.62, 1.85), (0.03, 0.9, 1.45), (0.12, 1.08, 1.0), (0.3, 1.12, 0.62), (0.5, 1.0, 0.45))]
     tail_pts = smooth_line(polyline_resample(tail_pts, 12), 2)
     tl = tube_path('Tail', tail_pts, 0.2, 'g', n=10, group='Extras', rfn=lambda t: 0.21 * (1 - t) ** 0.9 + 0.02)
-    tl.weight = lambda p: weights_at(Vector((0, 0.3, 2.1))); P.append(tl)
+    tl.bone = 'LowerTorso'; P.append(tl)
     for i in range(1, 10, 2):
         p = tail_pts[i]; tg = (tail_pts[i + 1] - tail_pts[i - 1]).normalized()
         up = (Z - Z.dot(tg) * tg).normalized()
         r = 0.21 * (1 - i / 11) ** 0.9 + 0.02
         P.append(prim_cone(f'TailSpike{i}', p + up * (r * 0.7), p + up * (r + 0.1), 0.06 * (1 - i / 14), 'or' if i % 4 == 1 else 'red', n=4, flat=0.35, group='Extras'))
-        P[-1].weight = lambda q: weights_at(Vector((0, 0.3, 2.1)))
+        P[-1].bone = 'LowerTorso'
     for s in 'LR':
         ft = shoe('DinoFoot_' + s, s, off=0.07, bulk=0.07, toe=0.07, sole_h=0.04, open_elev=44)
         ft.paint = P_solid(pal['g']); P.append(ft)

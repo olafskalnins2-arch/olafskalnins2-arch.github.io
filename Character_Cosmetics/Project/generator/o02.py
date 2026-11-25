@@ -1,6 +1,10 @@
 from garments import *
+import zlib
 from paints import *
 SKIN = '#ed7c42'
+
+def _shin(pc):
+    pc.region = 'shin_' + pc.region[-1]; return pc
 
 def skin_leg(side, z0, z1, off=0.012):
     '''skin-coloured leg cover so uncovered legs match the orange reference look (body legs are grey).'''
@@ -51,7 +55,7 @@ def chill_dude():
     P = []
     def hawaii(U, V, m):
         img = P_solid(pal['orange'])(U, V, m)
-        pts, x, z, circ = scatter(U, V, m, 7, hash(m.get('kind', 'x')) % 999, None)
+        pts, x, z, circ = scatter(U, V, m, 7, zlib.crc32(m.get('kind', 'x').encode()) % 999, None)  # deterministic (hash() is salted per run)
         rng = np.random.default_rng(3)
         for px, pz, k in pts:
             R = 0.075 + (k % 5) * 0.01
@@ -60,7 +64,7 @@ def chill_dude():
             img = flower(img, x, z, circ, px, pz, R, pal['teal'], pal['orange'] if k % 2 else '#f6c46a', rot=k * 0.37)
         return img
     shirt = torso_shell('Shirt', 1.98, 0.05, nseg=32, extra=lambda z, a: 0.03 + 0.05 * max(0, 2.25 - z), th=0.02)
-    shirt.paint = hawaii; shirt.weight = skirt_weight(2.1, 1.95); P.append(shirt)
+    shirt.paint = hawaii; P.append(shirt)
     for s in 'LR':
         sl = sleeve('Sleeve_' + s, s, 0.0, 0.36, 0.05, extra=lambda t, a: 0.03 * t / 0.36)
         sl.paint = hawaii; P.append(sl)
@@ -94,7 +98,7 @@ def raincoat():
         img = mix(img, aa((np.abs(az) - 0.07) * -400) * aa(np.abs(az) - 0.1) * 0, pal['y_d'])
         img = mix(img, aa((np.abs(np.abs(az) - PI / 2) - 0.006) * 300) * 0.5, pal['y_d'])
         return img
-    coat.paint = ypaint; coat.weight = skirt_weight(2.05, 1.75); P.append(coat)
+    coat.paint = ypaint; P.append(coat)
     for s in 'LR':
         sl = sleeve('Sleeve_' + s, s, 0.0, 0.97, 0.055, extra=lambda t, a: 0.01 + 0.03 * t)
         sl.paint = lambda U, V, m: mix(P_solid(pal['y'])(U, V, m), aa(np.abs(V - 0.86) * 400 - 1), pal['y_d'])
@@ -104,9 +108,9 @@ def raincoat():
     hood = prim_sphere('Hood', Vector((0, 0.34, 3.26)), 0.30, 'y', nl=7, seg=14, scale=(1.35, 0.75, 0.62), group='Top')
     hood.rigid = False
     head_clear(hood, 0.035); body_clear(hood, 0.03)
-    P.append(hood)
+    hood.bone = 'UpperTorso'; P.append(hood)
     hrim = prim_sphere('HoodRim', Vector((0, 0.3, 3.38)), 0.26, 'y_d', nl=5, seg=14, scale=(1.4, 0.6, 0.25), group='Top')
-    hrim.rigid = False; head_clear(hrim, 0.04); body_clear(hrim, 0.035); P.append(hrim)
+    hrim.rigid = False; head_clear(hrim, 0.04); body_clear(hrim, 0.035); hrim.bone = 'UpperTorso'; P.append(hrim)
     bv = piece_bvh(coat)
     # drawstrings
     for sg in (-1, 1):
@@ -130,7 +134,7 @@ def raincoat():
         sh = shoe('Boot_' + s, s, off=0.05, bulk=0.03, toe=0.02)
         sh.paint = lambda U, V, m: mix(P_solid(pal['y'])(U, V, m), aa((zc(U, V, m)[0] - m['sole_top']) * 600), pal['sole'])
         P.append(sh)
-        shaft = leg_tube('BootShaft_' + s, s, 0.86, 0.46, 0.10, nseg=16, group='Feet', extra=lambda z, a: 0.01 + 0.02 * (z - 0.46))
+        shaft = _shin(leg_tube('BootShaft_' + s, s, 0.86, 0.46, 0.10, nseg=16, group='Feet', extra=lambda z, a: 0.01 + 0.02 * (z - 0.46)))
         shaft.paint = lambda U, V, m: mix(P_solid(pal['y'])(U, V, m), aa((0.93 - V) * 300), pal['y_d'])
         P.append(shaft)
     return P, pal
@@ -149,7 +153,7 @@ def boss_mode():
         tipdrop = 0.06 * (1 - abs(s - 0.5) * 2) * (t > 0.85) * (t - 0.85) / 0.15
         return Vector(((s - 0.5) * 2 * w, 0, 3.07 - t * 0.66 - tipdrop))
     tie = surface_patch('Tie', sb, tie_pt, Vector((0, 1, 0)), 0.012, 3, 9, col='red', th=0.015)
-    tie.weight = lambda p: weights_at(Vector((0, -0.3, 2.8))); P.append(tie)
+    P.append(tie)
     loc, n = project(sb, Vector((0, 0, 3.1)), Vector((0, 1, 0)))
     P.append(prim_rbox('TieKnot', loc + n * 0.035, (0.11, 0.06, 0.09), 'red_d', group='Top'))
     # jacket with V opening
@@ -168,7 +172,7 @@ def boss_mode():
         img = mix(img, aa(np.abs(z - 2.05) * 600 - 1.2) * (np.abs(np.abs(az) - 0.75) < 0.25), pal['navy_d'])
         img = mix(img, aa(np.abs(z - 2.78) * 600 - 1.2) * (np.abs(az - 0.72) < 0.14), pal['navy_d'])
         return img
-    jk.paint = jpaint; jk.weight = skirt_weight(2.0, 1.86); P.append(jk)
+    jk.paint = jpaint; P.append(jk)
     jb = piece_bvh(jk)
     # lapels: lie on the jacket next to the V edge
     for sg in (-1, 1):

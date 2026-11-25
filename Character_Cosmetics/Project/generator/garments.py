@@ -66,6 +66,7 @@ def torso_shell(name, z_bot, off, nseg=32, z_dome=2.95, elevs=(18, 34, 46, 54), 
     if keep:
         filter_faces(pc, lambda ij, f: keep(ij[0], ij[1], sum(pc.verts[i].z for i in f) / len(f), azb(ij[1] + 0.5, nseg)))
     if th: thicken(pc, th)
+    pc.region = 'torso'; pc.skirt = True
     return pc
 
 def sleeve(name, side, t0, t1, off, nseg=14, nrows=None, extra=None, cap=True, group='Top', th=0.02, col=None, smooth=1):
@@ -99,6 +100,7 @@ def sleeve(name, side, t0, t1, off, nseg=14, nrows=None, extra=None, cap=True, g
     pc.fuv = [[(u, (v - vmin) / (vmax - vmin)) for u, v in uv] for uv in pc.fuv]
     if th: thicken(pc, th)
     pc.rect_key = name.replace('_L', '').replace('_R', '')
+    pc.region = 'arm_' + side
     return pc
 
 def leg_tube(name, side, z0, z1, off, nseg=16, nrows=None, extra=None, group='Bottom', th=0.02, col=None, bvh=None, smooth=2):
@@ -118,13 +120,14 @@ def leg_tube(name, side, z0, z1, off, nseg=16, nrows=None, extra=None, group='Bo
     pc = _grid_with_ij(name, rows, True, vv, hints, group, col)
     pc.meta.update(kind='leg', zmin=z1, zmax=z0, circ=_ring_len(rows[len(rows) // 2]), side=side)
     if th: thicken(pc, th)
+    pc.region = 'leg_' + side
     pc.rect_key = name.replace('_L', '').replace('_R', '')
     return pc
 
 def pants(prefix, z_waist, z_end, off, hip_off=None, extra=None, leg_extra=None, nseg=16, group='Bottom', th=0.02):
     hip_off = hip_off or off + 0.018
     hip = torso_shell(prefix + 'Hip', 1.86, hip_off, nseg=32, zs=list(np.linspace(1.86, z_waist, max(3, int((z_waist - 1.86) / 0.08) + 1))), elevs=(), extra=extra, group=group, th=th, cap_bottom=True)
-    hip.meta['kind'] = 'hip'
+    hip.meta['kind'] = 'hip'; hip.skirt = False
     L = leg_tube(prefix + 'Leg_L', 'L', 2.0, z_end, off, nseg=nseg, extra=leg_extra, group=group, th=th)
     R = leg_tube(prefix + 'Leg_R', 'R', 2.0, z_end, off, nseg=nseg, extra=(lambda z, a: leg_extra(z, -a)) if leg_extra else None, group=group, th=th)
     return [hip, L, R]
@@ -168,6 +171,7 @@ def shoe(name, side, off=0.035, sole_z=0.305, open_elev=48, nseg=20, extra=None,
     pc = _grid_with_ij(name, rows, True, vv, hints, group, col, cap_start=bot)
     pc.meta.update(kind='shoe', zmin=zmin, zmax=zmax, circ=_ring_len(rows[3]), sole_top=sole_z + sole_h)
     if th: thicken(pc, th)
+    pc.region = 'foot_' + side
     pc.rect_key = name.replace('_L', '').replace('_R', '')
     return pc
 
@@ -208,7 +212,7 @@ def collar(name, kind='stand', h=0.07, r0=None, flare=0.04, open_front=0.0, n=24
     pc = _grid_with_ij(name, rows, closed=not open_front, v_vals=[i / (len(rows) - 1) for i in range(len(rows))], hints=hints, group=group, col=col)
     head_clear(pc, 0.025)
     if th: thicken(pc, th)
-    pc.rigid = False
+    pc.rigid = False; pc.region = 'torso'; pc.skirt = False
     return pc
 
 def head_shell(name, off, open_deg=58, nphi=7, npsi=24, group='Head', col=None, th=0.03, zcut=None):
@@ -230,4 +234,5 @@ def head_shell(name, off, open_deg=58, nphi=7, npsi=24, group='Head', col=None, 
     pc.meta.update(kind='hood', circ=_ring_len(rows[-2]))
     pc.meta['rim'] = rows[0]
     if th: thicken(pc, th)
+    pc.region = 'head'
     return pc

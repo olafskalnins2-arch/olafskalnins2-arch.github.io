@@ -4,8 +4,22 @@ from lib import *
 from pipeline import *
 from viewer import *
 import o01, o02, o03, o04
+print('BODY RELAX HISTORY', 'pending')
 
 ROOT = sys.argv[-1]
+
+def restore_materials(path, original):
+    """write the original file's material block back (Blender drops default-valued fields) - colours stay byte-identical"""
+    import struct
+    def split(p):
+        d = open(p, 'rb').read(); L = struct.unpack('<I', d[12:16])[0]
+        return json.loads(d[20:20 + L]), d[20 + L:]
+    j, rest = split(path); jo, _ = split(original)
+    by = {m['name']: m for m in jo['materials']}
+    j['materials'] = [by.get(m.get('name'), m) for m in j['materials']]
+    js = json.dumps(j, separators=(',', ':')).encode(); js += b' ' * ((4 - len(js) % 4) % 4)
+    out = struct.pack('<III', 0x46546C67, 2, 12 + 8 + len(js) + len(rest)) + struct.pack('<II', len(js), 0x4E4F534A) + js + rest
+    open(path, 'wb').write(out)
 OUTFITS = [
     ('01', 'Classic_Mover', o01.classic_mover, 0.32), ('02', 'Chill_Dude', o02.chill_dude, 0.32),
     ('03', 'Raincoat', o02.raincoat, 0.7), ('04', 'Boss_Mode', o02.boss_mode, 0.32),
@@ -17,6 +31,7 @@ OUTFITS = [
 only = os.environ.get('ONLY')
 for d in ('Project', 'Roblox_Ready', 'Textures', 'Preview'): os.makedirs(os.path.join(ROOT, d), exist_ok=True)
 load_body()
+print('BODY RELAX HISTORY', B.relax_hist)
 co = setup_scene((600, 820), 24)
 for m in B.obj.data.materials:  # preview only: show GLB colour factors the way Roblox shows them (sRGB)
     bc = m.node_tree.nodes['Principled BSDF'].inputs['Base Color']
@@ -30,11 +45,14 @@ for num, name, fn, maxd in OUTFITS:
     finalize_pieces(P)
     tex = os.path.join(ROOT, 'Textures', f'{num}_{name}_Albedo.png')
     uvmap = build_atlas(P, pal, tex)
+    locked = os.path.join(os.environ.get('LOCKED_TEX', ''), os.path.basename(tex))
+    if os.environ.get('LOCKED_TEX') and os.path.exists(locked):
+        shutil.copy(locked, tex)   # keep the shipped texture bit-identical (UV layout is unchanged)
     mat = make_material(f'{num}_{name}_Mat', tex)
     col = bpy.data.collections.new(f'{num}_{name}'); bpy.context.scene.collection.children.link(col)
     objs = build_objects(f'{num}_{name}', P, uvmap, mat, col)
     allobjs[num] = (name, col, objs)
-    cov = coverage_report(objs, maxd)
+    cov = coverage_report(objs, maxd) if os.environ.get('NO_COVERAGE') != '1' else {}
     tris = sum(sum(len(p.vertices) - 2 for p in o.data.polygons) for o in objs)
     infl = max(sum(1 for g in v.groups if g.weight > 0) for o in objs for v in o.data.vertices)
     report[f'{num}_{name}'] = dict(pieces=len(P), meshes=[o.name for o in objs], triangles=tris, max_bone_influences=infl,
@@ -61,12 +79,13 @@ for num, (name, col, objs) in allobjs.items():
     shutil.copy(os.path.join(ROOT, 'Textures', f'{num}_{name}_Albedo.png'), os.path.join(d, f'{num}_{name}_Albedo.png'))
 
 # ---------- previews ----------
+NO_RENDER = os.environ.get('NO_RENDER') == '1'
 def show_only(num):
     for k, (n, c, objs) in allobjs.items():
         for o in objs: o.hide_render = (k != num); o.hide_set(k != num)
 
 sheets = []
-for num, (name, col, objs) in allobjs.items():
+for num, (name, col, objs) in (allobjs.items() if not NO_RENDER else []):
     show_only(num)
     paths = []
     for i, (ang, pose) in enumerate([(0, None), (35, None), (180, None), (30, 'walk'), (30, 'carry')]):
@@ -120,6 +139,12 @@ if len(allobjs) == 13:
     select_only([B.arm, B.obj] + alls)
     bpy.ops.export_scene.gltf(filepath=os.path.join(d, 'CosmeticsRig.glb'), export_format='GLB', use_selection=True,
                               export_animations=False, export_skins=True, export_apply=False, export_yup=True)
+    # the base character with fixed weights, same file name as the original
+    bd = os.path.join(ROOT, 'Base_Character'); os.makedirs(bd, exist_ok=True)
+    select_only([B.arm, B.obj])
+    bpy.ops.export_scene.gltf(filepath=os.path.join(bd, 'character_smooth_v2.glb'), export_format='GLB', use_selection=True,
+                              export_animations=False, export_skins=True, export_apply=False, export_yup=True)
+    restore_materials(os.path.join(bd, 'character_smooth_v2.glb'), GLB)
     for m in B.obj.data.materials:
         bc = m.node_tree.nodes['Principled BSDF'].inputs['Base Color']
         bc.default_value = tuple((c ** 2.2) if i < 3 else c for i, c in enumerate(bc.default_value))

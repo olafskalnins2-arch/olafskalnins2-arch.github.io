@@ -1,5 +1,5 @@
 # Core fitting + mesh toolkit for building cosmetics around the default character.
-import bpy, math, numpy as np
+import bpy, math, os, numpy as np
 from mathutils import Vector, Matrix
 from mathutils.bvhtree import BVHTree
 from mathutils.kdtree import KDTree
@@ -13,6 +13,74 @@ HEAD_C = Vector((0, -0.012, 4.029)); HEAD_R = 0.786
 class Body:
     pass
 B = Body()
+
+def pose_matrices(arm):
+    """skinning matrices (pose @ rest^-1, armature space) for every check_rig pose"""
+    import importlib, sys as _s
+    here = os.path.dirname(os.path.abspath(__file__))
+    for cand in (os.path.join(here, '..', '..', 'Roblox_Ready'), os.path.join(here, '..', '..', 'Roblox_Ready')):
+        if os.path.exists(os.path.join(cand, 'check_rig.py')): _s.path.insert(0, os.path.abspath(cand)); break
+    import check_rig as C
+    out = {}
+    for name, spec in C.POSES.items():
+        C.apply_pose(arm, spec)
+        out[name] = np.array([np.array(arm.pose.bones[b].matrix @ arm.data.bones[b].matrix_local.inverted()) for b in BONES])
+    C.reset_pose(arm); bpy.context.view_layer.update()
+    return out
+
+def cap_shoulder_holes(me):
+    """The base mesh has OPEN shoulder seams: the torso has a socket hole and each arm an open end, stitched at
+    coincident verts. With rig-safe (hard) shoulder weights those openings show the hollow inside when an arm moves.
+    Fill every open boundary loop around the shoulders with faces (no vertex is moved or added). Returns #loops filled."""
+    import bmesh
+    bm = bmesh.new(); bm.from_mesh(me)
+    bnd = [e for e in bm.edges if e.is_boundary]
+    seen = set(); loops = []
+    for e in bnd:
+        if e in seen: continue
+        stack = [e]; comp = []
+        while stack:
+            x = stack.pop()
+            if x in seen: continue
+            seen.add(x); comp.append(x)
+            for v in x.verts:
+                for y in v.link_edges:
+                    if y.is_boundary and y not in seen: stack.append(y)
+        loops.append(comp)
+    filled = 0
+    for comp in loops:
+        vs = {v for e in comp for v in e.verts}
+        c = sum((v.co for v in vs), Vector()) / len(vs)
+        if not (c.z > 2.5 and 0.25 < abs(c.x) < 0.75 and c.z < 3.3): continue
+        if any(sum(1 for y in v.link_edges if y.is_boundary) != 2 for v in vs): continue   # only simple closed loops
+        # walk the loop in order
+        start = comp[0].verts[0]; order = [start]; prev = None; cur = start
+        while True:
+            nxt = [y.other_vert(cur) for y in cur.link_edges if y.is_boundary and y.other_vert(cur) is not prev]
+            if not nxt or nxt[0] is start: break
+            prev, cur = cur, nxt[0]; order.append(cur)
+        if len(order) != len(vs): continue
+        adj = next(f for e in comp for f in e.link_faces)
+        # orient the cap opposite to the loop direction used by the neighbouring face (consistent winding)
+        e0 = comp[0]; a, b = e0.verts
+        fl = list(adj.verts); ia, ib = fl.index(a), fl.index(b)
+        forward = (ib - ia) % len(fl) == 1      # neighbour walks a->b, so the cap must walk b->a
+        oa, ob = order.index(a), order.index(b)
+        if ((ob - oa) % len(order) == 1) == forward: order.reverse()
+        f = bm.faces.new(order); f.material_index = adj.material_index; f.smooth = False   # flat: no dark smooth-normal blending
+        filled += 1
+    bm.normal_update()
+    bm.to_mesh(me); bm.free(); me.update()
+    return filled
+
+def shoulder_sockets(me, P, part):
+    """rim vertices of the torso's open shoulder sockets (where each arm is stitched in)"""
+    import collections
+    cnt = collections.Counter()
+    for p in me.polygons:
+        for k in p.edge_keys: cnt[k] += 1
+    rim = sorted(set(i for k, c in cnt.items() if c == 1 for i in k if part[i] == 'torso' and P[i, 2] > 2.5 and abs(P[i, 0]) > 0.2))
+    return {'L': P[[i for i in rim if P[i, 0] > 0]], 'R': P[[i for i in rim if P[i, 0] < 0]]}
 
 def load_body():
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -29,7 +97,7 @@ def load_body():
     for v in me.vertices:
         for g in v.groups: W[v.index, BONES.index(gi[g.group])] = g.weight
     W /= np.maximum(W.sum(1, keepdims=True), 1e-9)
-    B.W = W
+    B.W_original = W
     B.tris = [tuple(t.vertices) for t in me.loop_triangles]
     # loose parts
     par = list(range(len(B.V)))
@@ -52,11 +120,57 @@ def load_body():
         else: k = 'head'
         lab[r] = k
     B.part = np.array([lab[r] for r in root])
+    # ---- fixed body weights (rigfix rules): analytic joint ramps per body part + weld-equalised tiny edges ----
+    import rigfix as RF
+    B.sockets = shoulder_sockets(me, B.P, B.part)
+    Wf = np.zeros_like(W)
+    for k in set(B.part):
+        idx = np.where(B.part == k)[0]
+        reg, side = (k.split('_') + [None])[:2]
+        Wf[idx] = RF.analytic_weights(B.P[idx], reg, side)   # hard shoulder seam (sockets get capped below)
+    edges_b = [tuple(e.vertices) for e in me.edges]
+    G = RF.weld_groups(B.P, edges_b, 0.012)
+    # keep the shoulder seam hard: a group may not mix torso and arm verts (re-split by part)
+    G = np.array([hash((int(g), str(B.part[i]) if str(B.part[i]).startswith('arm') or B.part[i] == 'torso' else '')) % (2 ** 62) for i, g in enumerate(G)])
+    Wf = RF.weld_equalize(Wf, G); Wf = RF.finalize(Wf); Wf = RF.weld_equalize(Wf, G)
+    # targeted repair of any edge that still fails the check_rig poses (numpy LBS, weights only)
+    Mb = np.zeros_like(Wf)
+    for k in set(B.part):
+        idx = np.where(B.part == k)[0]; reg, side = (k.split('_') + [None])[:2]
+        if reg == 'torso':
+            for i in idx:
+                x = B.P[i, 0]
+                Mb[i] = RF.region_mask('torso_center') if abs(x) <= 0.02 else RF.region_mask('torso_side', 'L' if x > 0 else 'R')
+                if abs(x) > 0.02 and abs(x) <= 0.2: Mb[i] = RF.region_mask('garment_torso_side', 'L' if x > 0 else 'R')
+        else:
+            Mb[idx] = RF.region_mask(reg, side) if reg in ('arm', 'foot') else RF.region_mask(reg)
+    B.pose_mats = pose_matrices(arm)
+    Wf, hist = RF.relax_failing(B.P, edges_b, Wf, list(B.pose_mats.values()), M=Mb, zone=RF.joint_zone(B.P, None, dict(hip=0.7, knee=0.6)))
+    Wf = RF.weld_equalize(Wf, G); Wf = RF.finalize(Wf, Mb); Wf = RF.weld_equalize(Wf, G)
+    B.relax_hist = hist
+    B.W = Wf
+    # close the open shoulder sockets on the exported body only - AFTER all fitting BVHs/weights are built from the
+    # original surface, so no garment shape changes (caps add faces, never vertices)
+    B.caps = cap_shoulder_holes(body.data)
+    for g in list(body.vertex_groups): body.vertex_groups.remove(g)
+    for bn in BONES: body.vertex_groups.new(name=bn)
+    for i, w in enumerate(Wf):
+        for bi in np.nonzero(w)[0]: body.vertex_groups[BONES[bi]].add([i], float(w[bi]), 'REPLACE')
     def bvh(filt):
         tris = [t for t in B.tris if filt(t)]
         return BVHTree.FromPolygons(B.V, tris, all_triangles=True), tris
     pt = B.part
     B.bvh = {}
+    # weight-transfer regions (tri lists kept for barycentric interpolation)
+    B.wreg = {}
+    def wreg(key, filt):
+        tree, tris = bvh(filt); B.wreg[key] = (tree, tris)
+    wreg('torso', lambda t: pt[t[0]] == 'torso')
+    wreg('head', lambda t: pt[t[0]] == 'head')
+    for s, sg in (('L', 1), ('R', -1)):
+        wreg('arm_' + s, lambda t, s=s: pt[t[0]] == 'arm_' + s)
+        wreg('leg_' + s, lambda t, sg=sg: pt[t[0]] == 'torso' and all(B.V[i].x * sg >= -1e-4 for i in t) and max(B.V[i].z for i in t) < 2.35)
+        wreg('foot_' + s, lambda t, s=s, sg=sg: pt[t[0]] == 'foot_' + s or (pt[t[0]] == 'torso' and all(B.V[i].x * sg > 0 for i in t) and max(B.V[i].z for i in t) < 0.8))
     B.bvh['all'], B.all_tris = bvh(lambda t: True)
     B.bvh['torso'], _ = bvh(lambda t: pt[t[0]] == 'torso')
     B.bvh['torso_up'], _ = bvh(lambda t: pt[t[0]] == 'torso' and min(B.V[i].z for i in t) > 1.86)
@@ -257,6 +371,7 @@ def thicken(pc, th, rim_col='same'):
     vn = vertex_normals(pc)
     n0 = len(pc.verts)
     pc.meta['n_outer_faces'] = len(pc.faces); pc.meta['n_outer_verts'] = n0
+    pc.meta['pairs'] = pc.meta.get('pairs', []) + [(i, i + n0) for i in range(n0)]
     for i in range(n0):
         pc.verts.append(pc.verts[i] - vn[i] * th); pc.hint.append(None)
     F = list(pc.faces); UV = list(pc.fuv); C = list(pc.fcol)
@@ -403,6 +518,7 @@ def surface_patch(name, bvh, fn, d, lift, ns=6, nt=6, col=None, th=0.02, group='
         rows.append(r); hints.append(hh)
     pc = grid_piece(name, rows, closed=False, col=col, hints=hints, group=group)
     if th > 0: thicken(pc, th)
+    pc.meta['patch'] = True   # surface patches (pockets, lapels, pads, tie) deform with the cloth under them
     return pc
 
 def body_clear(pc, gap=0.012, bvh_key='all', idx=None):
