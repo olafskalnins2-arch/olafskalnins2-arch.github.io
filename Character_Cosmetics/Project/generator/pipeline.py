@@ -354,3 +354,79 @@ def finalize_pieces(pieces):
     for pc in pieces:
         W = rig_weights(pc)
         pc.W = [w for w in RF.finalize(W)]
+
+
+# ---------- coverage repair for thin skin-tight covers (weights only) ----------
+def posed_body_bvhs():
+    if getattr(B, 'posed_bvh', None) is None:
+        from mathutils.bvhtree import BVHTree as _BT
+        B.posed_bvh = {}
+        for name, mats in B.pose_mats.items():
+            Q = RF.lbs(B.P, B.W, mats)
+            B.posed_bvh[name] = _BT.FromPolygons([Vector(q) for q in Q], [t for t in B.tris if B.part[t[0]] in ('torso', 'foot_L', 'foot_R')], all_triangles=True)  # legs: hands may legitimately touch them
+    return B.posed_bvh
+
+def cover_repair(pc, W, margin=0.004, iters=10):
+    """For a thin cover: nudge weights of verts that sink into the posed body (any check pose) between their own
+    allowed bones until they sit outside; a change is kept only if it reduces the sinking and keeps every incident
+    edge inside the 0.5x-1.5x limits."""
+    pm = getattr(B, 'pose_mats', {})
+    if not pm: return W, []
+    bv = posed_body_bvhs(); names = list(pm)
+    Pn = np.array([v[:] for v in pc.verts]); Ph = np.c_[Pn, np.ones(len(Pn))]
+    M = (W > 0).astype(float)
+    side = pc.region[-1]; M[:] = RF.region_mask('leg', side)
+    twin = {}
+    for a, b in pc.meta.get('pairs', []): twin[a] = b
+    E = set()
+    for f in pc.faces:
+        for k in range(len(f)): E.add(tuple(sorted((f[k], f[(k + 1) % len(f)]))))
+        if len(f) == 4: E.add(tuple(sorted((f[0], f[2])))); E.add(tuple(sorted((f[1], f[3]))))
+    inc = {}
+    for a, b in E: inc.setdefault(a, []).append((a, b)); inc.setdefault(b, []).append((a, b))
+    l0 = {e: np.linalg.norm(Pn[e[0]] - Pn[e[1]]) for e in E}
+    def pos(i, w, n): return (np.einsum('b,bij,j->i', w, pm[n][:, :3, :], Ph[i]))
+    def sinks(i, w):
+        out = []
+        for n in names:
+            q = Vector(pos(i, w, n)); loc, nor, fi, d = bv[n].find_nearest(q)
+            out.append(0.0 if loc is None else max(0.0, margin - (q - loc).dot(nor)))
+        return np.array(out)
+    def sink(i, w): return float(sinks(i, w).sum())
+    def edges_ok(i, w):
+        for a, b in inc.get(i, []):
+            if l0[(a, b)] < 1e-5: continue
+            j = b if a == i else a
+            for n in names:
+                r = np.linalg.norm(pos(i, w, n) - pos(j, W[j], n)) / l0[(a, b)]
+                if r > 1.5 or r < 0.5: return False
+        return True
+    n0 = pc.meta.get('n_outer_verts', len(Pn)); hist = []
+    for it in range(iters):
+        bad = [i for i in range(n0) if sink(i, W[i]) > 0]
+        hist.append(len(bad))
+        if not bad: break
+        for i in bad:
+            base_v = sinks(i, W[i]); base = base_v.sum(); best = None
+            bones = np.nonzero(M[i])[0]
+            for a_ in bones:
+                for b_ in bones:
+                    if a_ == b_ or W[i, a_] <= 0: continue
+                    for d in (0.05, 0.12, 0.25):
+                        w = W[i].copy(); t = min(d, w[a_]); w[a_] -= t; w[b_] += t
+                        w = RF.clean_row(w, M[i])
+                        if w.sum() <= 0: continue
+                        svv = sinks(i, w); sv = svv.sum()
+                        if (svv <= base_v + 1e-7).all() and sv < base - 1e-6 and (best is None or sv < best[0]) and edges_ok(i, w): best = (sv, w)
+            if best:
+                W[i] = best[1]
+                if i in twin: W[twin[i]] = best[1]
+    return W, hist
+
+_rig_weights_base = rig_weights
+def rig_weights(pc):
+    W = _rig_weights_base(pc)
+    if getattr(pc, 'cover', False):
+        W, h = cover_repair(pc, np.array(W))
+        pc.meta['cover_hist'] = h
+    return W

@@ -1,0 +1,13 @@
+cap 0.0 k 1.0: walk: worst 1.27 bad 0 poke 36  spread: worst 1.54 bad 0 poke 64  crouch: worst 1.57 bad 0 poke -
+cap 0.3 k 1.0: walk: worst 1.54 bad 2 poke 18  spread: worst 2.02 bad 182 poke 35  crouch: worst 2.36 bad 77 poke -
+cap 0.3 k 2.0: walk: worst 1.99 bad 37 poke 14  spread: worst 2.73 bad 232 poke 36  crouch: worst 2.36 bad 220 poke -
+cap 0.3 k 4.0: walk: worst 2.97 bad 116 poke 13  spread: worst 4.47 bad 168 poke 37  crouch: worst 4.0 bad 179 poke -
+cap 0.5 k 1.0: walk: worst 1.54 bad 2 poke 15  spread: worst 2.02 bad 269 poke 22  crouch: worst 3.17 bad 163 poke -
+cap 0.5 k 2.0: walk: worst 2.04 bad 79 poke 3  spread: worst 2.8 bad 365 poke 26  crouch: worst 5.45 bad 355 poke -
+cap 0.5 k 4.0: walk: worst 3.31 bad 178 poke 3  spread: worst 4.48 bad 314 poke 27  crouch: worst 5.45 bad 335 poke -
+cap 0.7 k 1.0: walk: worst 1.54 bad 2 poke 16  spread: worst 2.02 bad 296 poke 20  crouch: worst 3.17 bad 171 poke -
+cap 0.7 k 2.0: walk: worst 2.04 bad 121 poke 3  spread: worst 2.8 bad 520 poke 24  crouch: worst 4.17 bad 466 poke -
+cap 0.7 k 4.0: walk: worst 3.31 bad 241 poke 3  spread: worst 4.48 bad 418 poke 26  crouch: worst 4.17 bad 485 poke -
+cap 0.9 k 1.0: walk: worst 1.54 bad 2 poke 16  spread: worst 2.02 bad 296 poke 20  crouch: worst 3.17 bad 171 poke -
+cap 0.9 k 2.0: walk: worst 2.04 bad 155 poke 2  spread: worst 3.09 bad 648 poke 24  crouch: worst 2.91 bad 581 poke -
+cap 0.9 k 4.0: walk: worst 3.31 bad 341 poke 3  spread: worst 4.48 bad 513 poke 26  crouch: worst 4.03 bad 643 poke -

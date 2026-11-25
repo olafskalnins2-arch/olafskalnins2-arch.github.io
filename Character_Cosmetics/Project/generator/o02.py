@@ -9,7 +9,7 @@ def _shin(pc):
 def skin_leg(side, z0, z1, off=0.012):
     '''skin-coloured leg cover so uncovered legs match the orange reference look (body legs are grey).'''
     pc = leg_tube('SkinLeg_' + side, side, z0, z1, off, nseg=16, th=0.008, group='Bottom', smooth=0)
-    pc.paint = P_solid(SKIN); pc.rect_key = 'SkinLeg'
+    pc.paint = P_solid(SKIN); pc.rect_key = 'SkinLeg'; pc.cover = True   # thin cover: coverage repair keeps it outside the body
     return pc
 
 def flip_flop(side, pal):

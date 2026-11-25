@@ -1,0 +1,7 @@
+cap 0.0 R 0.6: walk: worst 1.42 bad 0 poke 398  spread: worst 1.00 bad 0 poke 210  arms_up: worst 1.00 bad 0 poke 169  crouch: worst 1.00 bad 0 poke 481
+cap 0.5 R 0.6: walk: worst 2.99 bad 83 poke 397  spread: worst 1.00 bad 0 poke 210  arms_up: worst 13.13 bad 277 poke 169  crouch: worst 1.83 bad 30 poke 474
+cap 0.5 R 1.2: walk: worst 2.48 bad 95 poke 390  spread: worst 1.00 bad 0 poke 210  arms_up: worst 14.14 bad 819 poke 190  crouch: worst 1.71 bad 3 poke 458
+cap 0.8 R 0.6: walk: worst 3.89 bad 194 poke 396  spread: worst 1.00 bad 0 poke 210  arms_up: worst 14.53 bad 391 poke 169  crouch: worst 3.00 bad 126 poke 471
+cap 0.8 R 1.2: walk: worst 3.03 bad 316 poke 367  spread: worst 1.00 bad 0 poke 210  arms_up: worst 12.92 bad 1230 poke 221  crouch: worst 2.00 bad 116 poke 431
+cap 1.0 R 0.6: walk: worst 4.49 bad 238 poke 393  spread: worst 1.00 bad 0 poke 210  arms_up: worst 13.25 bad 436 poke 170  crouch: worst 3.50 bad 170 poke 468
+cap 1.0 R 1.2: walk: worst 3.58 bad 530 poke 329  spread: worst 1.00 bad 0 poke 210  arms_up: worst 12.12 bad 1447 poke 232  crouch: worst 2.29 bad 295 poke 361

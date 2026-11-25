@@ -45,10 +45,10 @@
     "head": 0.4
    },
    "rest_covered_verts": 2075,
-   "walk_pokethrough_verts": 39,
-   "walk_pokethrough_pct": 1.88,
-   "carry_pokethrough_verts": 36,
-   "carry_pokethrough_pct": 1.73
+   "walk_pokethrough_verts": 44,
+   "walk_pokethrough_pct": 2.12,
+   "carry_pokethrough_verts": 34,
+   "carry_pokethrough_pct": 1.64
   }
  },
  "03_Raincoat": {

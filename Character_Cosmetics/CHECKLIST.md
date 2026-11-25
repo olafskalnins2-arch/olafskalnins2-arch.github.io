@@ -11,7 +11,7 @@ Limits: every triangulated edge must stay between 0.5x and 1.5x of its rest leng
 |---|---|---|---|---|---|---|---|
 | character smooth v2 | PASS | 1.24 / 0.77 PASS | 1.27 / 0.75 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.49 / 0.50 PASS | 1/6 |
 | 01 Classic Mover | PASS | 1.26 / 0.66 PASS | 1.49 / 0.65 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.48 / 0.50 PASS | 0/6 |
-| 02 Chill Dude | PASS | 1.32 / 0.68 PASS | 1.49 / 0.68 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.46 / 0.50 PASS | 0/6 |
+| 02 Chill Dude | PASS | 1.32 / 0.68 PASS | 1.49 / 0.62 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.47 / 0.50 PASS | 0/6 |
 | 03 Raincoat | PASS | 1.29 / 0.70 PASS | 1.47 / 0.67 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.46 / 0.50 PASS | 0/6 |
 | 04 Boss Mode | PASS | 1.27 / 0.65 PASS | 1.50 / 0.70 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.48 / 0.50 PASS | 0/6 |
 | 05 Construction Hero | PASS | 1.26 / 0.66 PASS | 1.49 / 0.69 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.47 / 0.50 PASS | 0/6 |
@@ -77,14 +77,19 @@ Limits: every triangulated edge must stay between 0.5x and 1.5x of its rest leng
 
 ## Known limitations (straight up)
 
-- **09 Wizard robe**: a closed long robe can't both stay inside 1.5x stretch and follow the legs with linear blend
-  skinning. It now stays on the pelvis (no webbing), so in a long walk stride / leg spread the knee and shin poke out
-  of the front of the robe (about 35 body leg verts uncovered in the walk pose, 63 in the spread pose). Raising the hem's
-  leg-follow until the legs stay covered brings back 2-4x webbing. Fix options: side slits in the robe, or a cloth sim.
-- **12 Ghost**: one solid sheet with no cloth sim; hands poke through in big arm swings, feet in a wide leg spread.
+- **09 Wizard robe - NOT fixed, needs your call**: a closed long robe can't both stay inside 1.5x stretch and follow the
+  legs with linear blend skinning. It stays on the pelvis (no webbing), so in walk / spread / crouch the knee and thigh push
+  out of the robe front and the grey body thigh shows (the skin-colour leg covers stop at z 1.3, under the robe).
+  Proof: Rig_Check/wizard_robe_tradeoff.txt - every hem setting that keeps the legs covered breaks 1.5x (2-4.5x webbing).
+  Fixes that need a shape change (your rule says no without OK): side slits in the robe, and/or skin leg covers up to the
+  hips so a poking leg shows orange like the reference.
+- **12 Ghost - NOT fixed, same reason**: one solid sheet, no cloth sim. Hands stick out in walk / arms up / crouch, feet in
+  a wide spread. Proof: Rig_Check/ghost_sheet_tradeoff.txt - letting the sheet follow the arms costs 2.5-4.5x stretch in
+  walk and 12-14x in arms up (the hands go above the sheet's head).
 - **Soft knees/hips**: to keep an 80-degree crouch inside 0.5x-1.5x, the knee and hip blends are long, so thighs bend as a
   smooth curve (rubber-hose style) instead of a sharp hinge.
 - **Thin margins**: the repair pass stops as soon as an edge is legal, so many results sit right at the limit (spread 1.49-1.50x, crouch squash 0.50x). They pass, but there is no headroom: a deeper crouch or wider spread than the test poses will exceed 1.5x somewhere.
 - **Shoes** sit about 0.025 units below the feet (sole thickness).
+- **Rendered**: all five check poses, front / side / back, before and after, for all 14 models (Rig_Check/).
 - **Not tested inside Roblox Studio.** Everything is checked in Blender with the same linear blend skinning Roblox uses.
   Re-import the fixed base character (Base_Character/character_smooth_v2.glb) too, or your live character will keep its old weights.
