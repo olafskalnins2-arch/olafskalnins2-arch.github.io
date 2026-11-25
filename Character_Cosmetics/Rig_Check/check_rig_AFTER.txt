@@ -1,7 +1,7 @@
 model                     | pose      | worst stretch | worst squash | bad verts | result
 -------------------------------------------------------------------------------------------
 CosmeticsRig.glb          | weights   |         1.000 |        1.000 |         0 | PASS
-CosmeticsRig.glb          | walk      |         1.418 |        0.638 |         0 | PASS
+CosmeticsRig.glb          | walk      |         1.477 |        0.606 |         0 | PASS
 CosmeticsRig.glb          | spread    |         1.500 |        0.505 |         0 | PASS
 CosmeticsRig.glb          | arms_up   |         1.000 |        1.000 |         0 | PASS
 CosmeticsRig.glb          | arms_down |         1.000 |        0.999 |         0 | PASS
@@ -103,17 +103,17 @@ CosmeticsRig.glb          | crouch    |         1.500 |        0.500 |         0
 08_Pirate.glb             | arms_down |         1.000 |        1.000 |         0 | PASS
 08_Pirate.glb             | crouch    |         1.482 |        0.503 |         0 | PASS
 09_Wizard.fbx             | weights   |         1.000 |        1.000 |         0 | PASS
-09_Wizard.fbx             | walk      |         1.241 |        0.747 |         0 | PASS
-09_Wizard.fbx             | spread    |         1.428 |        0.651 |         0 | PASS
+09_Wizard.fbx             | walk      |         1.477 |        0.606 |         0 | PASS
+09_Wizard.fbx             | spread    |         1.480 |        0.513 |         0 | PASS
 09_Wizard.fbx             | arms_up   |         1.000 |        1.000 |         0 | PASS
 09_Wizard.fbx             | arms_down |         1.000 |        1.000 |         0 | PASS
-09_Wizard.fbx             | crouch    |         1.463 |        0.521 |         0 | PASS
+09_Wizard.fbx             | crouch    |         1.494 |        0.512 |         0 | PASS
 09_Wizard.glb             | weights   |         1.000 |        1.000 |         0 | PASS
-09_Wizard.glb             | walk      |         1.241 |        0.747 |         0 | PASS
-09_Wizard.glb             | spread    |         1.428 |        0.651 |         0 | PASS
+09_Wizard.glb             | walk      |         1.477 |        0.606 |         0 | PASS
+09_Wizard.glb             | spread    |         1.480 |        0.513 |         0 | PASS
 09_Wizard.glb             | arms_up   |         1.000 |        1.000 |         0 | PASS
 09_Wizard.glb             | arms_down |         1.000 |        1.000 |         0 | PASS
-09_Wizard.glb             | crouch    |         1.463 |        0.521 |         0 | PASS
+09_Wizard.glb             | crouch    |         1.494 |        0.512 |         0 | PASS
 10_Knight.fbx             | weights   |         1.000 |        1.000 |         0 | PASS
 10_Knight.fbx             | walk      |         1.285 |        0.674 |         0 | PASS
 10_Knight.fbx             | spread    |         1.497 |        0.679 |         0 | PASS
@@ -169,7 +169,7 @@ character_smooth_v2.glb   | arms_up   |         1.000 |        1.000 |         0
 character_smooth_v2.glb   | arms_down |         1.000 |        0.999 |         0 | PASS
 character_smooth_v2.glb   | crouch    |         1.485 |        0.504 |         0 | PASS
 Character_Cosmetics.blend | weights   |         1.000 |        1.000 |         0 | PASS
-Character_Cosmetics.blend | walk      |         1.418 |        0.638 |         0 | PASS
+Character_Cosmetics.blend | walk      |         1.477 |        0.606 |         0 | PASS
 Character_Cosmetics.blend | spread    |         1.500 |        0.505 |         0 | PASS
 Character_Cosmetics.blend | arms_up   |         1.000 |        1.000 |         0 | PASS
 Character_Cosmetics.blend | arms_down |         1.000 |        1.000 |         0 | PASS

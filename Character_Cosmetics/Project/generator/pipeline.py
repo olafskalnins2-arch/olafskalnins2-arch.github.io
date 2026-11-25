@@ -282,7 +282,8 @@ def rig_weights(pc):
         elif region == 'head':
             w = transfer(p, 'head'); m = RF.region_mask('head')
         else:  # torso garments
-            m = side_mask(p.x)
+            pan = pc.meta.get('panel')
+            m = side_mask(p.x) if not (pan is not None and pan[i] != 0) else RF.region_mask('garment_torso_side', 'L' if pan[i] > 0 else 'R')
             w = transfer(p, 'torso') * m
             if skirt and p.z < 1.95:
                 # coat / robe / sheet hems below the crotch: anchored to the pelvis, gentle same-side leg follow
@@ -295,6 +296,18 @@ def rig_weights(pc):
                 else:
                     ws = lt
                 w = (1 - k) * _norm(w) + k * ws
+            panel = pc.meta.get('panel')
+            if panel is not None and panel[i] != 0:
+                # slit robe panel: below the slit top it deforms like a (wide) trouser leg of its own side
+                zt = pc.meta['slit_top']; s = 'L' if panel[i] > 0 else 'R'; back = abs(panel[i]) >= 2
+                bk = 'slit_blend_side' if abs(panel[i]) == 3 else ('slit_blend_back' if back else 'slit_blend')
+                b = RF.lstep(zt, zt - RF.DEFAULT_RAMPS.get(bk, RF.DEFAULT_RAMPS.get('slit_blend', 1.0)), p.z, 0.5)
+                wl = ONE(RF.LEG[s][0])   # the whole panel hangs off its thigh, uniformly across its width (no shear)
+                if back:   # back strips drape: inner strip follows less, outer (side) strip like the front
+                    b *= RF.DEFAULT_RAMPS.get('slit_cap_back_side', 1.0) if abs(panel[i]) == 3 else RF.DEFAULT_RAMPS.get('slit_cap_back', 0.8)
+                else:
+                    b *= RF.DEFAULT_RAMPS.get('slit_cap', 1.0)
+                w = (1 - b) * _norm(w) + b * _norm(wl)
         W[i] = _norm(w * m); M[i] = m
     # inner shell verts copy their outer twin (thickness rim edges never stretch)
     for a, b in pc.meta.get('pairs', []):
@@ -306,7 +319,7 @@ def rig_weights(pc):
     Pn = np.array([v[:] for v in pc.verts])
     W = RF.smooth(W, list(E), RF.joint_zone(Pn, None), iters=getattr(pc, 'smooth_iters', 0), M=M)
     for a, b in pc.meta.get('pairs', []): W[b] = W[a]
-    G = RF.weld_groups(np.array([v[:] for v in pc.verts]), list(E), 0.012)
+    G = RF.weld_groups(np.array([v[:] for v in pc.verts]), list(E), 0.012, coincident=None)   # never re-glue slits
     W, M = RF.weld_equalize(W, G, M)
     W = RF.finalize(W, M)
     W = RF.weld_equalize(W, G)

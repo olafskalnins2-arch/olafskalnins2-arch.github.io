@@ -149,7 +149,8 @@ def lstep(e0, e1, x, soft=0.25):
 
 
 DEFAULT_RAMPS = dict(knee=0.70, elbow=0.26, wrist=0.10, ankle=0.10, waist=(2.18, 2.52), neck=(3.12, 3.36),
-                     hip_top=2.20, hip_bot=1.30, crotch=0.16, soft=0.2, hip_soft=0.5, knee_up=0.68, knee_dn=0.54, skirt_cap=0.2, skirt_x=0.8, sock_alpha=0.0, sock_torso=0.35, sock_arm=0.35)  # tuned with check_rig.py on the base body
+                     hip_top=2.20, hip_bot=1.30, crotch=0.16, soft=0.2, hip_soft=0.5, knee_up=0.68, knee_dn=0.54, skirt_cap=0.2, skirt_x=0.8, sock_alpha=0.0, sock_torso=0.35, sock_arm=0.35,
+                     slit_top=2.12, slit_blend=0.85, slit_blend_side=0.85, slit_blend_back=1.3, slit_cap=1.0, slit_cap_back_side=0.9, slit_cap_back=0.8)  # tuned with check_rig.py on the base body
 
 
 def seg_param(P, a, b):

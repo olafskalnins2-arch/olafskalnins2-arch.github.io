@@ -10,7 +10,8 @@ waist. Proof: Rig_Check/ (before/after renders + check tables, 7/174 checks pass
   body will deform differently. Vertex positions are unchanged. The only mesh change: the 2 open shoulder sockets
   (and the 2 open arm ends) are capped with faces, so no hole opens when an arm moves.
 - Every outfit GLB/FBX, CosmeticsRig.glb and the .blend were re-exported under the same names. Geometry, UVs,
-  textures and materials are identical to before; only the skin weights changed.
+  textures and materials are identical to before; only the skin weights changed. Exception (approved by you): the
+  Wizard robe is cut into panels and its hidden leg covers are longer - see CHECKLIST.md.
 - Originals are in _backup/ (MANIFEST.sha1 lists their checksums).
 - Roblox_Ready/check_rig.py checks any model (see CLAUDE.md "Rigging rules" in the repo root). Run it before calling
   any new model done:  python3 Roblox_Ready/check_rig.py Roblox_Ready Base_Character Project
@@ -124,4 +125,5 @@ NOTES
   references show orange skin where your actual body is grey. The leg covers are merged into each outfit's
   _Bottom mesh. Delete those faces in Blender (select linked, leg area) if you'd rather show the grey base layer.
 - Ghost: hands poke through the sheet in big arm swings (see CHECKLIST.md). It's fully covered in idle.
-- Wizard: in a big stride / leg spread the knee and shin push out of the robe front (no-webbing trade-off, see CHECKLIST.md).
+- Wizard: the robe skirt is cut into panels (invisible standing still) so it opens like a slit robe when walking; legs
+  never go through the cloth. Leg covers under it are skin-coloured up to the hips.

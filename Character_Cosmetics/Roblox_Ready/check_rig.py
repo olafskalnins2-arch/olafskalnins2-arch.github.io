@@ -14,7 +14,7 @@ For every armature-deformed mesh in every file it checks:
   weights   - max 4 bone influences per vertex, every weight >= 0.01, weights sum to 1 (+-0.01),
               no vertex weighted to both Left* and Right* bones, and no vertex weighted to the other side's bones
               (side = the side of the separate mesh piece it belongs to; centre-line pieces: x > 0.02 left, < -0.02 right,
-              in between: torso bones only)
+              on the centre line: the side of the faces it belongs to (a slit edge belongs to its panel), else torso only)
   stretch   - poses the rig (walk, legs spread wide, arms up, arms down, crouch) and compares every
               edge of the TRIANGULATED mesh (incl. quad diagonals) posed vs rest: FAIL if any edge > 1.5x or < 0.5x
 Prints: model | pose | worst stretch | worst squash | bad verts | PASS/FAIL.  Exit code 1 if anything fails.
@@ -156,6 +156,21 @@ def weight_problems(ob, arm, side_eps=0.02, island_side=0.08):
     for i, r in enumerate(isl):
         a = acc.setdefault(r, [0.0, 0]); a[0] += X[i]; a[1] += 1
     cx = {r: a[0] / a[1] for r, a in acc.items()}
+    # side of the faces each vertex belongs to (a vertex ON the centre line of a split/slit mesh takes its panel's side)
+    fx = {}
+    for poly in ob.data.polygons:
+        cxp = (mw @ poly.center).x
+        for vi in poly.vertices: fx.setdefault(vi, []).append(cxp)
+    # exporters split a vertex into copies (same position AND same weights) along sharp edges / UV seams:
+    # pool their faces. Copies with different weights (the two sides of a real slit) stay separate.
+    pool = {}
+    for v in ob.data.vertices:
+        key = (tuple(round(c, 5) for c in v.co), tuple(sorted((names.get(g.group), round(g.weight, 3)) for g in v.groups if g.weight > 0)))
+        pool.setdefault(key, []).append(v.index)
+    for grp in pool.values():
+        if len(grp) > 1:
+            allx = [x for i in grp for x in fx.get(i, [])]
+            for i in grp: fx[i] = allx
     bad = {}
     for v in ob.data.vertices:
         ws = [(names[g.group], g.weight) for g in v.groups if names.get(g.group) in bones and g.weight > 0]
@@ -167,7 +182,14 @@ def weight_problems(ob, arm, side_eps=0.02, island_side=0.08):
         sides = {side_of(n) for n, _ in ws} - {None}
         if len(sides) > 1: why.append('left+right bones')
         c = cx[isl[v.index]]
-        own = 'L' if c > island_side else 'R' if c < -island_side else ('L' if X[v.index] > side_eps else 'R' if X[v.index] < -side_eps else 'C')
+        if c > island_side: own = 'L'
+        elif c < -island_side: own = 'R'
+        elif X[v.index] > side_eps: own = 'L'
+        elif X[v.index] < -side_eps: own = 'R'
+        else:
+            # faces lying ON the centre plane (e.g. the rim along a slit) don't decide; the others must all agree
+            sd = {('L' if x > side_eps else 'R') for x in fx.get(v.index, []) if abs(x) > side_eps}
+            own = sd.pop() if len(sd) == 1 else 'C'
         if (own == 'L' and 'R' in sides) or (own == 'R' and 'L' in sides) or (own == 'C' and sides):
             why.append('wrong-side bones')
         if why: bad[v.index] = why

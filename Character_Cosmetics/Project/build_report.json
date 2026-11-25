@@ -220,23 +220,23 @@
    "09_Wizard_Extras",
    "09_Wizard_Feet"
   ],
-  "triangles": 9472,
+  "triangles": 10600,
   "max_bone_influences": 4,
   "texture": "09_Wizard_Albedo.png",
   "coverage": {
    "rest_coverage_pct": {
     "torso": 99.9,
-    "hips_legs": 95.9,
+    "hips_legs": 96.2,
     "upper_arms": 100.0,
     "lower_arms": 21.9,
     "feet": 100.0,
     "head": 2.4
    },
-   "rest_covered_verts": 2322,
-   "walk_pokethrough_verts": 122,
-   "walk_pokethrough_pct": 5.25,
-   "carry_pokethrough_verts": 92,
-   "carry_pokethrough_pct": 3.96
+   "rest_covered_verts": 2324,
+   "walk_pokethrough_verts": 73,
+   "walk_pokethrough_pct": 3.14,
+   "carry_pokethrough_verts": 59,
+   "carry_pokethrough_pct": 2.54
   }
  },
  "10_Knight": {

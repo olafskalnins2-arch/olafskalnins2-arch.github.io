@@ -38,8 +38,46 @@ def _grid_with_ij(name, rows, closed, v_vals, hints, group, col=None, cap_start=
     pc.meta['fij'] = ij
     return pc
 
+def cut_slits(pc, N, z_s, sides=True):
+    """Split the robe skirt below z_s into separate panels by duplicating vertices along cut columns (no position
+    changes - it looks identical at rest). Front and back each keep a 2-face-wide centre tongue on the pelvis.
+    Tags: +-1 front panel, +-3 back outer (side) strip, +-2 back inner strip (+ left, - right), 0 above the slit.
+    Vertices on the cut centre line are duplicated; each copy belongs to the side of the panel it is attached to."""
+    q = N // 4; e = N // 8
+    def group(j):
+        j %= N
+        if N // 2 <= j <= N - 1:                                               # left half (cut exactly on the centre line)
+            if not sides or j < 3 * q: return 1                               # front-left
+            return 3 if j < 3 * q + e else 2                                   # back-left: outer (side) strip / inner strip
+        if not sides or j >= q: return -1                                      # front-right
+        return -3 if j >= q - e else -2                                        # back-right: outer strip / inner strip
+    M = pc.meta['rows']
+    dup = {}; tag = [0] * len(pc.verts); new_faces = []
+    for (i, j), f in zip(pc.meta['fij'], pc.faces):
+        g = group(j); nf = []
+        for v in f:
+            if v < M * N and pc.verts[v].z < z_s - 1e-6:
+                c = v % N
+                # vertex column c lies between face columns c-1 and c; if they belong to different groups, split
+                gl, gr = group(c - 1), group(c)
+                if gl != gr and g == gr:
+                    key = (v, g)
+                    if key not in dup:
+                        dup[key] = len(pc.verts); pc.verts.append(pc.verts[v].copy()); pc.hint.append(pc.hint[v]); tag.append(g)
+                    nf.append(dup[key]); continue
+            nf.append(v)
+        new_faces.append(tuple(nf))
+    pc.faces = new_faces
+    for (i, j), f in zip(pc.meta['fij'], pc.faces):
+        g = group(j)
+        if g:
+            for v in f:
+                if pc.verts[v].z < z_s - 1e-6: tag[v] = g
+    pc.meta['panel'] = tag
+    return pc
+
 def torso_shell(name, z_bot, off, nseg=32, z_dome=2.95, elevs=(18, 34, 46, 54), nrows=None, zs=None,
-                extra=None, bvh='torso', keep=None, group='Top', th=0.025, col=None, cap_bottom=False, smooth=2):
+                extra=None, bvh='torso', keep=None, group='Top', th=0.025, col=None, cap_bottom=False, smooth=2, slits=None):
     """Shell around torso from z_bot up to neck opening. extra(z, az)->radial add. keep(i,j,zc,az)->bool"""
     D = hdirs_b(nseg)
     if zs is None:
@@ -65,7 +103,11 @@ def torso_shell(name, z_bot, off, nseg=32, z_dome=2.95, elevs=(18, 34, 46, 54), 
     pc.meta.update(zmin=zmin, zmax=zmax, circ=_ring_len(rows[len(rows) // 2]), nseg=nseg, kind='torso')
     if keep:
         filter_faces(pc, lambda ij, f: keep(ij[0], ij[1], sum(pc.verts[i].z for i in f) / len(f), azb(ij[1] + 0.5, nseg)))
+    if slits: cut_slits(pc, nseg, slits)
     if th: thicken(pc, th)
+    if slits:
+        n0 = pc.meta['n_outer_verts']; t = pc.meta['panel']; pc.meta['panel'] = t + t[:n0] + [0] * (len(pc.verts) - n0 - len(t))
+        pc.meta['slit_top'] = slits
     pc.region = 'torso'; pc.skirt = True
     return pc
 

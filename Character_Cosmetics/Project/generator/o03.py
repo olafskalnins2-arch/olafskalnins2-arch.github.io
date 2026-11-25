@@ -3,6 +3,10 @@ from o02 import *
 def _shin(pc):
     pc.region = 'shin_' + pc.region[-1]; return pc
 
+def RF_SLIT_TOP():
+    import rigfix as _RF
+    return _RF.DEFAULT_RAMPS.get('slit_top', 1.95)
+
 def construction_hero():
     pal = {'grey': '#8d9096', 'grey_d': '#6f7277', 'orange': '#f47a1a', 'trim': '#5a3a22', 'beige': '#d6c49b', 'beige_d': '#b8a679',
            'brown': '#6a4326', 'brown_d': '#3e2614', 'silver': '#b9bcc0', 'boot': '#9ea2a6', 'boot_d': '#7b7f84', 'sole': '#2c3038',
@@ -218,7 +222,7 @@ def wizard():
     P = []
     def rkeep(i, j, zc_, az):
         return not (zc_ > 2.92 and abs(az) < 0.06 + 0.5 * (zc_ - 2.92) / 0.3)
-    robe = torso_shell('Robe', 0.82, 0.06, nseg=40, extra=lambda z, a: 0.01 + 0.17 * max(0, 2.1 - z) ** 1.1, th=0.025)
+    robe = torso_shell('Robe', 0.82, 0.06, nseg=40, extra=lambda z, a: 0.01 + 0.17 * max(0, 2.1 - z) ** 1.1, th=0.025, slits=RF_SLIT_TOP())  # front/back slits (closed at rest)
     def rp(U, V, m):
         img = P_solid(pal['p'])(U, V, m); z, az = zc(U, V, m)
         pts, x, zz, circ = scatter(U, V, m, 6, 7, None)
@@ -234,7 +238,7 @@ def wizard():
     robe.paint = rp; P.append(robe)
     P.append(collar('Collar', 'stand', h=0.04, flare=0.04, open_front=0.5, col='p_l'))
     for s in 'LR':
-        P.append(skin_leg(s, 1.3, 0.47))
+        P.append(skin_leg(s, 1.9, 0.47))   # hidden under the robe at rest; covers the leg up to the hip when a slit opens
         sl = sleeve('Sleeve_' + s, s, 0.0, 0.52, 0.06, extra=lambda t, a: 0.01 + 0.22 * max(0, t - 0.12) ** 1.4)
         sl.paint = lambda U, V, m: mix(rp(U, V, dict(m, zmin=0, zmax=0.8)), aa((0.9 - V) * 400), pal['p_l'])
         sl.weight = 'nearest'; P.append(sl)

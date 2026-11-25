@@ -18,7 +18,7 @@ Limits: every triangulated edge must stay between 0.5x and 1.5x of its rest leng
 | 06 Chef | PASS | 1.26 / 0.66 PASS | 1.47 / 0.69 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.48 / 0.51 PASS | 0/6 |
 | 07 Firefighter | PASS | 1.26 / 0.69 PASS | 1.49 / 0.59 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.49 / 0.51 PASS | 0/6 |
 | 08 Pirate | PASS | 1.29 / 0.69 PASS | 1.49 / 0.51 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.48 / 0.50 PASS | 0/6 |
-| 09 Wizard | PASS | 1.24 / 0.75 PASS | 1.43 / 0.65 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.46 / 0.52 PASS | 0/6 |
+| 09 Wizard | PASS | 1.48 / 0.61 PASS | 1.48 / 0.51 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.49 / 0.51 PASS | 0/6 |
 | 10 Knight | PASS | 1.28 / 0.67 PASS | 1.50 / 0.68 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.47 / 0.50 PASS | 0/6 |
 | 11 Astronaut | PASS | 1.35 / 0.64 PASS | 1.50 / 0.51 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.50 / 0.51 PASS | 0/6 |
 | 12 Ghost | PASS | 1.42 / 0.71 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 3/6 |
@@ -77,13 +77,16 @@ Limits: every triangulated edge must stay between 0.5x and 1.5x of its rest leng
 
 ## Known limitations (straight up)
 
-- **09 Wizard robe - NOT fixed, needs your call**: a closed long robe can't both stay inside 1.5x stretch and follow the
-  legs with linear blend skinning. It stays on the pelvis (no webbing), so in walk / spread / crouch the knee and thigh push
-  out of the robe front and the grey body thigh shows (the skin-colour leg covers stop at z 1.3, under the robe).
-  Proof: Rig_Check/wizard_robe_tradeoff.txt - every hem setting that keeps the legs covered breaks 1.5x (2-4.5x webbing).
-  Fixes that need a shape change (your rule says no without OK): side slits in the robe, and/or skin leg covers up to the
-  hips so a poking leg shows orange like the reference.
-- **12 Ghost - NOT fixed, same reason**: one solid sheet, no cloth sim. Hands stick out in walk / arms up / crouch, feet in
+- **09 Wizard robe - fixed with your OK (mesh change)**: weights alone can't keep legs inside a closed long robe without
+  2-4x webbing (Rig_Check/wizard_robe_tradeoff.txt). So the robe skirt is cut into panels below the sash: front centre,
+  back centre and both sides, plus one extra cut per side splitting each back panel into an inner and a side strip.
+  The cuts duplicate vertices in place, so standing still the robe looks exactly the same. Each panel hangs off its own
+  thigh (front + side strips fully, back inner strips 80%), so in walk / spread / crouch the slits open like a real slit robe
+  and no leg goes through the cloth (measured: 0 leg-through-robe verts in all five poses). The hidden skin-colour leg
+  covers now reach the hips (they were z 1.3), so legs seen through a slit are orange, not grey.
+  Exact geometry change: the robe's outside surface is unchanged; 84 verts of its inside (backface) shell along the cut
+  edges moved by <= 6.6 mm; the 2 leg covers are longer (641 old verts replaced by 1145 new ones, all under the robe).
+- **12 Ghost - accepted as is (your call)**: one solid sheet, no cloth sim, passes every stretch check. Hands stick out in walk / arms up / crouch, feet in
   a wide spread. Proof: Rig_Check/ghost_sheet_tradeoff.txt - letting the sheet follow the arms costs 2.5-4.5x stretch in
   walk and 12-14x in arms up (the hands go above the sheet's head).
 - **Soft knees/hips**: to keep an 80-degree crouch inside 0.5x-1.5x, the knee and hip blends are long, so thighs bend as a

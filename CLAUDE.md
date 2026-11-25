@@ -27,7 +27,10 @@ Left/Right UpperArm, LowerArm, Hand, UpperLeg, LowerLeg, Foot) must follow these
    tools, backpacks, panels, pauldrons, tails, hoods that hang on the back.
 5. **Smooth weights only across joints:** waist, hips, knees, elbows (plus short ankle / wrist ramps). Don't blur
    anything else. Thin clothing layers must match the body's weights exactly (no extra smoothing), or the body pokes through.
-6. **Thick (double-sided) clothing:** inner-shell verts copy the weights of their outer twin, and verts joined by
+6. **Long closed skirts / robes over both legs** can't pass with weights alone: cut them into panels (front / back /
+   side slits, vertices duplicated in place, invisible at rest) and let each panel hang off its own thigh. A vertex ON the
+   centre line of a cut belongs to the side of the panel it is attached to.
+7. **Thick (double-sided) clothing:** inner-shell verts copy the weights of their outer twin, and verts joined by
    near-zero-length edges (< 0.012) or sitting at the same position get identical weights, so rims, stitched seams and
    degenerate edges never tear.
 
