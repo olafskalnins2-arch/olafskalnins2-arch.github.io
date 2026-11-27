@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="lv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vidzemes slimnīca — Veselība tuvu mājām</title>
+<meta name="description" content="Vidzemes slimnīca Valmierā — neatliekamā palīdzība, stacionārs, ambulatorās konsultācijas, izmeklējumi un pierakstu sistēma.">
+<style>
+:root{--bg:#fff;--soft:#f2f7f9;--ink:#12303d;--mut:#5b7480;--brand:#0b6e8a;--brand2:#084f64;--acc:#e5484d;--line:#dbe6eb;--r:16px}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+a{color:inherit;text-decoration:none}
+.w{max-width:1140px;margin:0 auto;padding:0 20px}
+.sos{background:var(--acc);color:#fff;font-size:14px;text-align:center;padding:8px 12px}
+.sos b{font-weight:700}
+header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;color:var(--brand2)}
+.logo i{width:36px;height:36px;border-radius:10px;background:var(--brand);display:grid;place-items:center;color:#fff;font-style:normal;font-size:22px;line-height:1}
+nav ul{display:flex;gap:26px;list-style:none;padding:0}
+nav a{font-size:15px;font-weight:500;color:var(--mut)}nav a:hover{color:var(--brand)}
+.btn{display:inline-block;background:var(--brand);color:#fff;padding:12px 22px;border-radius:999px;font-weight:600;font-size:15px;border:0;cursor:pointer;transition:.2s}
+.btn:hover{background:var(--brand2);transform:translateY(-1px)}
+.btn.o{background:transparent;color:var(--brand);border:2px solid var(--brand)}.btn.o:hover{background:var(--brand);color:#fff}
+.burger{display:none;background:none;border:0;font-size:28px;cursor:pointer;color:var(--ink)}
+.hero{background:linear-gradient(135deg,#e6f3f7 0%,#f8fcfd 60%);padding:84px 0 70px}
+.hero .w{display:grid;grid-template-columns:1.2fr .8fr;gap:50px;align-items:center}
+.tag{display:inline-block;background:#fff;border:1px solid var(--line);color:var(--brand);font-size:13px;font-weight:600;padding:6px 14px;border-radius:999px;margin-bottom:18px}
+h1{font-size:clamp(34px,5vw,54px);line-height:1.1;letter-spacing:-.02em;margin-bottom:18px}
+h1 span{color:var(--brand)}
+.lead{font-size:18px;color:var(--mut);max-width:540px;margin-bottom:28px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.card-h{background:#fff;border-radius:24px;padding:28px;box-shadow:0 20px 50px rgba(11,110,138,.15)}
+.card-h h3{margin-bottom:16px}
+.row{display:flex;gap:14px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
+.row:first-of-type{border-top:0}
+.ic{width:44px;height:44px;border-radius:12px;background:var(--soft);display:grid;place-items:center;font-size:22px;flex:none}
+.row small{color:var(--mut);display:block;font-size:13px}
+.stats{padding:46px 0;background:var(--brand2);color:#fff}
+.stats .w{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+.stats b{display:block;font-size:38px;line-height:1.1}
+.stats span{opacity:.8;font-size:14px}
+section{padding:80px 0}
+.alt{background:var(--soft)}
+.sh{max-width:620px;margin-bottom:44px}
+.sh small{color:var(--brand);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:13px}
+h2{font-size:clamp(28px,4vw,38px);line-height:1.15;margin:6px 0 10px;letter-spacing:-.01em}
+.sh p{color:var(--mut)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:26px;transition:.2s}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(11,110,138,.12);border-color:transparent}
+.card .ic{margin-bottom:14px;background:#e6f3f7}
+.card h3{font-size:18px;margin-bottom:6px}
+.card p{color:var(--mut);font-size:15px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
+.ticks{list-style:none;padding:0;margin-top:18px}
+.ticks li{padding:8px 0 8px 32px;position:relative}
+.ticks li:before{content:"✓";position:absolute;left:0;top:8px;width:22px;height:22px;border-radius:50%;background:var(--brand);color:#fff;font-size:13px;display:grid;place-items:center}
+.team{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px}
+.doc{background:#fff;border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
+.av{height:150px;background:linear-gradient(135deg,#b9dbe6,#e6f3f7);display:grid;place-items:center;font-size:54px;font-weight:800;color:var(--brand)}
+.doc div+div{padding:16px 18px}.doc p{color:var(--mut);font-size:14px}
+.news{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.news .card time{font-size:13px;color:var(--brand);font-weight:600}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:10px}
+summary{font-weight:600;cursor:pointer}
+details p{color:var(--mut);margin-top:10px}
+form{background:#fff;border-radius:20px;padding:28px;border:1px solid var(--line);display:grid;gap:14px}
+label{font-size:14px;font-weight:600;display:grid;gap:6px}
+input,select,textarea{font:inherit;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);border-color:transparent}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ok{display:none;background:#e7f7ee;color:#116b3a;padding:12px 14px;border-radius:10px;font-weight:600}
+.ct p{margin:10px 0;color:var(--mut)}.ct b{color:var(--ink)}
+.map{border-radius:20px;overflow:hidden;border:1px solid var(--line);margin-top:20px;height:260px}
+.map iframe{width:100%;height:100%;border:0}
+footer{background:#0a2530;color:#b7ccd4;padding:50px 0 24px;font-size:14px}
+footer .w{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:30px}
+footer h4{color:#fff;margin-bottom:10px}footer a{display:block;padding:3px 0}footer a:hover{color:#fff}
+.copy{text-align:center;margin-top:34px;padding-top:20px;border-top:1px solid #1d4150;font-size:13px}
+@media(max-width:860px){
+ .hero .w,.two,footer .w{grid-template-columns:1fr}.stats .w{grid-template-columns:1fr 1fr}
+ .burger{display:block}nav{display:none;position:absolute;top:68px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);padding:10px 20px 20px}
+ nav.open{display:block}nav ul{flex-direction:column;gap:6px}nav a{display:block;padding:10px 0}
+ .nav>.btn{display:none}.f2{grid-template-columns:1fr}section{padding:56px 0}
+}
+</style>
+</head>
+<body>
+<div class="sos">🚑 Neatliekama situācija? Zvaniet <b>113</b> — darbojas visu diennakti</div>
+<header><div class="w nav">
+ <a href="#top" class="logo"><i>+</i>Vidzemes slimnīca</a>
+ <nav id="nav"><ul>
+  <li><a href="#pakalpojumi">Pakalpojumi</a></li>
+  <li><a href="#par">Par mums</a></li>
+  <li><a href="#arsti">Ārsti</a></li>
+  <li><a href="#jaunumi">Jaunumi</a></li>
+  <li><a href="#faq">Jautājumi</a></li>
+  <li><a href="#kontakti">Kontakti</a></li>
+ </ul></nav>
+ <a href="#pieraksts" class="btn">Pieteikties vizītei</a>
+ <button class="burger" aria-label="Izvēlne" onclick="document.getElementById('nav').classList.toggle('open')">☰</button>
+</div></header>
+
+<main id="top">
+<div class="hero"><div class="w">
+ <div>
+  <span class="tag">Reģionālā slimnīca Vidzemē</span>
+  <h1>Profesionāla veselības aprūpe <span>tuvu mājām</span></h1>
+  <p class="lead">Mūsdienīga ārstēšana, pieredzējuši speciālisti un cilvēcīga attieksme — Vidzemes iedzīvotājiem, katru dienu.</p>
+  <div class="cta"><a href="#pieraksts" class="btn">Pieteikties vizītei</a><a href="#pakalpojumi" class="btn o">Mūsu pakalpojumi</a></div>
+ </div>
+ <div class="card-h">
+  <h3>Ātrā palīdzība</h3>
+  <div class="row"><div class="ic">🚑</div><div><b>Uzņemšanas nodaļa</b><small>Darbojas 24/7</small></div></div>
+  <div class="row"><div class="ic">📞</div><div><b>Reģistratūra</b><small>Darba dienās 7:00–19:00</small></div></div>
+  <div class="row"><div class="ic">🔬</div><div><b>Laboratorija</b><small>Analīžu nodošana no 7:00</small></div></div>
+ </div>
+</div></div>
+
+<div class="stats"><div class="w">
+ <div><b data-n="24">0</b><span>stundas diennaktī — uzņemšana</span></div>
+ <div><b data-n="30">0</b><span>specialitātes un nodaļas</span></div>
+ <div><b data-n="1000">0</b><span>darbinieku komanda</span></div>
+ <div><b data-n="50000">0</b><span>pacientu gadā</span></div>
+</div></div>
+
+<section id="pakalpojumi"><div class="w">
+ <div class="sh"><small>Pakalpojumi</small><h2>Viss nepieciešamais vienuviet</h2><p>No ikdienas konsultācijām līdz sarežģītām operācijām.</p></div>
+ <div class="grid">
+  <div class="card"><div class="ic">🚑</div><h3>Neatliekamā palīdzība</h3><p>Diennakts uzņemšanas nodaļa akūtiem un dzīvībai bīstamiem stāvokļiem.</p></div>
+  <div class="card"><div class="ic">🏥</div><h3>Stacionārs</h3><p>Ķirurģija, terapija, ortopēdija, neiroloģija un citas nodaļas.</p></div>
+  <div class="card"><div class="ic">🩺</div><h3>Ambulatorās konsultācijas</h3><p>Ārstu speciālistu pieņemšana ar ģimenes ārsta vai bez nosūtījuma.</p></div>
+  <div class="card"><div class="ic">🩻</div><h3>Radioloģija</h3><p>Rentgens, datortomogrāfija, ultrasonogrāfija un citi izmeklējumi.</p></div>
+  <div class="card"><div class="ic">🔬</div><h3>Laboratorija</h3><p>Asins, urīna un citu analīžu veikšana ar ātru rezultātu saņemšanu.</p></div>
+  <div class="card"><div class="ic">👶</div><h3>Dzemdības un bērni</h3><p>Dzemdību nodaļa un pediatriskā aprūpe ģimenēm.</p></div>
+  <div class="card"><div class="ic">❤️</div><h3>Kardioloģija</h3><p>Sirds un asinsvadu slimību diagnostika un ārstēšana.</p></div>
+  <div class="card"><div class="ic">🧠</div><h3>Rehabilitācija</h3><p>Fizikālā medicīna un atveseļošanās pēc slimības vai traumas.</p></div>
+ </div>
+</div></section>
+
+<section id="par" class="alt"><div class="w two">
+ <div class="sh" style="margin:0"><small>Par mums</small><h2>Pacients — mūsu centrā</h2>
+  <p>Vidzemes slimnīca ir nozīmīgs veselības aprūpes pakalpojumu sniedzējs Vidzemes reģionā. Mēs apvienojam modernu tehnoloģiju, kvalificētus speciālistus un rūpi par katru pacientu.</p>
+  <ul class="ticks"><li>Mūsdienīga diagnostikas aparatūra</li><li>Pieredzējušas ārstu un māsu komandas</li><li>Pakalpojumi, kas apmaksāti no valsts budžeta</li><li>Droša un ērta vide pacientiem un apmeklētājiem</li></ul>
+ </div>
+ <div class="grid" style="grid-template-columns:1fr 1fr">
+  <div class="card"><h3>Misija</h3><p>Nodrošināt kvalitatīvu, pieejamu un drošu veselības aprūpi reģiona iedzīvotājiem.</p></div>
+  <div class="card"><h3>Vīzija</h3><p>Moderna, uzticama slimnīca ar augstu pacientu apmierinātību.</p></div>
+  <div class="card"><h3>Vērtības</h3><p>Profesionalitāte, cieņa, atbildība un sadarbība.</p></div>
+  <div class="card"><h3>Kvalitāte</h3><p>Nepārtraukta uzlabošana un pacientu drošības prioritāte.</p></div>
+ </div>
+</div></section>
+
+<section id="arsti"><div class="w">
+ <div class="sh"><small>Komanda</small><h2>Mūsu speciālisti</h2><p>Piemēra ieraksti — aizvietojiet ar īstajiem ārstiem.</p></div>
+ <div class="team">
+  <div class="doc"><div class="av">A</div><div><b>Dr. Vārds Uzvārds</b><p>Ķirurgs</p></div></div>
+  <div class="doc"><div class="av">B</div><div><b>Dr. Vārds Uzvārds</b><p>Kardiologs</p></div></div>
+  <div class="doc"><div class="av">C</div><div><b>Dr. Vārds Uzvārds</b><p>Neirologs</p></div></div>
+  <div class="doc"><div class="av">D</div><div><b>Dr. Vārds Uzvārds</b><p>Pediatrs</p></div></div>
+ </div>
+</div></section>
+
+<section id="jaunumi" class="alt"><div class="w">
+ <div class="sh"><small>Jaunumi</small><h2>Aktualitātes</h2></div>
+ <div class="news">
+  <div class="card"><time>Piemēra datums</time><h3>Jauna aparatūra diagnostikā</h3><p>Īss paziņojuma teksts par jaunumiem slimnīcā.</p></div>
+  <div class="card"><time>Piemēra datums</time><h3>Atvērto durvju diena</h3><p>Aicinām iedzīvotājus iepazīties ar slimnīcas darbu.</p></div>
+  <div class="card"><time>Piemēra datums</time><h3>Izmaiņas apmeklējuma laikā</h3><p>Aktuālā informācija par apmeklētāju kārtību.</p></div>
+ </div>
+</div></section>
+
+<section id="pieraksts"><div class="w two">
+ <div class="sh" style="margin:0"><small>Pieraksts</small><h2>Pieteikties vizītei</h2>
+  <p>Aizpildiet formu un reģistratūra sazināsies ar jums, lai apstiprinātu laiku.</p>
+  <ul class="ticks"><li>Ar nosūtījumu vai bez tā</li><li>Atbilde darba dienās</li><li>Ņemiet līdzi personas apliecinošu dokumentu</li></ul>
+ </div>
+ <form id="f" onsubmit="return send(event)">
+  <div class="f2"><label>Vārds, uzvārds<input required name="n" autocomplete="name"></label><label>Tālrunis<input required type="tel" name="t" autocomplete="tel"></label></div>
+  <label>Speciālists<select name="s"><option>Ģimenes ārsts / nezinu</option><option>Ķirurgs</option><option>Kardiologs</option><option>Neirologs</option><option>Ortopēds</option><option>Pediatrs</option><option>Radioloģija</option></select></label>
+  <label>Vēlamais datums<input type="date" name="d"></label>
+  <label>Komentārs<textarea rows="3" name="m"></textarea></label>
+  <button class="btn" type="submit">Nosūtīt pieteikumu</button>
+  <div class="ok" id="ok">✓ Paldies! Pieteikums sagatavots. (Demo — formu vēl jāsaista ar serveri.)</div>
+ </form>
+</div></section>
+
+<section id="faq" class="alt"><div class="w" style="max-width:780px">
+ <div class="sh"><small>BUJ</small><h2>Biežākie jautājumi</h2></div>
+ <details><summary>Vai vajag nosūtījumu?</summary><p>Daļai pakalpojumu nepieciešams ģimenes ārsta nosūtījums. Precizējiet reģistratūrā.</p></details>
+ <details><summary>Ko ņemt līdzi uz vizīti?</summary><p>Pasi vai ID karti, nosūtījumu (ja ir), iepriekšējos izmeklējumu rezultātus un medikamentu sarakstu.</p></details>
+ <details><summary>Kad var apmeklēt pacientus?</summary><p>Apmeklējuma laiki ir atkarīgi no nodaļas. Aktuālo kārtību skatiet slimnīcā vai zvaniet.</p></details>
+ <details><summary>Kā saņemt analīžu rezultātus?</summary><p>Rezultāti tiek nodoti ārstam; to var arī saņemt reģistratūrā vai e-veselībā.</p></details>
+</div></section>
+
+<section id="kontakti"><div class="w two">
+ <div class="ct"><div class="sh" style="margin:0"><small>Kontakti</small><h2>Sazinieties ar mums</h2></div>
+  <p><b>📍 Adrese:</b> Lazdu iela 1, Valmiera, LV-4201</p>
+  <p><b>📞 Reģistratūra:</b> +371 6xxx xxxx</p>
+  <p><b>🚑 Neatliekamā palīdzība:</b> 113</p>
+  <p><b>✉️ E-pasts:</b> info@vidzemesslimnica.lv</p>
+  <p><b>🕒 Darba laiks:</b> P–Pk 7:00–19:00; uzņemšana 24/7</p>
+ </div>
+ <div class="map"><iframe loading="lazy" title="Karte" src="https://www.openstreetmap.org/export/embed.html?bbox=25.55%2C57.52%2C25.63%2C57.56&layer=mapnik"></iframe></div>
+</div></section>
+</main>
+
+<footer><div class="w">
+ <div><h4>Vidzemes slimnīca</h4><p>Profesionāla veselības aprūpe Vidzemes reģionā.</p></div>
+ <div><h4>Saites</h4><a href="#pakalpojumi">Pakalpojumi</a><a href="#arsti">Ārsti</a><a href="#pieraksts">Pieraksts</a></div>
+ <div><h4>Palīdzība</h4><a href="#faq">BUJ</a><a href="#kontakti">Kontakti</a><a href="tel:113">Neatliekamā palīdzība 113</a></div>
+</div><div class="copy">© <span id="y"></span> Vidzemes slimnīca. Visas tiesības aizsargātas.</div></footer>
+
+<script>
+document.getElementById('y').textContent=new Date().getFullYear();
+document.querySelectorAll('#nav a').forEach(a=>a.onclick=()=>document.getElementById('nav').classList.remove('open'));
+function send(e){e.preventDefault();document.getElementById('ok').style.display='block';e.target.reset();return false}
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(!x.isIntersecting)return;io.unobserve(x.target);const el=x.target,t=+el.dataset.n,s=performance.now();
+(function f(n){const p=Math.min((n-s)/1200,1);el.textContent=Math.round(t*p).toLocaleString('lv-LV')+(p>=1&&t>=1000?'+':'');if(p<1)requestAnimationFrame(f)})(s)}),{threshold:.5});
+document.querySelectorAll('[data-n]').forEach(e=>io.observe(e));
+</script>
+</body>
+</html>
