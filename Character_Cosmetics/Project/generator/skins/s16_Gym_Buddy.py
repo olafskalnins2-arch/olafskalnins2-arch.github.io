@@ -2,9 +2,7 @@ from o04 import *
 NUM, NAME, RARITY, MAXD = '16', 'Gym_Buddy', 'Common', 0.32
 
 
-# the body's Skin material is linear (0.930, 0.485, 0.258) = sRGB #f7b98c; o02.SKIN (#ed7c42) is those linear
-# values read as sRGB, which renders as orange next to the bare arms - so the covers here use the real skin tone.
-BODY_SKIN = '#f7b98c'
+BODY_SKIN = SKIN   # same tone as the arms in Roblox (see o02.SKIN)
 
 
 def _shin(pc):

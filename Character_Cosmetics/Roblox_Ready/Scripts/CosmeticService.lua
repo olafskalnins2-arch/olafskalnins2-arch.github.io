@@ -19,7 +19,55 @@ local ATTR = "CosmeticOutfit"
 CosmeticService.OUTFITS = {
 	"01_Classic_Mover", "02_Chill_Dude", "03_Raincoat", "04_Boss_Mode", "05_Construction_Hero",
 	"06_Chef", "07_Firefighter", "08_Pirate", "09_Wizard", "10_Knight", "11_Astronaut", "12_Ghost", "13_Dinosaur",
+	"14_Hoodie_Hauler", "15_Denim_Overalls", "16_Gym_Buddy", "17_Comfy_Pajamas", "18_Parcel_Courier",
+	"19_Green_Thumb", "20_Splash_Painter", "21_Lumberjack", "22_Mail_Carrier", "23_Barista",
+	"24_Shadow_Ninja", "25_Desert_Cowboy", "26_Surgeon", "27_Speed_Racer", "28_Deep_Diver",
+	"29_Noir_Detective", "30_Skater_Kid", "31_Jungle_Explorer", "32_Rock_Star", "33_Samurai_Warlord",
+	"34_Frost_Viking", "35_Sun_Pharaoh", "36_Ice_Mage", "37_Mecha_Pilot", "38_Royal_Guard",
+	"39_Court_Jester", "40_Dragon_Knight", "41_Seraph", "42_Neon_Ronin", "43_Phoenix_Emperor",
 }
+
+-- Rarity of each skin: "Common" < "Rare" < "Epic" < "Legendary". The first 13 are the original set ("Original").
+CosmeticService.RARITY = {
+	["14_Hoodie_Hauler"] = "Common",
+	["15_Denim_Overalls"] = "Common",
+	["16_Gym_Buddy"] = "Common",
+	["17_Comfy_Pajamas"] = "Common",
+	["18_Parcel_Courier"] = "Common",
+	["19_Green_Thumb"] = "Common",
+	["20_Splash_Painter"] = "Common",
+	["21_Lumberjack"] = "Common",
+	["22_Mail_Carrier"] = "Common",
+	["23_Barista"] = "Common",
+	["24_Shadow_Ninja"] = "Rare",
+	["25_Desert_Cowboy"] = "Rare",
+	["26_Surgeon"] = "Rare",
+	["27_Speed_Racer"] = "Rare",
+	["28_Deep_Diver"] = "Rare",
+	["29_Noir_Detective"] = "Rare",
+	["30_Skater_Kid"] = "Rare",
+	["31_Jungle_Explorer"] = "Rare",
+	["32_Rock_Star"] = "Rare",
+	["33_Samurai_Warlord"] = "Epic",
+	["34_Frost_Viking"] = "Epic",
+	["35_Sun_Pharaoh"] = "Epic",
+	["36_Ice_Mage"] = "Epic",
+	["37_Mecha_Pilot"] = "Epic",
+	["38_Royal_Guard"] = "Epic",
+	["39_Court_Jester"] = "Epic",
+	["40_Dragon_Knight"] = "Legendary",
+	["41_Seraph"] = "Legendary",
+	["42_Neon_Ronin"] = "Legendary",
+	["43_Phoenix_Emperor"] = "Legendary",
+}
+for _, id in CosmeticService.OUTFITS do
+	if CosmeticService.RARITY[id] == nil then CosmeticService.RARITY[id] = "Original" end
+end
+
+function CosmeticService.GetRarity(outfitId: string): string?
+	return CosmeticService.RARITY[outfitId]
+end
+
 local VALID: { [string]: boolean } = {}
 for _, id in CosmeticService.OUTFITS do
 	VALID[id] = true

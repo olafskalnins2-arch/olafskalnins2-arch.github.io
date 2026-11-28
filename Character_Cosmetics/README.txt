@@ -19,7 +19,7 @@ waist. Proof: Rig_Check/ (before/after renders + check tables, 7/174 checks pass
 WHAT'S IN HERE
 --------------
 Project/
-  Character_Cosmetics.blend    Blender project. Your untouched character + all 13 outfits, one collection
+  Character_Cosmetics.blend    Blender project. Your untouched character + all 43 outfits, one collection
                                each, all parented to the SAME armature ("Character"). Textures are linked
                                from ../Textures (relative paths), so keep the folder structure.
   build_report.json            Per-outfit stats: pieces, meshes, triangles, coverage/poke-through tests.
@@ -28,18 +28,18 @@ Project/
                                  pip install bpy   (Blender 5.x as a Python module)
                                  CHARACTER_GLB=/path/character_smooth_v2.glb python3 generator/build_all.py /out/Character_Cosmetics
 Roblox_Ready/
-  00_Import_Helper/CosmeticsRig.glb   Your body + all 13 outfits on one shared skeleton. Use this as the Roblox
+  00_Import_Helper/CosmeticsRig.glb   Your body + all 43 outfits on one shared skeleton. Use this as the Roblox
                                       template so every outfit is aligned to your rig. (Your body in here is a
                                       plain re-export, same geometry and weights. It's only a fitting
                                       reference for the script, not part of any cosmetic.)
-  01_Classic_Mover/ ... 13_Dinosaur/  Each outfit on its own:
+  01_Classic_Mover/ ... 43_Phoenix_Emperor/  Each outfit on its own (14-43 are the 30 rarity skins):
       NN_Name.glb          skinned cosmetic (no body inside), texture embedded  <- recommended format
       NN_Name.fbx          same thing as FBX, texture embedded
       NN_Name_Albedo.png   the outfit's single 1024x1024 texture atlas
   Scripts/
       CosmeticService.lua        ModuleScript: Equip / Unequip / IsValid / CanUse
       CosmeticServer.server.lua  Script: secure RemoteEvent ("EquipCosmetic") + re-equip on respawn
-Textures/      all 13 albedo atlases
+Textures/      all 43 albedo atlases
 Preview/       NN_Name.png = front, 3/4, back, walk pose, carry pose.  All_Outfits.png = overview.
 CHECKLIST.md   completion + export status for every outfit, test results, known limitations.
 
@@ -48,6 +48,8 @@ HOW THE OUTFITS ARE BUILT
 - Each outfit is real 3D geometry (shells with thickness, collars, pockets, buttons, belts, armor plates,
   boots, tails, spikes...) fitted by ray casting onto YOUR body mesh, then offset outward. Your character
   was never scaled, moved or edited.
+- Skins 14-43 come in four rarities (Common, Rare, Epic, Legendary - see CHECKLIST.md and
+  CosmeticService.RARITY). Each is one module in Project/generator/skins/; none has headwear (hats are separate).
 - Loose tops (untucked shirts, jackets, coats, the robe, the space suit top) hang straight down from the chest and sit
   outside the trousers instead of tucking in under the belly. Trousers are one smooth shape from waist to ankle: the
   legs grow out of the hip piece's bottom edge, so there's no ledge or seam bulge at the crotch.

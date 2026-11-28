@@ -12,7 +12,8 @@ def side_bvh(side):
         B.bvh[key] = BVHTree.FromPolygons(B.V, tris, all_triangles=True)
     return B.bvh[key]
 
-def dome(name, side, center, off, elevs, nseg=18, extra=None, group='Top', th=0.025, col=None):
+def dome(name, side, center, off, elevs, nseg=18, extra=None, group='Top', th=0.025, col=None, keep_out=None):
+    """keep_out: drop faces with any vertex closer than this to the centre line (|x|) - low rings otherwise reach across the chest/back"""
     bv = side_bvh(side)
     D = hdirs_b(nseg); rows = []; hints = []
     for e in elevs:
@@ -23,6 +24,9 @@ def dome(name, side, center, off, elevs, nseg=18, extra=None, group='Top', th=0.
     top = bv.ray_cast(center + Z * 0.9, -Z, 0.9)
     pc = _grid_with_ij(name, rows, True, [i / (len(rows) - 1) for i in range(len(rows))], hints, group, col,
                        cap_end=(top[0] + Z * off) if top[0] else center + Z * 0.3)
+    if keep_out:
+        sg = 1 if side == 'L' else -1
+        filter_faces(pc, lambda ij, f: all(sg * pc.verts[i].x > keep_out for i in f))
     if th: thicken(pc, th)
     return pc
 
@@ -47,7 +51,7 @@ def knight():
         sg = 1 if s == 'L' else -1
         pd = dome('Pauldron_' + s, s, Vector((0.58 * sg, 0.0, 2.86)), 0.07, (-30, -12, 8, 28, 48, 68), extra=lambda e, a: 0.04 * max(0, (10 - e) / 40))
         pd.paint = metal_paint(lines=(0.18, 0.4)); pd.meta.update(circ=1.6); pd.rect_key = 'Pauldron'; pd.bone = 'UpperTorso'; P.append(pd)
-        pd2 = dome('PauldronLame_' + s, s, Vector((0.58 * sg, 0.0, 2.86)), 0.11, (-42, -26, -12), extra=lambda e, a: 0.03)
+        pd2 = dome('PauldronLame_' + s, s, Vector((0.58 * sg, 0.0, 2.86)), 0.11, (-42, -26, -12), extra=lambda e, a: 0.03, keep_out=0.42)
         pd2.paint = metal_paint(); pd2.rect_key = 'Lame'; pd2.bone = 'UpperTorso'; P.append(pd2)
         vb = sleeve('Vambrace_' + s, s, 0.52, 0.95, 0.045, cap=False, extra=lambda t, a: 0.015 + 0.05 * max(0, 1 - (t - 0.52) / 0.12) + 0.04 * max(0, (t - 0.86) / 0.09))
         vb.paint = metal_paint(lines=(0.2, 0.8)); vb.sharp = True; P.append(vb)

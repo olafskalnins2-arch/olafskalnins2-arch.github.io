@@ -298,7 +298,27 @@ def pants(prefix, z_waist, z_end, off, hip_off=None, extra=None, leg_extra=None,
     rim = hip.verts[:32]                              # bottom row of the outer shell
     L = trouser_leg(prefix + 'Leg_L', 'L', rim, z_end, off, nseg=nseg, extra=leg_extra, group=group, th=th)
     R = trouser_leg(prefix + 'Leg_R', 'R', rim, z_end, off, nseg=nseg, extra=(lambda z, a: leg_extra(z, -a)) if leg_extra else None, group=group, th=th)
+    crotch_gusset(hip, L)
     return [hip, L, R]
+
+def crotch_gusset(hip, leg, depth=0.30):
+    """Thin centre panel (part of the hip piece, centre line -> torso weights) filling the narrow slot between the two
+    trouser legs' flat inner faces below the crotch, so the grey body never shows through it in a front/back view."""
+    n0 = leg.meta.get('n_outer_verts', len(leg.verts))
+    P = [p for p in leg.verts[:n0] if p.x < 0.05]
+    if not P: return
+    ztop = max(p.z for p in P)
+    rows = []
+    for z in np.linspace(min(ztop, 1.97), 1.97 - depth, 6):
+        near = [p for p in P if abs(p.z - z) < 0.035]
+        if len(near) < 2: continue
+        y0, y1 = min(p.y for p in near), max(p.y for p in near)
+        cy, hw = (y0 + y1) / 2, (y1 - y0) / 2 * 0.9
+        rows.append([Vector((0.002, cy - hw, z)), Vector((0.002, cy + hw, z))])
+    if len(rows) < 2: return
+    g = grid_piece('Gusset', rows, closed=False, hints=[[Vector((1, 0, 0))] * 2 for _ in rows], group=hip.group)
+    thicken(g, 0.004)
+    hip.merge(g)
 
 def shoe(name, side, off=0.035, sole_z=0.305, open_elev=48, nseg=20, extra=None, group='Feet', th=0.02, col=None, bvh=None,
          sole_h=0.06, bulk=0.0, toe=0.0):

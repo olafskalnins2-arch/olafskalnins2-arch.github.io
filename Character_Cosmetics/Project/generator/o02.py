@@ -1,7 +1,7 @@
 from garments import *
 import zlib
 from paints import *
-SKIN = '#f7b88a'   # body 'Skin' material (linear 0.930,0.485,0.258) in sRGB - matches the arms
+SKIN = '#ed7c42'   # body 'Skin' colour factor as Roblox shows it (factor read as sRGB) - matches the arms in game
 
 def _shin(pc):
     pc.region = 'shin_' + pc.region[-1]; return pc

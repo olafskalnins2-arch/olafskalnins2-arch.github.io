@@ -5,7 +5,7 @@ NUM, NAME, RARITY, MAXD = '18', 'Parcel_Courier', 'Common', 0.32
 def build():
     pal = {'brown': '#6b4a2b', 'brown_d': '#5a3d22', 'brown_dd': '#47301a', 'seam': '#4f3520', 'yellow': '#f2b632',
            'yellow_d': '#c98f1c', 'black': '#222222', 'black_d': '#151515', 'white': '#f4f4f2', 'white_d': '#d9d9d6',
-           'silver': '#b4b8bd', 'board': '#a87a46', 'paper': '#f7f5ee', 'ink': '#7d8794', 'btn': '#e9d9b8', 'skin': '#f7b88b'}
+           'silver': '#b4b8bd', 'board': '#a87a46', 'paper': '#f7f5ee', 'ink': '#7d8794', 'btn': '#e9d9b8', 'skin': SKIN}
     P = []
 
     # ---- shorts first (the tucked polo sits inside the hip shell) ----
