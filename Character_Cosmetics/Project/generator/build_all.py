@@ -29,6 +29,21 @@ OUTFITS = [
     ('11', 'Astronaut', o04.astronaut, 0.32), ('12', 'Ghost', o04.ghost, 1.6), ('13', 'Dinosaur', o04.dino, 0.32),
 ]
 only = os.environ.get('ONLY')
+# ---- extra skins: one module per skin in generator/skins/sNN_Name.py with NUM, NAME, RARITY, MAXD and build() -> (P, pal)
+import glob as _glob, importlib.util as _ilu
+RARITY = {num: 'Original' for num, *_ in OUTFITS}
+_skdir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'skins')
+for _f in sorted(_glob.glob(os.path.join(_skdir, 's[0-9][0-9]_*.py'))):
+    _num = os.path.basename(_f)[1:3]
+    if only and _num not in only.split(','): continue      # never import other skins' modules (isolation)
+    _spec = _ilu.spec_from_file_location('skin_' + _num, _f); _mod = _ilu.module_from_spec(_spec)
+    try:
+        _spec.loader.exec_module(_mod)
+    except Exception as _e:
+        if only: raise
+        print('SKIN IMPORT FAILED', _f, repr(_e)); continue
+    OUTFITS.append((_mod.NUM, _mod.NAME, _mod.build, getattr(_mod, 'MAXD', 0.32)))
+    RARITY[_mod.NUM] = _mod.RARITY
 for d in ('Project', 'Roblox_Ready', 'Textures', 'Preview'): os.makedirs(os.path.join(ROOT, d), exist_ok=True)
 load_body()
 print('BODY RELAX HISTORY', B.relax_hist)
@@ -55,7 +70,7 @@ for num, name, fn, maxd in OUTFITS:
     cov = coverage_report(objs, maxd) if os.environ.get('NO_COVERAGE') != '1' else {}
     tris = sum(sum(len(p.vertices) - 2 for p in o.data.polygons) for o in objs)
     infl = max(sum(1 for g in v.groups if g.weight > 0) for o in objs for v in o.data.vertices)
-    report[f'{num}_{name}'] = dict(pieces=len(P), meshes=[o.name for o in objs], triangles=tris, max_bone_influences=infl,
+    report[f'{num}_{name}'] = dict(rarity=RARITY.get(num), pieces=len(P), meshes=[o.name for o in objs], triangles=tris, max_bone_influences=infl,
                                    texture=os.path.basename(tex), coverage=cov)
     print(num, name, 'tris', tris, cov, round(time.time() - t0, 1), 's', flush=True)
 
@@ -109,25 +124,26 @@ for num, (name, col, objs) in (allobjs.items() if not NO_RENDER else []):
     sheets.append((num, name, os.path.join(ROOT, 'Preview', f'{num}_{name}_front.png')))
 
 # contact sheet
-if len(sheets) == 13:
+ALL = len(OUTFITS)
+if len(sheets) == ALL:
     from PIL import ImageDraw, ImageFont
     ims = [Image.open(p) for _, _, p in sheets]
-    W, H = ims[0].size; cols = 7
-    sw, sh = W // 2, H // 2
-    bg = ims[0].getpixel((5, 5)); sheet = Image.new('RGB', (cols * sw, 2 * (sh + 40)), bg)
+    W, H = ims[0].size; cols = 7 if ALL <= 14 else 9
+    sw, sh = W // 2, H // 2; nrows = -(-ALL // cols)
+    bg = ims[0].getpixel((5, 5)); sheet = Image.new('RGB', (cols * sw, nrows * (sh + 40)), bg)
     dr = ImageDraw.Draw(sheet)
     try: font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 18)
     except Exception: font = None
     for k, ((num, name, _), im) in enumerate(zip(sheets, ims)):
         r, c = divmod(k, cols)
-        if r == 1: c += 0.5
+        if ALL <= 14 and r == 1: c += 0.5
         x = int(c * sw); y = r * (sh + 40)
         sheet.paste(im.resize((sw, sh)), (x, y))
         dr.text((x + 10, y + sh + 8), f'{num} {name.replace("_", " ")}', fill=(40, 40, 40), font=font)
     sheet.save(os.path.join(ROOT, 'Preview', 'All_Outfits.png'))
 
 # ---------- import helper: your body + all outfits on the one shared skeleton ----------
-if len(allobjs) == 13:
+if len(allobjs) == ALL:
     for o in bpy.data.objects: o.hide_set(False); o.hide_render = False
     set_pose(None)
     alls = [o for _, (_, _, objs) in allobjs.items() for o in objs]
