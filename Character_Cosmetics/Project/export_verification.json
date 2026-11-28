@@ -50,15 +50,128 @@
    "13_Dinosaur_Feet",
    "13_Dinosaur_Head",
    "13_Dinosaur_Top",
+   "14_Hoodie_Hauler_Bottom",
+   "14_Hoodie_Hauler_Feet",
+   "14_Hoodie_Hauler_Top",
+   "15_Denim_Overalls_Bottom",
+   "15_Denim_Overalls_Extras",
+   "15_Denim_Overalls_Feet",
+   "15_Denim_Overalls_Top",
+   "16_Gym_Buddy_Bottom",
+   "16_Gym_Buddy_Feet",
+   "16_Gym_Buddy_Top",
+   "17_Comfy_Pajamas_Bottom",
+   "17_Comfy_Pajamas_Feet",
+   "17_Comfy_Pajamas_Top",
+   "18_Parcel_Courier_Bottom",
+   "18_Parcel_Courier_Extras",
+   "18_Parcel_Courier_Feet",
+   "18_Parcel_Courier_Top",
+   "19_Green_Thumb_Bottom",
+   "19_Green_Thumb_Extras",
+   "19_Green_Thumb_Feet",
+   "19_Green_Thumb_Top",
+   "20_Splash_Painter_Bottom",
+   "20_Splash_Painter_Feet",
+   "20_Splash_Painter_Top",
+   "21_Lumberjack_Bottom",
+   "21_Lumberjack_Feet",
+   "21_Lumberjack_Top",
+   "22_Mail_Carrier_Bottom",
+   "22_Mail_Carrier_Extras",
+   "22_Mail_Carrier_Feet",
+   "22_Mail_Carrier_Top",
+   "23_Barista_Bottom",
+   "23_Barista_Extras",
+   "23_Barista_Feet",
+   "23_Barista_Top",
+   "24_Shadow_Ninja_Bottom",
+   "24_Shadow_Ninja_Extras",
+   "24_Shadow_Ninja_Feet",
+   "24_Shadow_Ninja_Top",
+   "25_Desert_Cowboy_Bottom",
+   "25_Desert_Cowboy_Extras",
+   "25_Desert_Cowboy_Feet",
+   "25_Desert_Cowboy_Top",
+   "26_Surgeon_Bottom",
+   "26_Surgeon_Extras",
+   "26_Surgeon_Feet",
+   "26_Surgeon_Top",
+   "27_Speed_Racer_Bottom",
+   "27_Speed_Racer_Feet",
+   "27_Speed_Racer_Top",
+   "28_Deep_Diver_Bottom",
+   "28_Deep_Diver_Extras",
+   "28_Deep_Diver_Feet",
+   "28_Deep_Diver_Top",
+   "29_Noir_Detective_Bottom",
+   "29_Noir_Detective_Extras",
+   "29_Noir_Detective_Feet",
+   "29_Noir_Detective_Top",
+   "30_Skater_Kid_Bottom",
+   "30_Skater_Kid_Extras",
+   "30_Skater_Kid_Feet",
+   "30_Skater_Kid_Top",
+   "31_Jungle_Explorer_Bottom",
+   "31_Jungle_Explorer_Extras",
+   "31_Jungle_Explorer_Feet",
+   "31_Jungle_Explorer_Top",
+   "32_Rock_Star_Bottom",
+   "32_Rock_Star_Extras",
+   "32_Rock_Star_Feet",
+   "32_Rock_Star_Top",
+   "33_Samurai_Warlord_Bottom",
+   "33_Samurai_Warlord_Extras",
+   "33_Samurai_Warlord_Feet",
+   "33_Samurai_Warlord_Top",
+   "34_Frost_Viking_Bottom",
+   "34_Frost_Viking_Extras",
+   "34_Frost_Viking_Feet",
+   "34_Frost_Viking_Top",
+   "35_Sun_Pharaoh_Bottom",
+   "35_Sun_Pharaoh_Feet",
+   "35_Sun_Pharaoh_Top",
+   "36_Ice_Mage_Bottom",
+   "36_Ice_Mage_Extras",
+   "36_Ice_Mage_Feet",
+   "36_Ice_Mage_Top",
+   "37_Mecha_Pilot_Bottom",
+   "37_Mecha_Pilot_Extras",
+   "37_Mecha_Pilot_Feet",
+   "37_Mecha_Pilot_Top",
+   "38_Royal_Guard_Bottom",
+   "38_Royal_Guard_Extras",
+   "38_Royal_Guard_Feet",
+   "38_Royal_Guard_Top",
+   "39_Court_Jester_Bottom",
+   "39_Court_Jester_Extras",
+   "39_Court_Jester_Feet",
+   "39_Court_Jester_Top",
+   "40_Dragon_Knight_Bottom",
+   "40_Dragon_Knight_Extras",
+   "40_Dragon_Knight_Feet",
+   "40_Dragon_Knight_Top",
+   "41_Seraph_Bottom",
+   "41_Seraph_Extras",
+   "41_Seraph_Feet",
+   "41_Seraph_Top",
+   "42_Neon_Ronin_Bottom",
+   "42_Neon_Ronin_Extras",
+   "42_Neon_Ronin_Feet",
+   "42_Neon_Ronin_Top",
+   "43_Phoenix_Emperor_Bottom",
+   "43_Phoenix_Emperor_Extras",
+   "43_Phoenix_Emperor_Feet",
+   "43_Phoenix_Emperor_Top",
    "Body"
   ],
   "contains_body": true,
   "has_uv_joints_weights": true,
-  "embedded_images": 13,
-  "materials_per_outfit": 18,
+  "embedded_images": 43,
+  "materials_per_outfit": 48,
   "reimport_ok": true,
-  "triangles": 133583,
-  "max_tris_single_mesh": 8252
+  "triangles": 550585,
+  "max_tris_single_mesh": 9312
  },
  "01_Classic_Mover.glb": {
   "same_15_bones": true,
@@ -74,8 +187,8 @@
   "embedded_images": 1,
   "materials_per_outfit": 1,
   "reimport_ok": true,
-  "triangles": 9264,
-  "max_tris_single_mesh": 3772
+  "triangles": 9308,
+  "max_tris_single_mesh": 3816
  },
  "02_Chill_Dude.glb": {
   "same_15_bones": true,
@@ -91,8 +204,8 @@
   "embedded_images": 1,
   "materials_per_outfit": 1,
   "reimport_ok": true,
-  "triangles": 7388,
-  "max_tris_single_mesh": 3340
+  "triangles": 7432,
+  "max_tris_single_mesh": 3372
  },
  "03_Raincoat.glb": {
   "same_15_bones": true,
@@ -108,7 +221,7 @@
   "embedded_images": 1,
   "materials_per_outfit": 1,
   "reimport_ok": true,
-  "triangles": 10004,
+  "triangles": 10048,
   "max_tris_single_mesh": 5236
  },
  "04_Boss_Mode.glb": {
@@ -126,7 +239,7 @@
   "embedded_images": 1,
   "materials_per_outfit": 1,
   "reimport_ok": true,
-  "triangles": 11652,
+  "triangles": 11696,
   "max_tris_single_mesh": 6948
  },
  "05_Construction_Hero.glb": {
@@ -144,7 +257,7 @@
   "embedded_images": 1,
   "materials_per_outfit": 1,
   "reimport_ok": true,
-  "triangles": 10296,
+  "triangles": 10340,
   "max_tris_single_mesh": 4556
  },
  "06_Chef.glb": {
@@ -162,7 +275,7 @@
   "embedded_images": 1,
   "materials_per_outfit": 1,
   "reimport_ok": true,
-  "triangles": 8768,
+  "triangles": 8812,
   "max_tris_single_mesh": 4024
  },
  "07_Firefighter.glb": {
@@ -180,7 +293,7 @@
   "embedded_images": 1,
   "materials_per_outfit": 1,
   "reimport_ok": true,
-  "triangles": 9120,
+  "triangles": 9164,
   "max_tris_single_mesh": 4152
  },
  "08_Pirate.glb": {
@@ -198,7 +311,7 @@
   "embedded_images": 1,
   "materials_per_outfit": 1,
   "reimport_ok": true,
-  "triangles": 13592,
+  "triangles": 13636,
   "max_tris_single_mesh": 8252
  },
  "09_Wizard.glb": {
@@ -233,7 +346,7 @@
   "embedded_images": 1,
   "materials_per_outfit": 1,
   "reimport_ok": true,
-  "triangles": 11280,
+  "triangles": 11136,
   "max_tris_single_mesh": 5248
  },
  "11_Astronaut.glb": {
@@ -251,7 +364,7 @@
   "embedded_images": 1,
   "materials_per_outfit": 1,
   "reimport_ok": true,
-  "triangles": 10652,
+  "triangles": 10696,
   "max_tris_single_mesh": 4864
  },
  "12_Ghost.glb": {
@@ -285,8 +398,541 @@
   "embedded_images": 1,
   "materials_per_outfit": 1,
   "reimport_ok": true,
-  "triangles": 8800,
+  "triangles": 8844,
   "max_tris_single_mesh": 2944
+ },
+ "14_Hoodie_Hauler.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "14_Hoodie_Hauler_Bottom",
+   "14_Hoodie_Hauler_Feet",
+   "14_Hoodie_Hauler_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 12048,
+  "max_tris_single_mesh": 5668
+ },
+ "15_Denim_Overalls.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "15_Denim_Overalls_Bottom",
+   "15_Denim_Overalls_Extras",
+   "15_Denim_Overalls_Feet",
+   "15_Denim_Overalls_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 9828,
+  "max_tris_single_mesh": 4404
+ },
+ "16_Gym_Buddy.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "16_Gym_Buddy_Bottom",
+   "16_Gym_Buddy_Feet",
+   "16_Gym_Buddy_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 7564,
+  "max_tris_single_mesh": 3372
+ },
+ "17_Comfy_Pajamas.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "17_Comfy_Pajamas_Bottom",
+   "17_Comfy_Pajamas_Feet",
+   "17_Comfy_Pajamas_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 9780,
+  "max_tris_single_mesh": 4584
+ },
+ "18_Parcel_Courier.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "18_Parcel_Courier_Bottom",
+   "18_Parcel_Courier_Extras",
+   "18_Parcel_Courier_Feet",
+   "18_Parcel_Courier_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 9720,
+  "max_tris_single_mesh": 3980
+ },
+ "19_Green_Thumb.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "19_Green_Thumb_Bottom",
+   "19_Green_Thumb_Extras",
+   "19_Green_Thumb_Feet",
+   "19_Green_Thumb_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 13872,
+  "max_tris_single_mesh": 7440
+ },
+ "20_Splash_Painter.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "20_Splash_Painter_Bottom",
+   "20_Splash_Painter_Feet",
+   "20_Splash_Painter_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 9756,
+  "max_tris_single_mesh": 4736
+ },
+ "21_Lumberjack.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "21_Lumberjack_Bottom",
+   "21_Lumberjack_Feet",
+   "21_Lumberjack_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 10200,
+  "max_tris_single_mesh": 4876
+ },
+ "22_Mail_Carrier.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "22_Mail_Carrier_Bottom",
+   "22_Mail_Carrier_Extras",
+   "22_Mail_Carrier_Feet",
+   "22_Mail_Carrier_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 10444,
+  "max_tris_single_mesh": 4160
+ },
+ "23_Barista.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "23_Barista_Bottom",
+   "23_Barista_Extras",
+   "23_Barista_Feet",
+   "23_Barista_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 12488,
+  "max_tris_single_mesh": 6568
+ },
+ "24_Shadow_Ninja.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "24_Shadow_Ninja_Bottom",
+   "24_Shadow_Ninja_Extras",
+   "24_Shadow_Ninja_Feet",
+   "24_Shadow_Ninja_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 13096,
+  "max_tris_single_mesh": 5348
+ },
+ "25_Desert_Cowboy.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "25_Desert_Cowboy_Bottom",
+   "25_Desert_Cowboy_Extras",
+   "25_Desert_Cowboy_Feet",
+   "25_Desert_Cowboy_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 15072,
+  "max_tris_single_mesh": 6368
+ },
+ "26_Surgeon.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "26_Surgeon_Bottom",
+   "26_Surgeon_Extras",
+   "26_Surgeon_Feet",
+   "26_Surgeon_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 13436,
+  "max_tris_single_mesh": 7728
+ },
+ "27_Speed_Racer.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "27_Speed_Racer_Bottom",
+   "27_Speed_Racer_Feet",
+   "27_Speed_Racer_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 11752,
+  "max_tris_single_mesh": 5824
+ },
+ "28_Deep_Diver.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "28_Deep_Diver_Bottom",
+   "28_Deep_Diver_Extras",
+   "28_Deep_Diver_Feet",
+   "28_Deep_Diver_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 13988,
+  "max_tris_single_mesh": 3760
+ },
+ "29_Noir_Detective.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "29_Noir_Detective_Bottom",
+   "29_Noir_Detective_Extras",
+   "29_Noir_Detective_Feet",
+   "29_Noir_Detective_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 13392,
+  "max_tris_single_mesh": 8060
+ },
+ "30_Skater_Kid.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "30_Skater_Kid_Bottom",
+   "30_Skater_Kid_Extras",
+   "30_Skater_Kid_Feet",
+   "30_Skater_Kid_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 12392,
+  "max_tris_single_mesh": 4120
+ },
+ "31_Jungle_Explorer.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "31_Jungle_Explorer_Bottom",
+   "31_Jungle_Explorer_Extras",
+   "31_Jungle_Explorer_Feet",
+   "31_Jungle_Explorer_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 13360,
+  "max_tris_single_mesh": 5632
+ },
+ "32_Rock_Star.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "32_Rock_Star_Bottom",
+   "32_Rock_Star_Extras",
+   "32_Rock_Star_Feet",
+   "32_Rock_Star_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 14712,
+  "max_tris_single_mesh": 6924
+ },
+ "33_Samurai_Warlord.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "33_Samurai_Warlord_Bottom",
+   "33_Samurai_Warlord_Extras",
+   "33_Samurai_Warlord_Feet",
+   "33_Samurai_Warlord_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 17692,
+  "max_tris_single_mesh": 7764
+ },
+ "34_Frost_Viking.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "34_Frost_Viking_Bottom",
+   "34_Frost_Viking_Extras",
+   "34_Frost_Viking_Feet",
+   "34_Frost_Viking_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 18658,
+  "max_tris_single_mesh": 8306
+ },
+ "35_Sun_Pharaoh.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "35_Sun_Pharaoh_Bottom",
+   "35_Sun_Pharaoh_Feet",
+   "35_Sun_Pharaoh_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 15936,
+  "max_tris_single_mesh": 7104
+ },
+ "36_Ice_Mage.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "36_Ice_Mage_Bottom",
+   "36_Ice_Mage_Extras",
+   "36_Ice_Mage_Feet",
+   "36_Ice_Mage_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 13632,
+  "max_tris_single_mesh": 8832
+ },
+ "37_Mecha_Pilot.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "37_Mecha_Pilot_Bottom",
+   "37_Mecha_Pilot_Extras",
+   "37_Mecha_Pilot_Feet",
+   "37_Mecha_Pilot_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 15260,
+  "max_tris_single_mesh": 7976
+ },
+ "38_Royal_Guard.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "38_Royal_Guard_Bottom",
+   "38_Royal_Guard_Extras",
+   "38_Royal_Guard_Feet",
+   "38_Royal_Guard_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 13212,
+  "max_tris_single_mesh": 8112
+ },
+ "39_Court_Jester.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "39_Court_Jester_Bottom",
+   "39_Court_Jester_Extras",
+   "39_Court_Jester_Feet",
+   "39_Court_Jester_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 16172,
+  "max_tris_single_mesh": 5856
+ },
+ "40_Dragon_Knight.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "40_Dragon_Knight_Bottom",
+   "40_Dragon_Knight_Extras",
+   "40_Dragon_Knight_Feet",
+   "40_Dragon_Knight_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 21204,
+  "max_tris_single_mesh": 8452
+ },
+ "41_Seraph.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "41_Seraph_Bottom",
+   "41_Seraph_Extras",
+   "41_Seraph_Feet",
+   "41_Seraph_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 21952,
+  "max_tris_single_mesh": 9312
+ },
+ "42_Neon_Ronin.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "42_Neon_Ronin_Bottom",
+   "42_Neon_Ronin_Extras",
+   "42_Neon_Ronin_Feet",
+   "42_Neon_Ronin_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 14792,
+  "max_tris_single_mesh": 6932
+ },
+ "43_Phoenix_Emperor.glb": {
+  "same_15_bones": true,
+  "max_joint_pos_error": 2.38e-07,
+  "max_joint_rot_dev": 2.6e-08,
+  "meshes": [
+   "43_Phoenix_Emperor_Bottom",
+   "43_Phoenix_Emperor_Extras",
+   "43_Phoenix_Emperor_Feet",
+   "43_Phoenix_Emperor_Top"
+  ],
+  "contains_body": false,
+  "has_uv_joints_weights": true,
+  "embedded_images": 1,
+  "materials_per_outfit": 1,
+  "reimport_ok": true,
+  "triangles": 21296,
+  "max_tris_single_mesh": 8552
  },
  "01_Classic_Mover.fbx": {
   "reimport_ok": true,
@@ -447,6 +1093,389 @@
    "13_Dinosaur_Feet",
    "13_Dinosaur_Head",
    "13_Dinosaur_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "14_Hoodie_Hauler.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "14_Hoodie_Hauler_Bottom",
+   "14_Hoodie_Hauler_Feet",
+   "14_Hoodie_Hauler_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "15_Denim_Overalls.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "15_Denim_Overalls_Bottom",
+   "15_Denim_Overalls_Extras",
+   "15_Denim_Overalls_Feet",
+   "15_Denim_Overalls_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "16_Gym_Buddy.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "16_Gym_Buddy_Bottom",
+   "16_Gym_Buddy_Feet",
+   "16_Gym_Buddy_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "17_Comfy_Pajamas.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "17_Comfy_Pajamas_Bottom",
+   "17_Comfy_Pajamas_Feet",
+   "17_Comfy_Pajamas_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "18_Parcel_Courier.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "18_Parcel_Courier_Bottom",
+   "18_Parcel_Courier_Extras",
+   "18_Parcel_Courier_Feet",
+   "18_Parcel_Courier_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "19_Green_Thumb.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "19_Green_Thumb_Bottom",
+   "19_Green_Thumb_Extras",
+   "19_Green_Thumb_Feet",
+   "19_Green_Thumb_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "20_Splash_Painter.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "20_Splash_Painter_Bottom",
+   "20_Splash_Painter_Feet",
+   "20_Splash_Painter_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "21_Lumberjack.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "21_Lumberjack_Bottom",
+   "21_Lumberjack_Feet",
+   "21_Lumberjack_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "22_Mail_Carrier.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "22_Mail_Carrier_Bottom",
+   "22_Mail_Carrier_Extras",
+   "22_Mail_Carrier_Feet",
+   "22_Mail_Carrier_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "23_Barista.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "23_Barista_Bottom",
+   "23_Barista_Extras",
+   "23_Barista_Feet",
+   "23_Barista_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "24_Shadow_Ninja.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "24_Shadow_Ninja_Bottom",
+   "24_Shadow_Ninja_Extras",
+   "24_Shadow_Ninja_Feet",
+   "24_Shadow_Ninja_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "25_Desert_Cowboy.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "25_Desert_Cowboy_Bottom",
+   "25_Desert_Cowboy_Extras",
+   "25_Desert_Cowboy_Feet",
+   "25_Desert_Cowboy_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "26_Surgeon.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "26_Surgeon_Bottom",
+   "26_Surgeon_Extras",
+   "26_Surgeon_Feet",
+   "26_Surgeon_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "27_Speed_Racer.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "27_Speed_Racer_Bottom",
+   "27_Speed_Racer_Feet",
+   "27_Speed_Racer_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "28_Deep_Diver.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "28_Deep_Diver_Bottom",
+   "28_Deep_Diver_Extras",
+   "28_Deep_Diver_Feet",
+   "28_Deep_Diver_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "29_Noir_Detective.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "29_Noir_Detective_Bottom",
+   "29_Noir_Detective_Extras",
+   "29_Noir_Detective_Feet",
+   "29_Noir_Detective_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "30_Skater_Kid.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "30_Skater_Kid_Bottom",
+   "30_Skater_Kid_Extras",
+   "30_Skater_Kid_Feet",
+   "30_Skater_Kid_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "31_Jungle_Explorer.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "31_Jungle_Explorer_Bottom",
+   "31_Jungle_Explorer_Extras",
+   "31_Jungle_Explorer_Feet",
+   "31_Jungle_Explorer_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "32_Rock_Star.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "32_Rock_Star_Bottom",
+   "32_Rock_Star_Extras",
+   "32_Rock_Star_Feet",
+   "32_Rock_Star_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "33_Samurai_Warlord.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "33_Samurai_Warlord_Bottom",
+   "33_Samurai_Warlord_Extras",
+   "33_Samurai_Warlord_Feet",
+   "33_Samurai_Warlord_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "34_Frost_Viking.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "34_Frost_Viking_Bottom",
+   "34_Frost_Viking_Extras",
+   "34_Frost_Viking_Feet",
+   "34_Frost_Viking_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "35_Sun_Pharaoh.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "35_Sun_Pharaoh_Bottom",
+   "35_Sun_Pharaoh_Feet",
+   "35_Sun_Pharaoh_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "36_Ice_Mage.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "36_Ice_Mage_Bottom",
+   "36_Ice_Mage_Extras",
+   "36_Ice_Mage_Feet",
+   "36_Ice_Mage_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "37_Mecha_Pilot.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "37_Mecha_Pilot_Bottom",
+   "37_Mecha_Pilot_Extras",
+   "37_Mecha_Pilot_Feet",
+   "37_Mecha_Pilot_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "38_Royal_Guard.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "38_Royal_Guard_Bottom",
+   "38_Royal_Guard_Extras",
+   "38_Royal_Guard_Feet",
+   "38_Royal_Guard_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "39_Court_Jester.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "39_Court_Jester_Bottom",
+   "39_Court_Jester_Extras",
+   "39_Court_Jester_Feet",
+   "39_Court_Jester_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "40_Dragon_Knight.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "40_Dragon_Knight_Bottom",
+   "40_Dragon_Knight_Extras",
+   "40_Dragon_Knight_Feet",
+   "40_Dragon_Knight_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "41_Seraph.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "41_Seraph_Bottom",
+   "41_Seraph_Extras",
+   "41_Seraph_Feet",
+   "41_Seraph_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "42_Neon_Ronin.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "42_Neon_Ronin_Bottom",
+   "42_Neon_Ronin_Extras",
+   "42_Neon_Ronin_Feet",
+   "42_Neon_Ronin_Top"
+  ],
+  "textures_found": true,
+  "vertex_groups_ok": true
+ },
+ "43_Phoenix_Emperor.fbx": {
+  "reimport_ok": true,
+  "same_15_bones": true,
+  "max_joint_pos_error": 3.34e-07,
+  "meshes": [
+   "43_Phoenix_Emperor_Bottom",
+   "43_Phoenix_Emperor_Extras",
+   "43_Phoenix_Emperor_Feet",
+   "43_Phoenix_Emperor_Top"
   ],
   "textures_found": true,
   "vertex_groups_ok": true
