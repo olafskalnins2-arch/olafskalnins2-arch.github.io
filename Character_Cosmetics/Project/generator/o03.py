@@ -80,7 +80,8 @@ def construction_hero():
 def chef():
     pal = {'white': '#f7f7f5', 'white_d': '#dcdcd8', 'btn': '#1c1c1c', 'black': '#161616', 'green': '#5a9a3a', 'green_d': '#3f7429', 'green_l': '#7cb556'}
     P = []
-    jk = torso_shell('Jacket', 1.95, 0.055, nseg=32, extra=lambda z, a: 0.028 + 0.02 * max(0, 2.15 - z), th=0.022)
+    pt = pants('Trousers', 2.15, 0.5, 0.04, hip_off=0.058, leg_extra=lambda z, a: 0.015 + 0.02 * max(0, 1.4 - z))
+    jk = torso_shell('Jacket', 1.95, 0.055, nseg=32, extra=lambda z, a: 0.028 + 0.02 * max(0, 2.15 - z), th=0.022, hang=2.3, over=pt)
     def jp(U, V, m):
         img = P_solid(pal['white'])(U, V, m); z, az = zc(U, V, m)
         # double-breasted overlap edge (wearer's left panel over right)
@@ -97,7 +98,6 @@ def chef():
     for s in 'LR':
         sl = sleeve('Sleeve_' + s, s, 0.0, 0.97, 0.05, extra=lambda t, a: 0.01 + 0.01 * t)
         sl.paint = lambda U, V, m: mix(P_solid(pal['white'])(U, V, m), aa(np.abs(V - 0.9) * 400 - 1), pal['white_d']); P.append(sl)
-    pt = pants('Trousers', 2.15, 0.5, 0.04, hip_off=0.058, leg_extra=lambda z, a: 0.015 + 0.02 * max(0, 1.4 - z))
     for p in pt: p.paint = lambda U, V, m: checker(U, V, m, 0.075, pal['white'], pal['black'])
     P += pt
     for s in 'LR':
@@ -123,7 +123,8 @@ def firefighter():
     pal = {'red': '#c42a1e', 'red_d': '#9b1d14', 'dark': '#2b2b2e', 'dark_d': '#1b1b1d', 'yellow': '#f2e01c', 'silver': '#c3c6ca',
            'belt': '#3b1512', 'metal': '#b0b4ba', 'black': '#151515', 'sole': '#0a0a0a'}
     P = []
-    jk = torso_shell('Jacket', 1.84, 0.075, nseg=32, extra=lambda z, a: 0.025 + 0.04 * max(0, 2.1 - z), th=0.025)
+    pt = pants('Trousers', 2.22, 0.56, 0.05, hip_off=0.06, leg_extra=lambda z, a: 0.025 + 0.045 * max(0, 1.4 - z))
+    jk = torso_shell('Jacket', 1.84, 0.075, nseg=32, extra=lambda z, a: 0.025 + 0.04 * max(0, 2.1 - z), th=0.025, hang=2.3, over=pt)
     def jp(U, V, m):
         img = P_solid(pal['red'])(U, V, m); z, az = zc(U, V, m)
         img = reflective(img, z, 2.70, 2.82, pal['yellow'], pal['silver'])
@@ -146,7 +147,6 @@ def firefighter():
             img = reflective(img, V, 0.74, 0.82, pal['yellow'], pal['silver'])
             return mix(img, aa((0.95 - V) * 400), pal['dark_d'])
         sl.paint = spaint; P.append(sl)
-    pt = pants('Trousers', 2.22, 0.56, 0.05, hip_off=0.06, leg_extra=lambda z, a: 0.025 + 0.045 * max(0, 1.4 - z))
     def tp(U, V, m):
         img = P_solid(pal['dark'])(U, V, m); z, az = zc(U, V, m)
         if m.get('kind') == 'leg':
@@ -185,7 +185,8 @@ def pirate():
     def ckeep(i, j, zc_, az):
         w = 0.42 if zc_ < 2.85 else 0.42 + (zc_ - 2.85) * 0.55
         return abs(az) > w
-    coat = torso_shell('Coat', 1.12, 0.12, nseg=36, extra=lambda z, a: 0.01 + 0.09 * max(0, 2.05 - z), keep=ckeep, th=0.025)
+    pt = pants('Trousers', 2.2, 0.82, 0.045, hip_off=0.063, leg_extra=lambda z, a: 0.02 + 0.035 * max(0, 1.5 - z))
+    coat = torso_shell('Coat', 1.12, 0.12, nseg=36, extra=lambda z, a: 0.01 + 0.09 * max(0, 2.05 - z), keep=ckeep, th=0.025, hang=2.3, over=pt + [belt])
     def cpaint(U, V, m):
         img = P_solid(pal['coat'])(U, V, m); z, az = zc(U, V, m)
         img = mix(img, aa((np.abs(np.abs(az) - PI / 2) - 0.006) * 300) * 0.5, pal['coat_d'])
@@ -206,7 +207,6 @@ def pirate():
         sl = sleeve('Sleeve_' + s, s, 0.0, 0.93, 0.07, extra=lambda t, a: 0.015 + 0.02 * t)
         sl.paint = P_solid(pal['coat']); P.append(sl)
         P.append(sleeve('CoatCuff_' + s, s, 0.76, 0.95, 0.11, nrows=4, cap=False, col='coat_d', extra=lambda t, a: 0.03 * (t - 0.76) / 0.19))
-    pt = pants('Trousers', 2.2, 0.82, 0.045, hip_off=0.063, leg_extra=lambda z, a: 0.02 + 0.035 * max(0, 1.5 - z))
     for p in pt: p.paint = lambda U, V, m: vstripes(U, V, m, 0.075, pal['white'], pal['red'])
     P += pt
     for s in 'LR':
@@ -222,7 +222,8 @@ def wizard():
     P = []
     def rkeep(i, j, zc_, az):
         return not (zc_ > 2.92 and abs(az) < 0.06 + 0.5 * (zc_ - 2.92) / 0.3)
-    robe = torso_shell('Robe', 0.82, 0.06, nseg=40, extra=lambda z, a: 0.01 + 0.17 * max(0, 2.1 - z) ** 1.1, th=0.025, slits=RF_SLIT_TOP())  # front/back slits (closed at rest)
+    legs = [skin_leg(s, 1.9, 0.47) for s in 'LR']
+    robe = torso_shell('Robe', 0.82, 0.06, nseg=40, extra=lambda z, a: 0.01 + 0.17 * max(0, 2.1 - z) ** 1.1, th=0.025, slits=RF_SLIT_TOP(), hang=2.3, over=legs)  # front/back slits (closed at rest)
     def rp(U, V, m):
         img = P_solid(pal['p'])(U, V, m); z, az = zc(U, V, m)
         pts, x, zz, circ = scatter(U, V, m, 6, 7, None)
@@ -237,12 +238,12 @@ def wizard():
         return img
     robe.paint = rp; P.append(robe)
     P.append(collar('Collar', 'stand', h=0.04, flare=0.04, open_front=0.5, col='p_l'))
+    P += legs   # hidden under the robe at rest; covers the leg up to the hip when a slit opens
     for s in 'LR':
-        P.append(skin_leg(s, 1.9, 0.47))   # hidden under the robe at rest; covers the leg up to the hip when a slit opens
         sl = sleeve('Sleeve_' + s, s, 0.0, 0.52, 0.06, extra=lambda t, a: 0.01 + 0.22 * max(0, t - 0.12) ** 1.4)
         sl.paint = lambda U, V, m: mix(rp(U, V, dict(m, zmin=0, zmax=0.8)), aa((0.9 - V) * 400), pal['p_l'])
         sl.weight = 'nearest'; P.append(sl)
-    sash = band('Sash', 2.12, 2.27, 0.10, th=0.02, col='sash'); P.append(sash)
+    sash = band('Sash', 2.12, 2.27, 0.012, th=0.02, col='sash', bvh=piece_bvh(robe)); P.append(sash)   # fitted on the robe
     loc, n = project(piece_bvh(sash), Vector((0.0, 0, 2.2)), Vector((0, 1, 0)))
     P.append(prim_rbox('SashKnot', loc + n * 0.03, (0.12, 0.06, 0.11), 'p_d'))
     for s in 'LR':

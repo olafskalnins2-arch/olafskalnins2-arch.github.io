@@ -63,7 +63,8 @@ def chill_dude():
                 img = star(img, x, z, circ, px + 0.05, pz - 0.05, R * 0.7, pal['teal_d'], rot=k)
             img = flower(img, x, z, circ, px, pz, R, pal['teal'], pal['orange'] if k % 2 else '#f6c46a', rot=k * 0.37)
         return img
-    shirt = torso_shell('Shirt', 1.98, 0.05, nseg=32, extra=lambda z, a: 0.03 + 0.05 * max(0, 2.25 - z), th=0.02)
+    pt = pants('Shorts', 2.15, 1.40, 0.045, hip_off=0.06, leg_extra=lambda z, a: 0.02 + 0.06 * max(0, (1.85 - z)), nseg=16)
+    shirt = torso_shell('Shirt', 1.98, 0.05, nseg=32, extra=lambda z, a: 0.03 + 0.05 * max(0, 2.25 - z), th=0.02, hang=2.3, over=pt)   # untucked: hangs over the shorts
     shirt.paint = hawaii; P.append(shirt)
     for s in 'LR':
         sl = sleeve('Sleeve_' + s, s, 0.0, 0.36, 0.05, extra=lambda t, a: 0.03 * t / 0.36)
@@ -73,7 +74,6 @@ def chill_dude():
     for i, z in enumerate((2.86, 2.62, 2.38, 2.14)):
         loc, n = project(bv, Vector((0.0, 0, z)), Vector((0, 1, 0)))
         P.append(prim_cyl(f'Button{i}', loc, loc + n * 0.018, 0.026, n=8, col='btn', group='Top'))
-    pt = pants('Shorts', 2.15, 1.40, 0.045, hip_off=0.06, leg_extra=lambda z, a: 0.02 + 0.06 * max(0, (1.85 - z)), nseg=16)
     def shorts(U, V, m):
         img = P_solid(pal['shorts'])(U, V, m)
         z, az = zc(U, V, m)
@@ -90,7 +90,8 @@ def chill_dude():
 def raincoat():
     pal = {'y': '#f5d915', 'y_d': '#d9bb0a', 'y_l': '#fbe85a', 'cord': '#f7f3e0', 'sole': '#c9a908', 'btn': '#e6c510'}
     P = []
-    coat = torso_shell('Coat', 1.62, 0.07, nseg=32, extra=lambda z, a: 0.01 + 0.10 * max(0, 2.05 - z), th=0.025)
+    pt = pants('Pants', 2.2, 0.80, 0.05, hip_off=0.06, leg_extra=lambda z, a: 0.02 + 0.02 * max(0, 1.3 - z))
+    coat = torso_shell('Coat', 1.62, 0.07, nseg=32, extra=lambda z, a: 0.01 + 0.10 * max(0, 2.05 - z), th=0.025, hang=2.3, over=pt)
     def ypaint(U, V, m):
         img = P_solid(pal['y'])(U, V, m)
         z, az = zc(U, V, m)
@@ -127,7 +128,6 @@ def raincoat():
         pk.rigid = True; P.append(pk)
         pf = surface_patch(f'PocketFlap{sg}', bv, lambda s, t, sg=sg: Vector((sg * (0.12 + s * 0.28), 0, 2.2 + t * 0.07)), Vector((0, 1, 0)), 0.03, 5, 2, col='y', th=0.014)
         pf.rigid = True; P.append(pf)
-    pt = pants('Pants', 2.2, 0.80, 0.05, hip_off=0.06, leg_extra=lambda z, a: 0.02 + 0.02 * max(0, 1.3 - z))
     for p in pt: p.paint = P_solid(pal['y'])
     P += pt
     for s in 'LR':
@@ -162,7 +162,8 @@ def boss_mode():
             w = 0.05 + 0.42 * min(1, (zc_ - 2.46) / 0.62)
             return abs(az) > w
         return True
-    jk = torso_shell('Jacket', 1.86, 0.075, nseg=36, extra=lambda z, a: 0.01 + 0.03 * max(0, 2.1 - z), keep=vkeep, th=0.022)
+    pt = pants('Trousers', 2.25, 0.50, 0.035, hip_off=0.055, leg_extra=lambda z, a: 0.015 + 0.02 * max(0, 1.5 - z))
+    jk = torso_shell('Jacket', 1.86, 0.075, nseg=36, extra=lambda z, a: 0.01 + 0.03 * max(0, 2.1 - z), keep=vkeep, th=0.022, hang=2.3, over=pt)
     def jpaint(U, V, m):
         img = P_solid(pal['navy'])(U, V, m)
         z, az = zc(U, V, m)
@@ -192,7 +193,6 @@ def boss_mode():
         sl.paint = lambda U, V, m: P_solid(pal['navy'])(U, V, m); P.append(sl)
         cf = sleeve('Cuff_' + s, s, 0.86, 0.985, 0.05, nrows=4, cap=False, col='white', th=0.015)
         P.append(cf)
-    pt = pants('Trousers', 2.25, 0.50, 0.035, hip_off=0.055, leg_extra=lambda z, a: 0.015 + 0.02 * max(0, 1.5 - z))
     def tpaint(U, V, m):
         img = P_solid(pal['navy'])(U, V, m)
         z, az = zc(U, V, m)

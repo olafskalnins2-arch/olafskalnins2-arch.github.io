@@ -273,7 +273,13 @@ def rig_weights(pc):
         if region.startswith('arm'):
             w = transfer(p, region); m = RF.region_mask('sleeve', region[-1])
         elif region.startswith('leg'):
-            w = transfer(p, region); m = RF.region_mask('leg', region[-1])
+            q = p
+            if pc.meta.get('w_axis'):    # trouser legs: sample the thigh at the same height (halfway to the leg axis),
+                c = leg_point(region[-1], p.z)   # not the torso bottom / steep crotch field the rim flares over
+                q = c + (p - c) * pc.meta['w_axis']
+            xm = pc.meta.get('w_xmin')
+            if xm and abs(q.x) < xm: q = Vector((xm if region[-1] == 'L' else -xm, q.y, q.z))
+            w = transfer(q, region); m = RF.region_mask('leg', region[-1])
         elif region.startswith('shin'):   # stiff boot shafts / cuffs / greaves: shin + foot only
             w = transfer(p, 'leg_' + region[-1]); m = RF.region_mask('foot', region[-1])
             if (w * m).sum() < 1e-6: w = m.copy()
@@ -332,7 +338,9 @@ def rig_weights(pc):
             TE.add(tuple(sorted((f[0], f[2])))); TE.add(tuple(sorted((f[1], f[3]))))
     pm = list(getattr(B, 'pose_mats', {}).values())
     if pm:
-        zone = RF.joint_zone(Pn, None, dict(hip=0.7, knee=0.6, waist=0.3))
+        # loose torso garments (coats / robes hanging away from the body) may be repaired out to their full width
+        hx = 0.85 if (region not in (None,) and not str(region).startswith('arm') and getattr(pc, 'skirt', False)) else 0.6
+        zone = RF.joint_zone(Pn, None, dict(hip=0.7, knee=0.6, waist=0.3, hip_x=hx))
         tie = np.array(G)   # weld groups ...
         for a2, b2 in pc.meta.get('pairs', []): tie[b2] = tie[a2]   # ... and inner/outer shell twins move together
         # make tie a proper representative map (union of both relations)

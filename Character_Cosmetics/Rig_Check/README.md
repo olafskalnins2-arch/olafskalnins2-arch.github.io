@@ -22,3 +22,11 @@ What the AFTER renders show (checked by eye, crotch / armpits / waist):
 Geometry proof: every exported outfit except the Wizard has the same vertex positions, UVs, triangle count, embedded
 texture and materials as its backup (Wizard: see ../CHECKLIST.md for the exact approved change). The base character has the same 3512 vertex positions and materials, plus 4 cap
 faces (+88 triangles) closing the open shoulder sockets.
+
+## Shape fix (smooth connections)
+
+`shape_fix/poses_1-3.jpg` - every outfit after the shape fix (hanging coats over the trousers, one-piece trouser
+silhouette, A-line wizard robe), on the base character in walk (front, side), legs spread (front, low back view at the
+crotch) and crouch. Checked by eye: no ledge or gap at the hip-to-leg joint, crotch stays covered in the spread, hems hang
+outside the trousers. `check_rig_AFTER.txt` is re-run on the new files (174/174). The `before_after*` renders above show
+the geometry from before the shape fix.

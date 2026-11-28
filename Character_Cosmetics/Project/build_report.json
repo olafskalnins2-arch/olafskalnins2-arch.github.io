@@ -6,7 +6,7 @@
    "01_Classic_Mover_Bottom",
    "01_Classic_Mover_Feet"
   ],
-  "triangles": 9008,
+  "triangles": 9264,
   "max_bone_influences": 3,
   "texture": "01_Classic_Mover_Albedo.png",
   "coverage": {
@@ -14,15 +14,15 @@
     "torso": 100.0,
     "hips_legs": 99.9,
     "upper_arms": 88.1,
-    "lower_arms": 6.3,
+    "lower_arms": 6.8,
     "feet": 100.0,
     "head": 2.6
    },
-   "rest_covered_verts": 2261,
-   "walk_pokethrough_verts": 39,
-   "walk_pokethrough_pct": 1.72,
-   "carry_pokethrough_verts": 21,
-   "carry_pokethrough_pct": 0.93
+   "rest_covered_verts": 2262,
+   "walk_pokethrough_verts": 41,
+   "walk_pokethrough_pct": 1.81,
+   "carry_pokethrough_verts": 25,
+   "carry_pokethrough_pct": 1.11
   }
  },
  "02_Chill_Dude": {
@@ -32,23 +32,23 @@
    "02_Chill_Dude_Bottom",
    "02_Chill_Dude_Feet"
   ],
-  "triangles": 7132,
-  "max_bone_influences": 4,
+  "triangles": 7388,
+  "max_bone_influences": 3,
   "texture": "02_Chill_Dude_Albedo.png",
   "coverage": {
    "rest_coverage_pct": {
     "torso": 99.9,
-    "hips_legs": 98.2,
+    "hips_legs": 98.0,
     "upper_arms": 80.9,
-    "lower_arms": 7.2,
+    "lower_arms": 8.9,
     "feet": 40.0,
     "head": 0.4
    },
-   "rest_covered_verts": 2075,
-   "walk_pokethrough_verts": 44,
-   "walk_pokethrough_pct": 2.12,
-   "carry_pokethrough_verts": 34,
-   "carry_pokethrough_pct": 1.64
+   "rest_covered_verts": 2078,
+   "walk_pokethrough_verts": 48,
+   "walk_pokethrough_pct": 2.31,
+   "carry_pokethrough_verts": 40,
+   "carry_pokethrough_pct": 1.92
   }
  },
  "03_Raincoat": {
@@ -58,7 +58,7 @@
    "03_Raincoat_Bottom",
    "03_Raincoat_Feet"
   ],
-  "triangles": 9620,
+  "triangles": 10004,
   "max_bone_influences": 3,
   "texture": "03_Raincoat_Albedo.png",
   "coverage": {
@@ -71,10 +71,10 @@
     "head": 1.7
    },
    "rest_covered_verts": 2519,
-   "walk_pokethrough_verts": 17,
-   "walk_pokethrough_pct": 0.67,
-   "carry_pokethrough_verts": 9,
-   "carry_pokethrough_pct": 0.36
+   "walk_pokethrough_verts": 18,
+   "walk_pokethrough_pct": 0.71,
+   "carry_pokethrough_verts": 11,
+   "carry_pokethrough_pct": 0.44
   }
  },
  "04_Boss_Mode": {
@@ -85,23 +85,23 @@
    "04_Boss_Mode_Bottom",
    "04_Boss_Mode_Feet"
   ],
-  "triangles": 11268,
+  "triangles": 11652,
   "max_bone_influences": 3,
   "texture": "04_Boss_Mode_Albedo.png",
   "coverage": {
    "rest_coverage_pct": {
     "torso": 100.0,
-    "hips_legs": 99.9,
+    "hips_legs": 99.7,
     "upper_arms": 100.0,
     "lower_arms": 100.0,
     "feet": 100.0,
     "head": 3.2
    },
-   "rest_covered_verts": 2527,
-   "walk_pokethrough_verts": 6,
-   "walk_pokethrough_pct": 0.24,
-   "carry_pokethrough_verts": 0,
-   "carry_pokethrough_pct": 0.0
+   "rest_covered_verts": 2526,
+   "walk_pokethrough_verts": 7,
+   "walk_pokethrough_pct": 0.28,
+   "carry_pokethrough_verts": 2,
+   "carry_pokethrough_pct": 0.08
   }
  },
  "05_Construction_Hero": {
@@ -112,23 +112,23 @@
    "05_Construction_Hero_Extras",
    "05_Construction_Hero_Feet"
   ],
-  "triangles": 10040,
+  "triangles": 10296,
   "max_bone_influences": 3,
   "texture": "05_Construction_Hero_Albedo.png",
   "coverage": {
    "rest_coverage_pct": {
     "torso": 99.8,
-    "hips_legs": 99.9,
+    "hips_legs": 99.7,
     "upper_arms": 61.1,
     "lower_arms": 8.9,
     "feet": 100.0,
     "head": 2.6
    },
-   "rest_covered_verts": 2179,
-   "walk_pokethrough_verts": 48,
-   "walk_pokethrough_pct": 2.2,
-   "carry_pokethrough_verts": 59,
-   "carry_pokethrough_pct": 2.71
+   "rest_covered_verts": 2178,
+   "walk_pokethrough_verts": 49,
+   "walk_pokethrough_pct": 2.25,
+   "carry_pokethrough_verts": 61,
+   "carry_pokethrough_pct": 2.8
   }
  },
  "06_Chef": {
@@ -139,23 +139,23 @@
    "06_Chef_Bottom",
    "06_Chef_Feet"
   ],
-  "triangles": 8512,
+  "triangles": 8768,
   "max_bone_influences": 3,
   "texture": "06_Chef_Albedo.png",
   "coverage": {
    "rest_coverage_pct": {
     "torso": 99.8,
-    "hips_legs": 99.9,
+    "hips_legs": 99.7,
     "upper_arms": 100.0,
     "lower_arms": 98.3,
     "feet": 100.0,
     "head": 0.5
    },
-   "rest_covered_verts": 2495,
-   "walk_pokethrough_verts": 6,
-   "walk_pokethrough_pct": 0.24,
-   "carry_pokethrough_verts": 1,
-   "carry_pokethrough_pct": 0.04
+   "rest_covered_verts": 2494,
+   "walk_pokethrough_verts": 7,
+   "walk_pokethrough_pct": 0.28,
+   "carry_pokethrough_verts": 3,
+   "carry_pokethrough_pct": 0.12
   }
  },
  "07_Firefighter": {
@@ -166,23 +166,23 @@
    "07_Firefighter_Bottom",
    "07_Firefighter_Feet"
   ],
-  "triangles": 8864,
-  "max_bone_influences": 4,
+  "triangles": 9120,
+  "max_bone_influences": 3,
   "texture": "07_Firefighter_Albedo.png",
   "coverage": {
    "rest_coverage_pct": {
     "torso": 99.5,
-    "hips_legs": 99.9,
+    "hips_legs": 99.7,
     "upper_arms": 100.0,
     "lower_arms": 97.0,
     "feet": 100.0,
     "head": 1.4
    },
-   "rest_covered_verts": 2494,
-   "walk_pokethrough_verts": 6,
-   "walk_pokethrough_pct": 0.24,
-   "carry_pokethrough_verts": 0,
-   "carry_pokethrough_pct": 0.0
+   "rest_covered_verts": 2493,
+   "walk_pokethrough_verts": 7,
+   "walk_pokethrough_pct": 0.28,
+   "carry_pokethrough_verts": 2,
+   "carry_pokethrough_pct": 0.08
   }
  },
  "08_Pirate": {
@@ -193,7 +193,7 @@
    "08_Pirate_Bottom",
    "08_Pirate_Feet"
   ],
-  "triangles": 13336,
+  "triangles": 13592,
   "max_bone_influences": 3,
   "texture": "08_Pirate_Albedo.png",
   "coverage": {
@@ -205,11 +205,11 @@
     "feet": 100.0,
     "head": 4.2
    },
-   "rest_covered_verts": 2537,
-   "walk_pokethrough_verts": 29,
-   "walk_pokethrough_pct": 1.14,
-   "carry_pokethrough_verts": 16,
-   "carry_pokethrough_pct": 0.63
+   "rest_covered_verts": 2546,
+   "walk_pokethrough_verts": 36,
+   "walk_pokethrough_pct": 1.41,
+   "carry_pokethrough_verts": 28,
+   "carry_pokethrough_pct": 1.1
   }
  },
  "09_Wizard": {
@@ -225,18 +225,18 @@
   "texture": "09_Wizard_Albedo.png",
   "coverage": {
    "rest_coverage_pct": {
-    "torso": 99.9,
-    "hips_legs": 96.2,
+    "torso": 99.8,
+    "hips_legs": 93.4,
     "upper_arms": 100.0,
-    "lower_arms": 21.9,
-    "feet": 100.0,
+    "lower_arms": 29.1,
+    "feet": 99.1,
     "head": 2.4
    },
-   "rest_covered_verts": 2324,
-   "walk_pokethrough_verts": 73,
-   "walk_pokethrough_pct": 3.14,
-   "carry_pokethrough_verts": 59,
-   "carry_pokethrough_pct": 2.54
+   "rest_covered_verts": 2332,
+   "walk_pokethrough_verts": 115,
+   "walk_pokethrough_pct": 4.93,
+   "carry_pokethrough_verts": 101,
+   "carry_pokethrough_pct": 4.33
   }
  },
  "10_Knight": {
@@ -273,21 +273,21 @@
    "11_Astronaut_Feet",
    "11_Astronaut_Extras"
   ],
-  "triangles": 10396,
-  "max_bone_influences": 4,
+  "triangles": 10652,
+  "max_bone_influences": 3,
   "texture": "11_Astronaut_Albedo.png",
   "coverage": {
    "rest_coverage_pct": {
     "torso": 99.2,
-    "hips_legs": 100.0,
+    "hips_legs": 99.9,
     "upper_arms": 99.7,
     "lower_arms": 100.0,
     "feet": 100.0,
     "head": 2.2
    },
-   "rest_covered_verts": 2508,
-   "walk_pokethrough_verts": 11,
-   "walk_pokethrough_pct": 0.44,
+   "rest_covered_verts": 2507,
+   "walk_pokethrough_verts": 10,
+   "walk_pokethrough_pct": 0.4,
    "carry_pokethrough_verts": 3,
    "carry_pokethrough_pct": 0.12
   }
@@ -325,23 +325,23 @@
    "13_Dinosaur_Head",
    "13_Dinosaur_Feet"
   ],
-  "triangles": 8672,
-  "max_bone_influences": 4,
+  "triangles": 8800,
+  "max_bone_influences": 3,
   "texture": "13_Dinosaur_Albedo.png",
   "coverage": {
    "rest_coverage_pct": {
     "torso": 100.0,
-    "hips_legs": 99.9,
+    "hips_legs": 99.7,
     "upper_arms": 85.8,
-    "lower_arms": 8.4,
+    "lower_arms": 9.3,
     "feet": 100.0,
     "head": 27.9
    },
-   "rest_covered_verts": 2452,
-   "walk_pokethrough_verts": 29,
-   "walk_pokethrough_pct": 1.18,
-   "carry_pokethrough_verts": 31,
-   "carry_pokethrough_pct": 1.26
+   "rest_covered_verts": 2453,
+   "walk_pokethrough_verts": 32,
+   "walk_pokethrough_pct": 1.3,
+   "carry_pokethrough_verts": 33,
+   "carry_pokethrough_pct": 1.35
   }
  }
 }

@@ -76,18 +76,65 @@ def cut_slits(pc, N, z_s, sides=True):
     pc.meta['panel'] = tag
     return pc
 
+def drape(rows, zrow, D, nseg, extra, hang, over=None, gap=0.04, it=3):
+    """Make a loose garment HANG instead of hugging the body's rounded bottom.
+    rows: rings cast WITHOUT extra (bottom row first). Rows below `hang` keep at least the radius of the row above
+    (fabric falls straight down from the widest part, then flares by `extra`), their points sit on one horizontal
+    plane per row, and every row stays `gap` outside the pieces in `over` (pants, belts: the coat hangs OVER them).
+    Only ever grows radii, so nothing new can sink into the body."""
+    n = len(D); M = len(rows)
+    C = [Vector((0, 0, z)) for z in zrow]
+    r0 = [[(p - C[i]).dot(D[j]) for j, p in enumerate(rows[i])] for i in range(M)]
+    E = [[extra(zrow[i], azb(j, nseg)) if extra else 0.0 for j in range(n)] for i in range(M)]
+    hi = [i for i in range(M) if hang is not None and zrow[i] < hang]
+    top = max(hi) if hi else -1
+    R = [[r0[i][j] for j in range(n)] for i in range(M)]
+    for i in range(top, -1, -1):                     # hang the body-fitted radius straight down
+        if i + 1 < M:
+            for j in range(n): R[i][j] = max(R[i][j], R[i + 1][j])
+    R = [[R[i][j] + E[i][j] for j in range(n)] for i in range(M)]
+    def mono():
+        for i in range(top, -1, -1):
+            if i + 1 < M:
+                for j in range(n): R[i][j] = max(R[i][j], R[i + 1][j] + max(0.0, E[i][j] - E[i + 1][j]))
+    if over is not None:                             # clear the layers underneath
+        for i in range(M):
+            for j in range(n):
+                h = over.ray_cast(C[i] + D[j] * 1.8, -D[j], 1.8)
+                if h[0] is not None: R[i][j] = max(R[i][j], (h[0] - C[i]).dot(D[j]) + gap)
+    mono()
+    for _ in range(it):                              # grow-only smoothing of the hanging part (no bumps)
+        for i in range(top + 1):
+            r = R[i]; R[i] = [max(r[j], (r[j - 1] + 2 * r[j] + r[(j + 1) % n]) / 4) for j in range(n)]
+        for i in range(1, top + 1):
+            R[i] = [max(R[i][j], (R[i - 1][j] + 2 * R[i][j] + R[i + 1][j]) / 4) for j in range(n)]
+        mono()
+    out = []
+    for i in range(M):
+        if i <= top: out.append([C[i] + D[j] * R[i][j] for j in range(n)])
+        else: out.append([rows[i][j] + D[j] * (R[i][j] - r0[i][j]) for j in range(n)])
+    return out
+
 def torso_shell(name, z_bot, off, nseg=32, z_dome=2.95, elevs=(18, 34, 46, 54), nrows=None, zs=None,
-                extra=None, bvh='torso', keep=None, group='Top', th=0.025, col=None, cap_bottom=False, smooth=2, slits=None):
-    """Shell around torso from z_bot up to neck opening. extra(z, az)->radial add. keep(i,j,zc,az)->bool"""
+                extra=None, bvh='torso', keep=None, group='Top', th=0.025, col=None, cap_bottom=False, smooth=2, slits=None,
+                hang=None, over=None, over_gap=None, cap_dz=-0.03):
+    """Shell around torso from z_bot up to neck opening. extra(z, az)->radial add. keep(i,j,zc,az)->bool
+    hang: z below which the shell hangs straight down (coats, robes, untucked shirts) instead of hugging the body.
+    over: pieces this shell must hang over (kept over_gap outside them). bvh: a body-region key or a BVHTree."""
     D = hdirs_b(nseg)
+    bv = B.bvh[bvh] if isinstance(bvh, str) else bvh
     if zs is None:
         nrows = nrows or max(3, int((z_dome - z_bot) / 0.09) + 1)
         zs = list(np.linspace(z_bot, z_dome, nrows))
     rows = []; hints = []; zrow = []
+    loose = hang is not None or over is not None
     for z in zs:
-        ex = (lambda j, p, z=z: extra(z, azb(j, nseg))) if extra else None
-        ring = ray_ring(B.bvh[bvh], Vector((0, 0, z)), D, off, R=1.8, extra=ex, smooth=smooth)
+        ex = (lambda j, p, z=z: extra(z, azb(j, nseg))) if extra and not loose else None
+        ring = ray_ring(bv, Vector((0, 0, z)), D, off, R=1.8, extra=ex, smooth=smooth)
         rows.append(ring); hints.append(D); zrow.append(z)
+    if loose:
+        ob = piece_bvh(*over) if over else None
+        rows = drape(rows, zrow, D, nseg, extra, hang, ob, over_gap if over_gap is not None else th + 0.018)
     c = Vector((0, 0, z_dome))
     for e in elevs:
         e = math.radians(e)
@@ -98,7 +145,7 @@ def torso_shell(name, z_bot, off, nseg=32, z_dome=2.95, elevs=(18, 34, 46, 54), 
         rows.append(ring); hints.append(dirs); zrow.append(sum(p.z for p in ring) / nseg)
     zmin, zmax = zrow[0], zrow[-1]
     vv = [(z - zmin) / (zmax - zmin) for z in zrow]
-    cap = Vector((0, 0, zs[0] - 0.03)) if cap_bottom else None
+    cap = Vector((0, 0, zs[0] + cap_dz)) if cap_bottom else None
     pc = _grid_with_ij(name, rows, True, vv, hints, group, col, cap_start=cap)
     pc.meta.update(zmin=zmin, zmax=zmax, circ=_ring_len(rows[len(rows) // 2]), nseg=nseg, kind='torso')
     if keep:
@@ -166,12 +213,91 @@ def leg_tube(name, side, z0, z1, off, nseg=16, nrows=None, extra=None, group='Bo
     pc.rect_key = name.replace('_L', '').replace('_R', '')
     return pc
 
-def pants(prefix, z_waist, z_end, off, hip_off=None, extra=None, leg_extra=None, nseg=16, group='Bottom', th=0.02):
+def _sstep(a, b, x):
+    t = min(1.0, max(0.0, (x - a) / (b - a))); return t * t * (3 - 2 * t)
+
+def _rim_hit(rim, c, d):
+    """2D ray (c, d) against the closed rim polygon: farthest crossing -> (t, z at the crossing)"""
+    best = None; n = len(rim)
+    for k in range(n):
+        a, b = rim[k], rim[(k + 1) % n]
+        ex, ey = b.x - a.x, b.y - a.y
+        den = -d.x * ey + d.y * ex
+        if abs(den) < 1e-12: continue
+        rx, ry = a.x - c.x, a.y - c.y
+        t = (-rx * ey + ry * ex) / den
+        s = (d.x * ry - d.y * rx) / den
+        if -1e-9 <= s <= 1 + 1e-9 and t > 0 and (best is None or t > best[0]): best = (t, a.z + s * (b.z - a.z))
+    return best
+
+def trouser_leg(name, side, rim, z_end, off, nseg=16, extra=None, group='Bottom', th=0.02, col=None,
+                blend=0.36, inset=0.004, smooth=2):
+    """Trouser leg that grows out of the hip shell's bottom rim with no ledge: at the rim it IS that half of the rim
+    outline (flat inner face on the centre line, meeting the other leg), then it rounds into the fitted leg tube over
+    `blend`. Two hidden rows continue up inside the hip shell so nothing opens when the hip bends."""
+    sg = 1 if side == 'L' else -1
+    D = hdirs_b(nseg); bv = B.bvh['leg_' + side]
+    zr = sum(p.z for p in rim) / len(rim)
+    c0 = leg_point(side, zr)
+    def rim_z(p):                                     # rim height at the azimuth of p (seen from the body axis)
+        a = math.atan2(p.y, p.x)
+        return min(rim, key=lambda q: abs(math.remainder(math.atan2(q.y, q.x) - a, 2 * PI))).z
+    tgt = []                                          # rim-shaped target for every direction: (radius, z)
+    for d in D:
+        h = _rim_hit(rim, c0, d)
+        t, z = h if h else (0.2, zr)
+        if d.x * sg < -1e-6:                          # inner side: stop on the centre line
+            tx = (abs(c0.x) - 0.006) / abs(d.x)
+            if tx < t: t = tx; z = rim_z(c0 + d * t)
+        tgt.append((t - inset, z))
+    def cast(z):
+        c = leg_point(side, z)
+        ex = (lambda j, p, z=z: extra(z, azb(j, nseg))) if extra else None
+        ring = ray_ring(bv, c, D, off, R=0.8, extra=ex, smooth=smooth)
+        return c, [(p - c).dot(D[j]) for j, p in enumerate(ring)], ring
+    rows = []; zrow = []
+    for s, shrink in ((0.10, 0.05), (0.05, 0.025)):   # hidden inside the hip shell
+        rows.append([Vector((c0.x, c0.y, 0)) + D[j] * max(0.05, tgt[j][0] - shrink) + Vector((0, 0, tgt[j][1] + s)) for j in range(nseg)])
+        zrow.append(zr + s)
+    rows.append([Vector((c0.x, c0.y, tgt[j][1])) + D[j] * tgt[j][0] for j in range(nseg)]); zrow.append(zr)
+    for s in (0.05, 0.11, 0.18, 0.26, blend):
+        c, rl, ring = cast(zr - s)
+        w = 1.0 - _sstep(0.0, blend, s)
+        row = []
+        for j, d in enumerate(D):
+            r = w * tgt[j][0] + (1 - w) * rl[j]
+            if d.x * sg < -1e-6: r = min(r, (abs(c.x) - 0.006) / abs(d.x)) if w > 0 else r
+            else: r = max(r, rl[j])
+            z = w * (tgt[j][1] - s) + (1 - w) * (zr - s)
+            row.append(Vector((c.x, c.y, z)) + d * r)
+        rows.append(row); zrow.append(zr - s)
+    z_lo = zr - blend
+    nr = max(1, int(round((z_lo - z_end) / 0.1)))
+    for k in range(1, nr + 1):
+        z = z_lo - (z_lo - z_end) * k / nr
+        rows.append(cast(z)[2]); zrow.append(z)
+    z0, z1 = zrow[0], zrow[-1]
+    vv = [(z - z1) / (z0 - z1) for z in zrow]
+    pc = _grid_with_ij(name, rows, True, vv, [D] * len(rows), group, col)
+    pc.meta.update(kind='leg', zmin=z1, zmax=z0, circ=_ring_len(rows[len(rows) // 2]), side=side)
+    pc.meta.update(w_axis=W_AXIS, w_xmin=W_XMIN)     # weight sampling: see pipeline.rig_weights (leg branch)
+    if th: thicken(pc, th)
+    pc.region = 'leg_' + side
+    pc.rect_key = name.replace('_L', '').replace('_R', '')
+    return pc
+
+W_AXIS, W_XMIN = 0.4, 0.09
+
+def pants(prefix, z_waist, z_end, off, hip_off=None, extra=None, leg_extra=None, nseg=16, group='Bottom', th=0.02, z_seat=1.95):
+    """Hip shell down to the crotch line + two legs that grow out of its rim (one smooth silhouette, no ledge)."""
     hip_off = hip_off or off + 0.018
-    hip = torso_shell(prefix + 'Hip', 1.86, hip_off, nseg=32, zs=list(np.linspace(1.86, z_waist, max(3, int((z_waist - 1.86) / 0.08) + 1))), elevs=(), extra=extra, group=group, th=th, cap_bottom=True)
+    zs = list(np.linspace(z_seat, z_waist, max(4, int((z_waist - z_seat) / 0.06) + 1)))
+    hip = torso_shell(prefix + 'Hip', z_seat, hip_off, nseg=32, zs=zs, elevs=(), extra=extra, group=group, th=th,
+                      cap_bottom=True, cap_dz=-0.03)   # crotch cap: hidden between the legs at rest, covers the crotch when they spread
     hip.meta['kind'] = 'hip'; hip.skirt = False
-    L = leg_tube(prefix + 'Leg_L', 'L', 2.0, z_end, off, nseg=nseg, extra=leg_extra, group=group, th=th)
-    R = leg_tube(prefix + 'Leg_R', 'R', 2.0, z_end, off, nseg=nseg, extra=(lambda z, a: leg_extra(z, -a)) if leg_extra else None, group=group, th=th)
+    rim = hip.verts[:32]                              # bottom row of the outer shell
+    L = trouser_leg(prefix + 'Leg_L', 'L', rim, z_end, off, nseg=nseg, extra=leg_extra, group=group, th=th)
+    R = trouser_leg(prefix + 'Leg_R', 'R', rim, z_end, off, nseg=nseg, extra=(lambda z, a: leg_extra(z, -a)) if leg_extra else None, group=group, th=th)
     return [hip, L, R]
 
 def shoe(name, side, off=0.035, sole_z=0.305, open_elev=48, nseg=20, extra=None, group='Feet', th=0.02, col=None, bvh=None,

@@ -79,7 +79,8 @@ def astronaut():
     pal = {'w': '#f2f2f0', 'w_d': '#d9dadb', 'g': '#9aa0a8', 'g_d': '#6c727a', 'dark': '#3c4148', 'red': '#d23b2f', 'blue': '#3a8de0',
            'screen': '#5a6068', 'dial': '#e8e8e8'}
     P = []
-    tor = torso_shell('Suit', 1.86, 0.1, nseg=32, extra=lambda z, a: 0.02, th=0.03)
+    pt = pants('SuitPants', 2.12, 0.62, 0.09, hip_off=0.095, leg_extra=lambda z, a: 0.02 + 0.02 * abs(math.sin(z * 6)))
+    tor = torso_shell('Suit', 1.86, 0.1, nseg=32, extra=lambda z, a: 0.02, th=0.03, hang=2.3, over=pt)
     def tp(U, V, m):
         img = P_solid(pal['w'])(U, V, m); z, az = zc(U, V, m)
         # harness straps over shoulders (front & back), chest strap
@@ -95,7 +96,6 @@ def astronaut():
         sl.paint = lambda U, V, m: mix(mix(P_solid(pal['w'])(U, V, m), aa(np.abs(V - 0.5) * 400 - 8), pal['g']), aa(np.abs(V - 0.04) * 400 - 6), pal['g'])
         P.append(sl)
         P.append(sleeve('WristRing_' + s, s, 0.9, 0.98, 0.115, nrows=3, cap=False, col='g'))
-    pt = pants('SuitPants', 2.12, 0.62, 0.09, hip_off=0.095, leg_extra=lambda z, a: 0.02 + 0.02 * abs(math.sin(z * 6)))
     for p in pt: p.paint = P_solid(pal['w'])
     P += pt
     for s in 'LR':
@@ -108,7 +108,7 @@ def astronaut():
         P.append(b)
         P.append(_shin(leg_tube('BootShaft_' + s, s, 0.8, 0.46, 0.13, nseg=16, group='Feet', col='w', extra=lambda z, a: 0.01)))
         P.append(_shin(leg_tube('BootRing_' + s, s, 0.84, 0.76, 0.16, nseg=16, nrows=2, group='Feet', col='g')))
-    belt = band('Belt', 2.02, 2.2, 0.155, th=0.025, col='g'); P.append(belt)
+    belt = band('Belt', 2.02, 2.2, 0.02, th=0.025, col='g', bvh=piece_bvh(tor)); P.append(belt)   # fitted on the suit
     bb = piece_bvh(belt)
     loc, n = project(bb, Vector((0, 0, 2.11)), Vector((0, 1, 0)))
     P.append(prim_rbox('BeltBuckle', loc + n * 0.03, (0.22, 0.06, 0.15), 'g_d'))

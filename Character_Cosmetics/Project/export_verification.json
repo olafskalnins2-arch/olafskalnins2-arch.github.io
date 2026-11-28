@@ -57,7 +57,7 @@
   "embedded_images": 13,
   "materials_per_outfit": 18,
   "reimport_ok": true,
-  "triangles": 130383,
+  "triangles": 133071,
   "max_tris_single_mesh": 8252
  },
  "01_Classic_Mover.glb": {
@@ -74,8 +74,8 @@
   "embedded_images": 1,
   "materials_per_outfit": 1,
   "reimport_ok": true,
-  "triangles": 9008,
-  "max_tris_single_mesh": 3668
+  "triangles": 9264,
+  "max_tris_single_mesh": 3772
  },
  "02_Chill_Dude.glb": {
   "same_15_bones": true,
@@ -91,7 +91,7 @@
   "embedded_images": 1,
   "materials_per_outfit": 1,
   "reimport_ok": true,
-  "triangles": 7132,
+  "triangles": 7388,
   "max_tris_single_mesh": 3340
  },
  "03_Raincoat.glb": {
@@ -108,7 +108,7 @@
   "embedded_images": 1,
   "materials_per_outfit": 1,
   "reimport_ok": true,
-  "triangles": 9620,
+  "triangles": 10004,
   "max_tris_single_mesh": 5236
  },
  "04_Boss_Mode.glb": {
@@ -126,7 +126,7 @@
   "embedded_images": 1,
   "materials_per_outfit": 1,
   "reimport_ok": true,
-  "triangles": 11268,
+  "triangles": 11652,
   "max_tris_single_mesh": 6948
  },
  "05_Construction_Hero.glb": {
@@ -144,7 +144,7 @@
   "embedded_images": 1,
   "materials_per_outfit": 1,
   "reimport_ok": true,
-  "triangles": 10040,
+  "triangles": 10296,
   "max_tris_single_mesh": 4556
  },
  "06_Chef.glb": {
@@ -162,7 +162,7 @@
   "embedded_images": 1,
   "materials_per_outfit": 1,
   "reimport_ok": true,
-  "triangles": 8512,
+  "triangles": 8768,
   "max_tris_single_mesh": 4024
  },
  "07_Firefighter.glb": {
@@ -180,7 +180,7 @@
   "embedded_images": 1,
   "materials_per_outfit": 1,
   "reimport_ok": true,
-  "triangles": 8864,
+  "triangles": 9120,
   "max_tris_single_mesh": 4152
  },
  "08_Pirate.glb": {
@@ -198,7 +198,7 @@
   "embedded_images": 1,
   "materials_per_outfit": 1,
   "reimport_ok": true,
-  "triangles": 13336,
+  "triangles": 13592,
   "max_tris_single_mesh": 8252
  },
  "09_Wizard.glb": {
@@ -251,7 +251,7 @@
   "embedded_images": 1,
   "materials_per_outfit": 1,
   "reimport_ok": true,
-  "triangles": 10396,
+  "triangles": 10652,
   "max_tris_single_mesh": 4864
  },
  "12_Ghost.glb": {
@@ -285,7 +285,7 @@
   "embedded_images": 1,
   "materials_per_outfit": 1,
   "reimport_ok": true,
-  "triangles": 8672,
+  "triangles": 8800,
   "max_tris_single_mesh": 2944
  },
  "01_Classic_Mover.fbx": {

@@ -10,19 +10,19 @@ Limits: every triangulated edge must stay between 0.5x and 1.5x of its rest leng
 | Model | weights rules | walk | spread | arms up | arms down | crouch | before (passed) |
 |---|---|---|---|---|---|---|---|
 | character smooth v2 | PASS | 1.24 / 0.77 PASS | 1.27 / 0.75 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.49 / 0.50 PASS | 1/6 |
-| 01 Classic Mover | PASS | 1.26 / 0.66 PASS | 1.49 / 0.65 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.48 / 0.50 PASS | 0/6 |
-| 02 Chill Dude | PASS | 1.32 / 0.68 PASS | 1.49 / 0.62 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.47 / 0.50 PASS | 0/6 |
-| 03 Raincoat | PASS | 1.29 / 0.70 PASS | 1.47 / 0.67 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.46 / 0.50 PASS | 0/6 |
-| 04 Boss Mode | PASS | 1.27 / 0.65 PASS | 1.50 / 0.70 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.48 / 0.50 PASS | 0/6 |
-| 05 Construction Hero | PASS | 1.26 / 0.66 PASS | 1.49 / 0.69 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.47 / 0.50 PASS | 0/6 |
-| 06 Chef | PASS | 1.26 / 0.66 PASS | 1.47 / 0.69 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.48 / 0.51 PASS | 0/6 |
-| 07 Firefighter | PASS | 1.26 / 0.69 PASS | 1.49 / 0.59 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.49 / 0.51 PASS | 0/6 |
-| 08 Pirate | PASS | 1.29 / 0.69 PASS | 1.49 / 0.51 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.48 / 0.50 PASS | 0/6 |
-| 09 Wizard | PASS | 1.48 / 0.61 PASS | 1.48 / 0.51 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.49 / 0.51 PASS | 0/6 |
+| 01 Classic Mover | PASS | 1.25 / 0.71 PASS | 1.40 / 0.65 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.46 / 0.50 PASS | 0/6 |
+| 02 Chill Dude | PASS | 1.25 / 0.68 PASS | 1.44 / 0.62 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.47 / 0.50 PASS | 0/6 |
+| 03 Raincoat | PASS | 1.25 / 0.74 PASS | 1.39 / 0.52 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.43 / 0.50 PASS | 0/6 |
+| 04 Boss Mode | PASS | 1.25 / 0.74 PASS | 1.36 / 0.51 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.45 / 0.50 PASS | 0/6 |
+| 05 Construction Hero | PASS | 1.25 / 0.74 PASS | 1.36 / 0.69 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.46 / 0.50 PASS | 0/6 |
+| 06 Chef | PASS | 1.25 / 0.74 PASS | 1.36 / 0.54 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.44 / 0.50 PASS | 0/6 |
+| 07 Firefighter | PASS | 1.25 / 0.72 PASS | 1.38 / 0.53 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.43 / 0.50 PASS | 0/6 |
+| 08 Pirate | PASS | 1.25 / 0.74 PASS | 1.36 / 0.51 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.44 / 0.50 PASS | 0/6 |
+| 09 Wizard | PASS | 1.50 / 0.50 PASS | 1.48 / 0.51 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.50 / 0.50 PASS | 0/6 |
 | 10 Knight | PASS | 1.28 / 0.67 PASS | 1.50 / 0.68 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.47 / 0.50 PASS | 0/6 |
-| 11 Astronaut | PASS | 1.35 / 0.64 PASS | 1.50 / 0.51 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.50 / 0.51 PASS | 0/6 |
+| 11 Astronaut | PASS | 1.28 / 0.61 PASS | 1.42 / 0.51 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.48 / 0.50 PASS | 0/6 |
 | 12 Ghost | PASS | 1.42 / 0.71 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 3/6 |
-| 13 Dinosaur | PASS | 1.37 / 0.64 PASS | 1.50 / 0.59 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.50 / 0.50 PASS | 0/6 |
+| 13 Dinosaur | PASS | 1.27 / 0.73 PASS | 1.43 / 0.53 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.48 / 0.51 PASS | 0/6 |
 
 **All files (27 outfit GLB/FBX + CosmeticsRig + base character + .blend): 174/174 checks PASS after, 7/174 before.**
 
@@ -30,19 +30,19 @@ Limits: every triangulated edge must stay between 0.5x and 1.5x of its rest leng
 
 | # | Outfit | Modeled | Textured | GLB | FBX | Tris (total / biggest mesh) | Rig check |
 |---|---|---|---|---|---|---|---|
-| 01 | Classic Mover | YES | YES | YES | YES | 9008 / 3668 | PASS 12/12 |
-| 02 | Chill Dude | YES | YES | YES | YES | 7132 / 3340 | PASS 12/12 |
-| 03 | Raincoat | YES | YES | YES | YES | 9620 / 5236 | PASS 12/12 |
-| 04 | Boss Mode | YES | YES | YES | YES | 11268 / 6948 | PASS 12/12 |
-| 05 | Construction Hero | YES | YES | YES | YES | 10040 / 4556 | PASS 12/12 |
-| 06 | Chef | YES | YES | YES | YES | 8512 / 4024 | PASS 12/12 |
-| 07 | Firefighter | YES | YES | YES | YES | 8864 / 4152 | PASS 12/12 |
-| 08 | Pirate | YES | YES | YES | YES | 13336 / 8252 | PASS 12/12 |
-| 09 | Wizard | YES | YES | YES | YES | 9472 / 6280 | PASS 12/12 |
+| 01 | Classic Mover | YES | YES | YES | YES | 9264 / 3772 | PASS 12/12 |
+| 02 | Chill Dude | YES | YES | YES | YES | 7388 / 3340 | PASS 12/12 |
+| 03 | Raincoat | YES | YES | YES | YES | 10004 / 5236 | PASS 12/12 |
+| 04 | Boss Mode | YES | YES | YES | YES | 11652 / 6948 | PASS 12/12 |
+| 05 | Construction Hero | YES | YES | YES | YES | 10296 / 4556 | PASS 12/12 |
+| 06 | Chef | YES | YES | YES | YES | 8768 / 4024 | PASS 12/12 |
+| 07 | Firefighter | YES | YES | YES | YES | 9120 / 4152 | PASS 12/12 |
+| 08 | Pirate | YES | YES | YES | YES | 13592 / 8252 | PASS 12/12 |
+| 09 | Wizard | YES | YES | YES | YES | 10600 / 6640 | PASS 12/12 |
 | 10 | Knight | YES | YES | YES | YES | 10768 / 4736 | PASS 12/12 |
-| 11 | Astronaut | YES | YES | YES | YES | 10396 / 4864 | PASS 12/12 |
+| 11 | Astronaut | YES | YES | YES | YES | 10652 / 4864 | PASS 12/12 |
 | 12 | Ghost | YES | YES | YES | YES | 5720 / 5720 | PASS 12/12 |
-| 13 | Dinosaur | YES | YES | YES | YES | 8672 / 2944 | PASS 12/12 |
+| 13 | Dinosaur | YES | YES | YES | YES | 8800 / 2944 | PASS 12/12 |
 
 ## What each outfit contains
 
@@ -72,8 +72,26 @@ Limits: every triangulated edge must stay between 0.5x and 1.5x of its rest leng
   so the 4 holes were capped with faces: +4 faces (+88 triangles), no vertex moved or added.
 - **Outfits**: weights re-transferred from the fixed body, region-locked (sleeve <- its arm, trouser leg <- its leg,
   boots <- foot/shin, shirt <- torso), left/right cleaned, rigid bits on one bone, inner/outer shell verts tied,
-  then a local repair pass fixes any edge that still fails a test pose. Geometry, UVs, textures and materials of every
-  outfit are byte-for-byte the same as before (checked; see Rig_Check/README.md).
+  then a local repair pass fixes any edge that still fails a test pose. At the rig fix, geometry, UVs, textures and materials
+  of every outfit were byte-for-byte the same as before; the later shape fix (section below) changed trousers and loose tops.
+
+## Shape fix: smooth connections (geometry change)
+
+- **Trousers (01-08, 11, 13):** the hip piece used to be a bulging dome that ended below the crotch with a flat cap, and
+  the legs came out of it with a ledge and jagged rim flaps. Now the hip piece ends on the crotch line and each leg grows
+  out of its bottom edge (same outline at the joint, rounding into the leg over 0.36 units): one smooth shape from waist
+  to ankle. A small cap inside keeps the crotch covered when the legs spread.
+- **Loose tops hang over the trousers (02 shirt, 03 coat, 04 jacket, 06 jacket, 07 jacket, 08 coat, 09 robe, 11 suit top):**
+  they used to follow the body's round bottom, so hems tucked in under the belly, and below the crotch the rings
+  collapsed into V-notches at front and back (the wizard pinch, the raincoat spike). Now they fall straight from the chest,
+  flare by the same amount as before, and stay outside the trousers / belt with clearance.
+- **09 Wizard:** robe is a clean A-line (no waist pinch, no notches), the sash sits on the robe instead of floating 0.1
+  off the body. Slit panels kept; their thigh-follow ramps are longer (slit_blend / slit_blend_side 0.85 -> 1.1) because the
+  robe now hangs further from the hips.
+- **11 Astronaut:** belt refitted onto the suit top.
+- Weight rules unchanged. Trouser-leg weights are sampled toward the leg axis (see CLAUDE.md "Garment shape rules"), and
+  the weight-repair pass may now reach loose coats out to |x| 0.85 at the hips. Not reshaped: 05's vest, 13's onesie top
+  (both got the new trousers), 10 Knight and 12 Ghost (untouched).
 
 ## Known limitations (straight up)
 

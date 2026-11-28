@@ -34,6 +34,18 @@ Left/Right UpperArm, LowerArm, Hand, UpperLeg, LowerLeg, Foot) must follow these
    near-zero-length edges (< 0.012) or sitting at the same position get identical weights, so rims, stitched seams and
    degenerate edges never tear.
 
+## Garment shape rules (generator)
+
+- **Loose tops hang, they don't hug.** Any torso piece whose hem is free (untucked shirt, jacket, coat, robe, suit top)
+  is built with `torso_shell(..., hang=2.3, over=<pants/belt pieces>)`: below z 2.3 every ring keeps at least the radius
+  of the ring above (falls straight from the chest, then flares by `extra`) and stays `over_gap` outside the layers under
+  it. Without it the shell follows the body's round bottom and tucks in / notches at the crotch. Build the pants first.
+- **Trousers are one silhouette.** `pants()` ends the hip shell on the crotch line (z 1.95) and `trouser_leg()` grows each
+  leg out of that rim (D-shaped at the top, flat inner face on the centre line, rounding into the leg tube over 0.36),
+  with two hidden rows inside the hip and a crotch cap. Leg weights are sampled 40% of the way toward the leg axis and at
+  |x| >= 0.09 (`W_AXIS`, `W_XMIN`) so the crotch corner doesn't inherit the body's steep crotch weights.
+- **Belts / sashes over a loose piece** are fitted on that piece (`band(..., bvh=piece_bvh(coat))`), not on the body.
+
 **`Character_Cosmetics/Roblox_Ready/check_rig.py` MUST pass before any new or changed model is called done.**
 Run it on the exported files (not just the .blend):
 

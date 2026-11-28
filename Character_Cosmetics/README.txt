@@ -48,6 +48,9 @@ HOW THE OUTFITS ARE BUILT
 - Each outfit is real 3D geometry (shells with thickness, collars, pockets, buttons, belts, armor plates,
   boots, tails, spikes...) fitted by ray casting onto YOUR body mesh, then offset outward. Your character
   was never scaled, moved or edited.
+- Loose tops (untucked shirts, jackets, coats, the robe, the space suit top) hang straight down from the chest and sit
+  outside the trousers instead of tucking in under the belly. Trousers are one smooth shape from waist to ankle: the
+  legs grow out of the hip piece's bottom edge, so there's no ledge or seam bulge at the crotch.
 - Every outfit mesh is SKINNED to your exact 15 bones (LowerTorso, UpperTorso, Head, Left/Right
   UpperArm, LowerArm, Hand, UpperLeg, LowerLeg, Foot). Weights follow the "Rigging rules" in CLAUDE.md:
   transferred from the (fixed) body per region, no left/right mixing, max 4 influences, rigid parts on one bone.
