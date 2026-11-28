@@ -62,7 +62,8 @@ back (o02.raincoat) is fine.
   `mix`, `aa`, `zc`, `scatter`, `star`, `checker`, `vstripes`, `reflective`). Pieces sharing `rect_key` share one texture
   region - give pieces with different paint different names / rect_keys.
 - Thin skin-coloured leg covers for bare legs: `skin_leg(side, z0, z1)` (from o02) - bare body legs are GREY, so any
-  outfit that shows legs (shorts, kilts, short skirts) needs them. Bare arms are already skin coloured.
+  outfit that shows legs (shorts, kilts, short skirts) needs them. Bare arms are already skin coloured. `SKIN` (o02) is the
+  correct sRGB skin tone #f7b88a - use it, do not override it.
 
 ## The shape rules (these were real mistakes - do NOT repeat them)
 

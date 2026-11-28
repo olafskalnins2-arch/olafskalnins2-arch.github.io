@@ -1,7 +1,7 @@
 from garments import *
 import zlib
 from paints import *
-SKIN = '#ed7c42'
+SKIN = '#f7b88a'   # body 'Skin' material (linear 0.930,0.485,0.258) in sRGB - matches the arms
 
 def _shin(pc):
     pc.region = 'shin_' + pc.region[-1]; return pc
