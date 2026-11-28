@@ -106,7 +106,7 @@ def drape(rows, zrow, D, nseg, extra, hang, over=None, gap=0.04, it=3):
     for _ in range(it):                              # grow-only smoothing of the hanging part (no bumps)
         for i in range(top + 1):
             r = R[i]; R[i] = [max(r[j], (r[j - 1] + 2 * r[j] + r[(j + 1) % n]) / 4) for j in range(n)]
-        for i in range(1, top + 1):
+        for i in range(1, min(top, M - 2) + 1):
             R[i] = [max(R[i][j], (R[i - 1][j] + 2 * R[i][j] + R[i + 1][j]) / 4) for j in range(n)]
         mono()
     out = []
@@ -343,8 +343,8 @@ def shoe(name, side, off=0.035, sole_z=0.305, open_elev=48, nseg=20, extra=None,
     pc.rect_key = name.replace('_L', '').replace('_R', '')
     return pc
 
-def band(name, z0, z1, off, nseg=32, extra=None, group='Top', th=0.02, col=None, bvh='torso'):
-    pc = torso_shell(name, z0, off, nseg=nseg, zs=[z0, (z0 + z1) / 2, z1], elevs=(), extra=extra, group=group, th=th, col=col, bvh=bvh)
+def band(name, z0, z1, off, nseg=32, extra=None, group='Top', th=0.02, col=None, bvh='torso', **kw):
+    pc = torso_shell(name, z0, off, nseg=nseg, zs=[z0, (z0 + z1) / 2, z1], elevs=(), extra=extra, group=group, th=th, col=col, bvh=bvh, **kw)
     pc.rect_key = name
     return pc
 

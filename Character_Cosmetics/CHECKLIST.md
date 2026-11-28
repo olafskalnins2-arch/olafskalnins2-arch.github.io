@@ -19,7 +19,7 @@ Limits: every triangulated edge must stay between 0.5x and 1.5x of its rest leng
 | 07 Firefighter | PASS | 1.25 / 0.72 PASS | 1.38 / 0.53 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.43 / 0.50 PASS | 0/6 |
 | 08 Pirate | PASS | 1.25 / 0.74 PASS | 1.36 / 0.51 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.44 / 0.50 PASS | 0/6 |
 | 09 Wizard | PASS | 1.50 / 0.50 PASS | 1.48 / 0.51 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.50 / 0.50 PASS | 0/6 |
-| 10 Knight | PASS | 1.28 / 0.67 PASS | 1.50 / 0.68 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.47 / 0.50 PASS | 0/6 |
+| 10 Knight | PASS | 1.28 / 0.67 PASS | 1.50 / 0.53 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.47 / 0.50 PASS | 0/6 |
 | 11 Astronaut | PASS | 1.28 / 0.61 PASS | 1.42 / 0.51 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.48 / 0.50 PASS | 0/6 |
 | 12 Ghost | PASS | 1.42 / 0.71 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 3/6 |
 | 13 Dinosaur | PASS | 1.27 / 0.73 PASS | 1.43 / 0.53 PASS | 1.00 / 1.00 PASS | 1.00 / 1.00 PASS | 1.48 / 0.51 PASS | 0/6 |
@@ -39,7 +39,7 @@ Limits: every triangulated edge must stay between 0.5x and 1.5x of its rest leng
 | 07 | Firefighter | YES | YES | YES | YES | 9120 / 4152 | PASS 12/12 |
 | 08 | Pirate | YES | YES | YES | YES | 13592 / 8252 | PASS 12/12 |
 | 09 | Wizard | YES | YES | YES | YES | 10600 / 6640 | PASS 12/12 |
-| 10 | Knight | YES | YES | YES | YES | 10768 / 4736 | PASS 12/12 |
+| 10 | Knight | YES | YES | YES | YES | 11280 / 5248 | PASS 12/12 |
 | 11 | Astronaut | YES | YES | YES | YES | 10652 / 4864 | PASS 12/12 |
 | 12 | Ghost | YES | YES | YES | YES | 5720 / 5720 | PASS 12/12 |
 | 13 | Dinosaur | YES | YES | YES | YES | 8800 / 2944 | PASS 12/12 |
@@ -81,7 +81,7 @@ Limits: every triangulated edge must stay between 0.5x and 1.5x of its rest leng
   the legs came out of it with a ledge and jagged rim flaps. Now the hip piece ends on the crotch line and each leg grows
   out of its bottom edge (same outline at the joint, rounding into the leg over 0.36 units): one smooth shape from waist
   to ankle. A small cap inside keeps the crotch covered when the legs spread.
-- **Loose tops hang over the trousers (02 shirt, 03 coat, 04 jacket, 06 jacket, 07 jacket, 08 coat, 09 robe, 11 suit top):**
+- **Loose tops hang over the trousers (02 shirt, 03 coat, 04 jacket, 05 vest, 06 jacket, 07 jacket, 08 coat, 09 robe, 11 suit top, 13 onesie top):**
   they used to follow the body's round bottom, so hems tucked in under the belly, and below the crotch the rings
   collapsed into V-notches at front and back (the wizard pinch, the raincoat spike). Now they fall straight from the chest,
   flare by the same amount as before, and stay outside the trousers / belt with clearance.
@@ -89,9 +89,13 @@ Limits: every triangulated edge must stay between 0.5x and 1.5x of its rest leng
   off the body. Slit panels kept; their thigh-follow ramps are longer (slit_blend / slit_blend_side 0.85 -> 1.1) because the
   robe now hangs further from the hips.
 - **11 Astronaut:** belt refitted onto the suit top.
+- **05 Construction Hero:** vest hangs straight over the trousers; tool belt slung straight under the vest hem.
+- **10 Knight:** mail skirt and the three fauld lames hang (no notches / jagged rim at the crotch) and are layered:
+  mail over the leg armour, each lame over the cuirass / the lame above, a clean stepped skirt. New hidden mail seat
+  under the skirt closes the crotch (the grey body showed there in a wide leg spread).
+- **13 Dinosaur:** onesie top hangs over the onesie legs instead of tucking under the belly (no crease at the waist).
 - Weight rules unchanged. Trouser-leg weights are sampled toward the leg axis (see CLAUDE.md "Garment shape rules"), and
-  the weight-repair pass may now reach loose coats out to |x| 0.85 at the hips. Not reshaped: 05's vest, 13's onesie top
-  (both got the new trousers), 10 Knight and 12 Ghost (untouched).
+  the weight-repair pass may now reach loose coats out to |x| 0.85 at the hips. Not reshaped: 12 Ghost (one sheet, no joints).
 
 ## Known limitations (straight up)
 

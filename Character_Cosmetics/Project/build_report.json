@@ -120,15 +120,15 @@
     "torso": 99.8,
     "hips_legs": 99.7,
     "upper_arms": 61.1,
-    "lower_arms": 8.9,
+    "lower_arms": 10.5,
     "feet": 100.0,
     "head": 2.6
    },
-   "rest_covered_verts": 2178,
-   "walk_pokethrough_verts": 49,
-   "walk_pokethrough_pct": 2.25,
-   "carry_pokethrough_verts": 61,
-   "carry_pokethrough_pct": 2.8
+   "rest_covered_verts": 2182,
+   "walk_pokethrough_verts": 53,
+   "walk_pokethrough_pct": 2.43,
+   "carry_pokethrough_verts": 65,
+   "carry_pokethrough_pct": 2.98
   }
  },
  "06_Chef": {
@@ -240,27 +240,27 @@
   }
  },
  "10_Knight": {
-  "pieces": 26,
+  "pieces": 27,
   "meshes": [
    "10_Knight_Top",
    "10_Knight_Bottom",
    "10_Knight_Feet"
   ],
-  "triangles": 10768,
+  "triangles": 11280,
   "max_bone_influences": 3,
   "texture": "10_Knight_Albedo.png",
   "coverage": {
    "rest_coverage_pct": {
-    "torso": 99.8,
-    "hips_legs": 99.7,
+    "torso": 99.9,
+    "hips_legs": 100.0,
     "upper_arms": 68.3,
     "lower_arms": 96.2,
     "feet": 100.0,
     "head": 5.8
    },
-   "rest_covered_verts": 2444,
+   "rest_covered_verts": 2447,
    "walk_pokethrough_verts": 63,
-   "walk_pokethrough_pct": 2.58,
+   "walk_pokethrough_pct": 2.57,
    "carry_pokethrough_verts": 87,
    "carry_pokethrough_pct": 3.56
   }
@@ -333,15 +333,15 @@
     "torso": 100.0,
     "hips_legs": 99.7,
     "upper_arms": 85.8,
-    "lower_arms": 9.3,
+    "lower_arms": 12.7,
     "feet": 100.0,
     "head": 27.9
    },
-   "rest_covered_verts": 2453,
-   "walk_pokethrough_verts": 32,
-   "walk_pokethrough_pct": 1.3,
-   "carry_pokethrough_verts": 33,
-   "carry_pokethrough_pct": 1.35
+   "rest_covered_verts": 2461,
+   "walk_pokethrough_verts": 40,
+   "walk_pokethrough_pct": 1.63,
+   "carry_pokethrough_verts": 41,
+   "carry_pokethrough_pct": 1.67
   }
  }
 }

@@ -45,6 +45,7 @@ Left/Right UpperArm, LowerArm, Hand, UpperLeg, LowerLeg, Foot) must follow these
   with two hidden rows inside the hip and a crotch cap. Leg weights are sampled 40% of the way toward the leg axis and at
   |x| >= 0.09 (`W_AXIS`, `W_XMIN`) so the crotch corner doesn't inherit the body's steep crotch weights.
 - **Belts / sashes over a loose piece** are fitted on that piece (`band(..., bvh=piece_bvh(coat))`), not on the body.
+  Layered skirts (knight faulds, mail skirt) use `hang` above their top row so they never notch, and `over=` the layer below.
 
 **`Character_Cosmetics/Roblox_Ready/check_rig.py` MUST pass before any new or changed model is called done.**
 Run it on the exported files (not just the .blend):

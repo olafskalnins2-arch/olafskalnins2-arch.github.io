@@ -17,7 +17,8 @@ def construction_hero():
         P.append(sleeve('TeeSleeve_' + s, s, 0.0, 0.2, 0.035, col='grey', extra=lambda t, a: 0.01))
     def vkeep(i, j, zc_, az):
         return not (zc_ > 2.78 and abs(az) < 0.05 + 0.4 * (zc_ - 2.78) / 0.4)
-    vest = torso_shell('Vest', 2.05, 0.07, nseg=36, extra=lambda z, a: 0.01, keep=vkeep, th=0.022)
+    pt = pants('Pants', 2.22, 0.5, 0.04, hip_off=0.06, leg_extra=lambda z, a: 0.02 + 0.045 * max(0, 1.4 - z))
+    vest = torso_shell('Vest', 2.05, 0.07, nseg=36, extra=lambda z, a: 0.01, keep=vkeep, th=0.022, hang=2.3, over=pt + [tee])
     def vpaint(U, V, m):
         img = P_solid(pal['orange'])(U, V, m)
         z, az = zc(U, V, m)
@@ -37,13 +38,12 @@ def construction_hero():
     vest.paint = vpaint
     # dark trim on the vest edges
     P.append(vest)
-    pt = pants('Pants', 2.22, 0.5, 0.04, hip_off=0.06, leg_extra=lambda z, a: 0.02 + 0.045 * max(0, 1.4 - z))
     def ppaint(U, V, m):
         img = P_solid(pal['beige'])(U, V, m); z, az = zc(U, V, m)
         return mix(img, aa((np.abs(np.abs(az) - PI / 2) - 0.008) * 300) * 0.8, pal['beige_d'])
     for p in pt: p.paint = ppaint
     P += pt
-    belt = band('ToolBelt', 2.0, 2.12, 0.11, th=0.02); belt.group = 'Extras'
+    belt = band('ToolBelt', 2.0, 2.12, 0.012, th=0.02, bvh=piece_bvh(vest, *pt), hang=2.2); belt.group = 'Extras'   # straight, over the vest hem
     belt.paint = lambda U, V, m: mix(P_solid(pal['brown'])(U, V, m), aa(np.minimum(V - 0.12, 0.88 - V) * -200), pal['brown_d'])
     P.append(belt)
     bb = piece_bvh(belt)

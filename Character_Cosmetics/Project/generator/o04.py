@@ -43,9 +43,6 @@ def knight():
     cu = torso_shell('Cuirass', 2.2, 0.085, nseg=32, extra=lambda z, a: 0.012 + 0.05 * max(0, 1 - abs(a) / 0.7) * max(0, min(1, (3.0 - z) / 0.3)) * max(0, min(1, (z - 2.25) / 0.2)), th=0.03)
     cu.paint = metal_paint(lines=(2.32, 2.62)); cu.sharp = True; P.append(cu)
     P.append(collar('Gorget', 'stand', h=0.05, flare=0.05, col='steel_d'))
-    for k, (z0, z1, off) in enumerate(((2.06, 2.26, 0.105), (1.92, 2.11, 0.125), (1.78, 1.97, 0.145))):
-        fd = torso_shell(f'Fauld{k}', z0, off, nseg=32, zs=[z0, z1], elevs=(), extra=lambda z, a, z1=z1: 0.03 * (z1 - z) / 0.2, th=0.02, group='Bottom')
-        fd.paint = metal_paint(lines=(z0 + 0.012,)); P.append(fd)
     for s in 'LR':
         sg = 1 if s == 'L' else -1
         pd = dome('Pauldron_' + s, s, Vector((0.58 * sg, 0.0, 2.86)), 0.07, (-30, -12, 8, 28, 48, 68), extra=lambda e, a: 0.04 * max(0, (10 - e) / 40))
@@ -68,11 +65,25 @@ def knight():
             for L in (0.4, 0.45, 0.5): img = mix(img, aa(np.abs(z - L) * 600 - 1) * (np.cos(az) > 0.2), pal['steel_d'])
             return mix(img, aa((z - m['sole_top']) * 600), '#3d3f43')
         sb.paint = sp; P.append(sb)
-    # mail skirt underneath faulds
-    ms = torso_shell('MailSkirt', 1.82, 0.06, nseg=32, zs=[1.82, 2.0, 2.15], elevs=(), th=0.015, col='mail', group='Bottom')
+    # mail skirt underneath faulds: hangs straight over the mail legs / cuisses (no notch at the crotch)
+    ml = [leg_tube('MailLeg_' + s, s, 1.98, 1.28, 0.035, col='mail', th=0.012) for s in 'LR']
+    # mail seat under the skirt: closes the crotch (the grey body showed there in a wide leg spread)
+    mh = torso_shell('MailHip', 1.95, 0.04, nseg=32, zs=list(np.linspace(1.95, 2.15, 4)), elevs=(), th=0.012, col='mail',
+                     group='Bottom', cap_bottom=True, cap_dz=-0.03)
+    mh.meta['kind'] = 'hip'; mh.skirt = False
+    ml = [mh] + ml
+    legs_armour = [p for p in P if p.name.startswith('Cuisse_')] + ml
+    ms = torso_shell('MailSkirt', 1.82, 0.06, nseg=32, zs=[1.82, 2.0, 2.15], elevs=(), th=0.015, col='mail', group='Bottom',
+                     hang=2.16, over=legs_armour, over_gap=0.03)
     P.append(ms)
-    for s in 'LR':
-        P.append(leg_tube('MailLeg_' + s, s, 1.98, 1.28, 0.035, col='mail', th=0.012))
+    P += ml
+    # faulds: three hanging lames, each one over the cuirass / the lame above / the mail skirt
+    under = [cu, ms]
+    for k, (z0, z1, off) in enumerate(((2.06, 2.26, 0.105), (1.92, 2.11, 0.125), (1.78, 1.97, 0.145))):
+        fd = torso_shell(f'Fauld{k}', z0, off, nseg=32, zs=[z0, z1], elevs=(), extra=lambda z, a, z1=z1: 0.03 * (z1 - z) / 0.2, th=0.02, group='Bottom',
+                         hang=z1 + 0.001, over=under + legs_armour, over_gap=0.026)
+        fd.paint = metal_paint(lines=(z0 + 0.012,)); P.append(fd)
+        under = under + [fd]
     return P, pal
 
 def astronaut():
@@ -232,9 +243,9 @@ def dino():
             d = np.sqrt((az / ba) ** 2 + ((z - bc[1]) / bz) ** 2)
             img = mix(img, aa((d - 1) * 120), pal['belly'])
         return img
-    tor = torso_shell('Onesie', 1.88, 0.07, nseg=32, extra=lambda z, a: 0.015, th=0.025)
-    tor.paint = gp; P.append(tor)
     pt = pants('OnesieLegs', 2.12, 0.5, 0.065, hip_off=0.11, leg_extra=lambda z, a: 0.025 + 0.02 * max(0, 1.2 - z))
+    tor = torso_shell('Onesie', 1.88, 0.07, nseg=32, extra=lambda z, a: 0.015, th=0.025, hang=2.3, over=pt)
+    tor.paint = gp; P.append(tor)
     for p in pt: p.paint = P_solid(pal['g'])
     P += pt
     for s in 'LR':
